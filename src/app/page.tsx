@@ -1,103 +1,194 @@
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const services = [
+  {
+    title: "Weekly Home-Watch",
+    desc: "Interior & exterior walkthrough, AC & humidity check, leaks, doors/windows, mail, photo report.",
+  },
+  {
+    title: "Monthly Home-Watch",
+    desc: "Same checklist every month with documented photo report.",
+  },
+  {
+    title: "One-Time Check / Pre-Arrival Reset",
+    desc: "Full walkthrough before arrival. Fridge purge, deliveries, basic stocking on request.",
+  },
+];
+
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="space-y-20">
+      {/* HERO */}
+      <section className="py-16">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+              Trusted Home-Watch for Snowbirds & Seasonal Owners
+            </h1>
+            <p className="mt-4 text-slate-400">
+              Palm Beach & Broward • Photo-verified visits • Licensed & insured • Compass-affiliated
+            </p>
+            <div className="mt-6 flex gap-3 flex-wrap">
+              <a href="#contact" className="inline-flex items-center rounded-lg bg-white/90 text-slate-900 px-5 py-3 font-semibold">
+                Get in touch
+              </a>
+              <a href="#services" className="inline-flex items-center rounded-lg border border-white/20 px-5 py-3 font-semibold">
+                See services
+              </a>
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          {/* IMPORTANT: parent must be relative when using fill */}
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow bg-slate-800">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/hero-home-exterior.jpg"       // << match EXACT filename in /public
+              alt="South Florida home exterior"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover object-center"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      </section>
+
+      {/* SERVICES */}
+      <section id="services" className="section space-y-6">
+        <h2 className="text-2xl font-bold">Services & Packages</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {services.map((s) => (
+            <div key={s.title} className="card p-6">
+              <h3 className="text-lg font-semibold text-white">{s.title}</h3>
+              <p className="mt-2 text-slate-300">{s.desc}</p>
+              <ul className="mt-4 text-slate-300 text-sm list-disc pl-5 space-y-1">
+                <li>Doors & windows check</li>
+                <li>AC temp & humidity</li>
+                <li>Leaks & breakers scan</li>
+                <li>Mail & deliveries</li>
+                <li>Photo-verified report</li>
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SERVICE DETAIL IMAGE (optional banner) */}
+      <section className="space-y-4">
+        <div className="relative aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 bg-slate-800">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/service-detail.jpg"            // << drop your chosen interior/detail image here
+            alt="Service detail interior"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        </div>
+      </section>
+
+      {/* COVERAGE */}
+      <section id="coverage" className="space-y-6">
+        <h2 className="text-2xl font-bold">Coverage Areas</h2>
+        <p className="text-slate-300 max-w-3xl">
+          Palm Beach County: Delray Beach, Boca Raton, Boynton Beach, West Palm Beach • Broward County: Deerfield Beach,
+          Pompano Beach, Coconut Creek and nearby communities.
+        </p>
+        <div className="relative aspect-[21/9] rounded-2xl overflow-hidden border border-white/10">
+        
           <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+            src="/coverage.jpg"
+            alt="Coverage map - Palm Beach & Broward"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        </div>
+      </section>
+
+      {/* TRUST / PEOPLE (optional) */}
+      <section id="trust" className="space-y-4">
+        <h2 className="text-2xl font-bold">Why HomeWatch Co.</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h3 className="font-semibold">Compass-affiliated</h3>
+            <p className="text-slate-300 mt-2">Professional standards, vetted local partners, concierge mindset.</p>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h3 className="font-semibold">Photo-verified visits</h3>
+            <p className="text-slate-300 mt-2">Every visit documented—peace of mind when you’re away.</p>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <h3 className="font-semibold">Licensed & insured</h3>
+            <p className="text-slate-300 mt-2">We take duty of care seriously—your property is treated like our own.</p>
+          </div>
+        </div>
+
+        {/* trust image if you have one */}
+        <div className="relative aspect-[3/2] rounded-2xl overflow-hidden border border-white/10 bg-slate-800">
           <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+            src="/trust-people.jpg"              // << optional people image
+            alt="Team meeting homeowner"
+            fill
+            sizes="100vw"
+            className="object-cover"
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+      </section>
+
+{/* PRICING */}
+<section id="pricing" className="section space-y-6">
+  <h2 className="text-2xl font-bold">Pricing</h2>
+  <p className="text-slate-300 max-w-3xl">Straightforward plans with add-ons when you need them. Final pricing depends on property size and access.</p>
+
+  <div className="grid md:grid-cols-3 gap-6">
+    <div className="card p-6 flex flex-col">
+      <h3 className="text-lg font-semibold text-white">Weekly Home-Watch</h3>
+      <p className="mt-1 text-3xl font-bold">$149<span className="text-base font-normal text-slate-400">/visit</span></p>
+      <p className="text-slate-400 text-sm">Billed monthly</p>
+      <ul className="mt-4 text-slate-300 text-sm list-disc pl-5 space-y-1">
+        <li>Full interior & exterior check</li><li>AC temp & humidity</li><li>Leaks & breakers scan</li><li>Mail & deliveries</li><li>Photo-verified report</li>
+      </ul>
+      <a href="#contact" className="mt-auto inline-flex justify-center rounded-lg border border-white/20 px-4 py-2 font-semibold">Request quote</a>
+    </div>
+
+    <div className="card p-6 flex flex-col border-white/20 bg-white/10">
+      <h3 className="text-lg font-semibold text-white">Monthly Home-Watch</h3>
+      <p className="mt-1 text-3xl font-bold">$149<span className="text-base font-normal text-slate-400">/month</span></p>
+      <p className="text-slate-400 text-sm">One documented visit monthly</p>
+      <ul className="mt-4 text-slate-300 text-sm list-disc pl-5 space-y-1">
+        <li>Interior & exterior check</li><li>AC temp & humidity</li><li>Leaks & breakers scan</li><li>Mail & deliveries</li><li>Photo-verified report</li>
+      </ul>
+      <a href="#contact" className="mt-auto inline-flex justify-center rounded-lg border border-white/20 px-4 py-2 font-semibold">Request quote</a>
+    </div>
+
+    <div className="card p-6 flex flex-col">
+      <h3 className="text-lg font-semibold text-white">One-Time Check</h3>
+      <p className="mt-1 text-3xl font-bold">$199<span className="text-base font-normal text-slate-400"> flat</span></p>
+      <p className="text-slate-400 text-sm">Pre-arrival reset</p>
+      <ul className="mt-4 text-slate-300 text-sm list-disc pl-5 space-y-1">
+        <li>Full walkthrough & photo report</li><li>Fridge purge on request</li><li>Deliveries check</li>
+      </ul>
+      <a href="#contact" className="mt-auto inline-flex justify-center rounded-lg border border-white/20 px-4 py-2 font-semibold">Book inquiry</a>
+    </div>
+  </div>
+</section>
+
+      {/* CONTACT */}
+      <section id="contact" className="space-y-6">
+        <h2 className="text-2xl font-bold">Contact</h2>
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <p className="text-slate-300">Prefer a message? We’ll respond quickly.</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {/* TODO: replace with real info */}
+            <a href="mailto:homewatch@example.com" className="rounded-lg border border-white/20 px-4 py-2">Email</a>
+            <a href="tel:+15615550123" className="rounded-lg border border-white/20 px-4 py-2">Call</a>
+            <a href="https://wa.me/15615550123" className="rounded-lg border border-white/20 px-4 py-2" target="_blank">WhatsApp</a>
+          </div>
+          <p className="text-xs text-slate-500 mt-3">
+            By contacting us you agree to our basic Terms & Privacy.
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
