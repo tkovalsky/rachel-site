@@ -1,4 +1,4 @@
-// Tailwind v4 PostCSS config
+// Tailwind v4
 const config = {
   plugins: {
     "@tailwindcss/postcss": {},
