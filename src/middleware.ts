@@ -2,18 +2,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
+export function middleware(_req: NextRequest) {
   const res = NextResponse.next();
   const isProd = process.env.NODE_ENV === "production";
 
-  // Baseline protections
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("X-Content-Type-Options", "nosniff");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
 
-  // Content Security Policy
-  // Dev needs ws: and 'unsafe-eval' for Next HMR; Prod should be tighter.
+  // Relax for dev so HMR works; tighten in prod
   const cspDev = [
     "default-src 'self'",
     "img-src 'self' data: https:",
@@ -35,13 +33,5 @@ export function middleware(req: NextRequest) {
   ].join("; ");
 
   res.headers.set("Content-Security-Policy", isProd ? cspProd : cspDev);
-
   return res;
 }
-
-// Don’t run middleware for static assets or common public files
-export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.(png|jpg|jpeg|webp|svg)).*)",
-  ],
-};

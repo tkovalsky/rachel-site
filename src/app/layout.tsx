@@ -1,7 +1,9 @@
+// src/app/layout.tsx
 export const dynamic = "force-static";
 
 import "./globals.css";
-import { Metadata } from "next";
+import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.atlantichomewatch.com"),
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-black text-slate-100">
@@ -27,13 +29,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400 space-y-2">
             <div>© {new Date().getFullYear()} Atlantic Home Watch.</div>
             <div>
-              A DBA of <strong>Real Estate Rachel Kovalsky LLC</strong>. Licensed Florida Real Estate Sales Associate. Compass-affiliated.
+              A DBA of <strong>Real Estate Rachel Kovalsky LLC</strong>. Licensed Florida Real
+              Estate Sales Associate. Compass-affiliated.
             </div>
             <div className="text-slate-500">
               Serving Palm Beach & Broward Counties.{" "}
-              <a href="/terms" className="underline decoration-white/20 hover:decoration-white">Terms</a>{" "}
+              <a href="/terms" className="underline decoration-white/20 hover:decoration-white">
+                Terms
+              </a>{" "}
               •{" "}
-              <a href="/privacy" className="underline decoration-white/20 hover:decoration-white">Privacy</a>
+              <a href="/privacy" className="underline decoration-white/20 hover:decoration-white">
+                Privacy
+              </a>
             </div>
           </div>
         </footer>

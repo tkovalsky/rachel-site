@@ -1,0 +1,23 @@
+{
+  "models": [
+    {
+      "title": "Llama 3.1 (local)",
+      "provider": "ollama",
+      "model": "llama3.1:8b",
+      "apiBase": "http://localhost:11434"
+    },
+    {
+      "title": "DeepSeek Coder (local)",
+      "provider": "ollama",
+      "model": "deepseek-coder:6.7b",
+      "apiBase": "http://localhost:11434"
+    }
+  ],
+  "defaultModel": "Llama 3.1 (local)",
+  "tabAutocompleteModel": "DeepSeek Coder (local)",
+  "contextProviders": [
+    "git",
+    { "name": "terminal", "command": "echo $PWD && git status --porcelain && ls -1" },
+    { "name": "repo_map", "maxTokens": 4000 }
+  ]
+}
