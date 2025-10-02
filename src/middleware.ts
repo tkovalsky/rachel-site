@@ -11,7 +11,7 @@ export function middleware(_req: NextRequest) {
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
 
-  // Relax for dev so HMR works; tighten in prod
+  // Dev: allow HMR
   const cspDev = [
     "default-src 'self'",
     "img-src 'self' data: https:",
@@ -22,16 +22,23 @@ export function middleware(_req: NextRequest) {
     "frame-ancestors 'none'",
   ].join("; ");
 
+  // Prod: keep strict, but allow inline to avoid hydration breakage.
+  // (We can tighten later after we see what Next injects.)
   const cspProd = [
     "default-src 'self'",
     "img-src 'self' data: https:",
-    "script-src 'self'",
+    "script-src 'self' 'unsafe-inline'",
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self' data:",
-    "connect-src 'self'",
+    "connect-src 'self' https:",
     "frame-ancestors 'none'",
   ].join("; ");
 
+  // EITHER enforce:
   res.headers.set("Content-Security-Policy", isProd ? cspProd : cspDev);
+
+  // OR, if you’d rather observe first, comment the line above and use Report-Only:
+  // res.headers.set("Content-Security-Policy-Report-Only", isProd ? cspProd : cspDev);
+
   return res;
 }
