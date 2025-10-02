@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Atlantic Home Watch",
     description:
       "Trusted home-watch for snowbirds & seasonal owners. Photo-verified visits.",
-    images: ["/og-cover.jpg"],
+    images: ["/hero-home-exterior.jpg"],
   },
   metadataBase: new URL("https://www.atlantichomewatch.com"),
 };
