@@ -6,7 +6,7 @@ const pricing = [
     title: "Weekly Home-Watch",
     price: "$109",
     period: "/visit",
-    note: "Billed monthly",
+    note: "One documented visit per week",
     bullets: [
       "Full interior & exterior check",
       "AC temp & humidity",
@@ -20,7 +20,7 @@ const pricing = [
     title: "Monthly Home-Watch",
     price: "$149",
     period: "/month",
-    note: "One documented visit monthly",
+    note: "Two documented visits each monthl",
     bullets: [
       "Interior & exterior check",
       "AC temp & humidity",
