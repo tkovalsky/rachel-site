@@ -226,8 +226,7 @@ export default function Page() {
           <p className="text-slate-300">Prefer a message? We’ll respond quickly.</p>
           <div className="mt-4 flex flex-wrap gap-3">
             <a href="mailto:info@AtlanticHomeWatch.com" className="rounded-lg border border-white/20 px-4 py-2">Email</a>
-            <a href="tel:+15615550123" className="rounded-lg border border-white/20 px-4 py-2">Call</a>
-            <a href="https://wa.me/15615550123" target="_blank" className="rounded-lg border border-white/20 px-4 py-2">WhatsApp</a>
+            <a href="tel:+15613762345" className="rounded-lg border border-white/20 px-4 py-2">Call Now 561-376-2345 </a>
           </div>
           <p className="text-xs text-slate-500 mt-3">
             By contacting us you agree to our basic Terms & Privacy.
