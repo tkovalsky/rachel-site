@@ -1,49 +1,25 @@
-// src/app/layout.tsx
-export const dynamic = "force-static";
-
-import "./globals.css";
-import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
+import "./globals.css";
+
+// If you kept the alias:
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+// If you went relative instead, use:
+// import Navbar from "../components/Navbar";
+// import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Atlantic Home Watch | Palm Beach & Broward",
-  description:
-    "Trusted home-watch for snowbirds & seasonal owners. Photo-verified visits. Licensed & insured. Compass-affiliated.",
-  openGraph: {
-    title: "Atlantic Home Watch",
-    description:
-      "Trusted home-watch for snowbirds & seasonal owners. Photo-verified visits.",
-    images: ["/hero-home-exterior.jpg"],
-  },
-  metadataBase: new URL("https://www.atlantichomewatch.com"),
+  title: "Delray & Boca Real Estate | Rachel Kovalsky",
+  description: "Consultative real estate guidance for Delray Beach, Boca Raton, and nearby coastal towns.",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-black text-slate-100">
+      <body style={{color:"#0f172a", background:"#fff"}}>
         <Navbar />
-        <main className="mx-auto max-w-6xl px-4 py-10 space-y-20">{children}</main>
-        <footer className="mt-20 border-t border-white/10">
-          <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400 space-y-2">
-            <div>© {new Date().getFullYear()} Atlantic Home Watch.</div>
-            <div>
-              A DBA of <strong>Real Estate Rachel Kovalsky LLC</strong>. Licensed Florida Real
-              Estate Sales Associate. Compass-affiliated.
-            </div>
-            <div className="text-slate-500">
-              Serving Palm Beach & Broward Counties.{" "}
-              <a href="/terms" className="underline decoration-white/20 hover:decoration-white">
-                Terms
-              </a>{" "}
-              •{" "}
-              <a href="/privacy" className="underline decoration-white/20 hover:decoration-white">
-                Privacy
-              </a>
-            </div>
-          </div>
-        </footer>
+        {children}
+        <Footer />
       </body>
     </html>
   );
