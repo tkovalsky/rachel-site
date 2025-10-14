@@ -1,25 +1,31 @@
+// src/app/components/Testimonials.tsx
 "use client";
-import { useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 type Review = { q: string; a: string };
 
 export default function Testimonials({ items }: { items: Review[] }) {
-  // Show 2 random testimonials each load
-  const displayed = useMemo(() => {
+  // deterministic initial render to avoid hydration mismatch
+  const [displayed, setDisplayed] = useState<Review[]>(items.slice(0, 2));
+
+  useEffect(() => {
+    // shuffle AFTER hydration
     const shuffled = [...items].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 2);
+    setDisplayed(shuffled.slice(0, 2));
   }, [items]);
 
   return (
     <section id="testimonials" className="border-t border-slate-200">
       <div className="mx-auto max-w-7xl px-4 py-12">
         <h2 className="text-2xl font-semibold text-slate-900">Testimonials</h2>
+
         <div className="mt-6 grid md:grid-cols-2 gap-6" role="list">
           {displayed.map((t, i) => (
             <Card key={i} q={t.q} a={t.a} />
           ))}
         </div>
+
         <p className="mt-6 text-sm text-slate-700">
           Read all reviews on{" "}
           <Link
