@@ -11,9 +11,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="text-slate-900 bg-white">
+      <body>
+        {/* Skip link for keyboard users */}
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-white text-black px-3 py-2 rounded shadow">
+          Skip to main content
+        </a>
+
         <Navbar />
-        {children}
+        <main id="main" role="main">{children}</main>
         <Footer />
       </body>
     </html>
