@@ -9,6 +9,7 @@ import { AREAS } from "./content/areas";
 import { ABOUT } from "./content/about";
 import { TESTIMONIALS } from "./content/testimonials";
 
+
 export default function HomePage() {
   return (
     <main className="min-h-screen">
