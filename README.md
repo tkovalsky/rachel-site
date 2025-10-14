@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rachel Real Estate — Next.js (App Router + Tailwind)
 
-## Getting Started
+Opinionated, fast, and simple. No IDX. We link to Compass for search.
 
-First, run the development server:
+## Tech
+- Next.js 15 (App Router), TypeScript
+- Tailwind CSS
+- Vercel deploys on `main`
 
+---
+
+## Run locally
 ```bash
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##Build
+npm run build && npm start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+##Content structure
+src/app/content/
+  areas.ts                 # Areas of focus (for home page grid)
+  testimonials.ts          # Manual testimonials (copy/paste from Zillow)
+  cities/
+    delray-beach.ts
+    boca-raton.ts
+    boynton-beach.ts
+  developments/            # Optional: individual neighborhoods/clubs
+    addison-reserve.ts
 
-## Learn More
+    Example: src/app/content/testimonials.ts
+    export const TESTIMONIALS = [
+  {
+    q: "We feel incredibly lucky to have worked with Rachel ... We’re forever grateful.",
+    a: "Bought in Woodfield (Boca Raton), 2025",
+  },
+  {
+    q: "We recently sold our home in Delray and bought in Boynton ... We are very thankful ...",
+    a: "Sold & Bought • Delray → Boynton, 2025",
+  },
+  {
+    q: "Rachel exceeded all expectations ... excellent communication ...",
+    a: "Bought in Boca Raton, 2025",
+  },
+  {
+    q: "First long-distance purchase. Rachel understood the market and our likes ...",
+    a: "Bought in Boynton Beach, 2024",
+  },
+];
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+TO Update testimonials
+	1.	Edit src/app/content/testimonials.ts with new reviews.
+	2.	Keep 3–8 items. Long quotes are fine (UI clamps).
+	3.	Save → push → Vercel redeploys.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+External links (a11y)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All external links must use:
+<a href="https://..." target="_blank" rel="noopener noreferrer">...</a>

@@ -12,9 +12,16 @@ export default function ContactForm() {
           <input name="phone" placeholder="Phone" className="rounded-lg border border-slate-300 p-3" />
           <input name="neighborhoods" placeholder="Neighborhoods of interest" className="rounded-lg border border-slate-300 p-3" />
           <textarea name="notes" placeholder="Timing, budget, must-haves…" className="md:col-span-2 rounded-lg border border-slate-300 p-3 h-28" />
-          <button className="md:col-span-2 rounded-lg bg-slate-900 px-5 py-3 text-white hover:bg-black">
-            Send
-          </button>
+          
+          <div className="md:col-span-2 flex justify-center">
+            <button
+              type="submit"
+              className="w-full sm:w-1/2 md:w-1/3 rounded-lg bg-slate-900 px-6 py-3 text-white font-medium hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+              Send
+            </button>
+          </div>
+          
         </form>
 
         <p className="mt-4 text-xs text-slate-500">
