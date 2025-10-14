@@ -1,8 +1,8 @@
 export const AREAS = [
   "Delray Beach",
-  "Downtown, Lake Ida, Tropic Isle, Seagate",
   "Boca Raton",
-  "Boca Square, East Boca, Addison Reserve",
-  "Boynton, Deerfield, Highland Beach, Gulf Stream",
+  "Boynton Beach",
+  "Wellington",
+  "Parkland",
   "West Palm & nearby coastal towns",
 ];
