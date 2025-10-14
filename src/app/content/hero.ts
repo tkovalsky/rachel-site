@@ -1,5 +1,5 @@
 export const HERO = {
-  title: "Delray & Boca Real Estate — Consultative, No-Pressure.",
+  title: "Delray & Boca Real Estate. Consultative, No-Pressure.",
   subtitle:
     "Helping professionals and retirees relocate or find their next home in Delray Beach, Boca Raton, and nearby coastal towns.",
   bullets: [
