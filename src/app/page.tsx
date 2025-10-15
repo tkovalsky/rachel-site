@@ -28,8 +28,9 @@ export default function HomePage() {
         bullets={HERO.bullets}
         imageSrc={HERO.imageSrc}
         compassUrl={HERO.compassUrl}
+        phone="+15612878966"
+        phoneLabel="(561) 287-8966"
       />
-
       {/* Trust strip */}
       <SocialProof />
 
