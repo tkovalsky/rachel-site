@@ -1,12 +1,14 @@
 export const HERO = {
-  title: "Delray & Boca Real Estate. Consultative, No-Pressure.",
+  title: "Delray & Boca Real Estate — Consultative, No-Pressure.",
   subtitle:
-    "Helping professionals and retirees relocate or find their next home in Delray Beach, Boca Raton, and nearby coastal towns.",
+    "Helping professionals and retirees relocate or upgrade into the right South Florida home.",
   bullets: [
-    "Specializing in Delray Beach, Boca Raton, Boynton Beach, Deerfield Beach, West Palm Beach",
-    "Relocation & second-home expertise • Coastal & walkable neighborhoods",
-    "Personalized guidance from search to close",
+    "Relocation & second-home guidance",
+    "Walkable/coastal neighborhoods & clubs",
+    "From search to close — white-glove service",
   ],
-  imageSrc: "/rachel.jpeg",
+  imageSrc: "/hero-home-exterior.jpg",
   compassUrl: "https://www.compass.com/agents/rachel-kovalsky/",
+  // optional for the chip:
+  serviceThumbSrc: "/coverage-map.jpeg",
 };
