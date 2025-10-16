@@ -1,11 +1,11 @@
 export const HERO = {
-  title: "Delray & Boca Real Estate — Consultative, No-Pressure.",
+  title: "Delray & Boca Real Estate. Consultative. No Pressure.",
   subtitle:
-    "Helping professionals and retirees relocate or upgrade into the right South Florida home.",
+    "Helping families, professionals, and retirees relocate or upgrade into the right South Florida home.",
   bullets: [
     "Relocation & second-home guidance",
     "Walkable/coastal neighborhoods & clubs",
-    "From search to close — white-glove service",
+    "From search to close - white-glove service",
   ],
   imageSrc: "/hero-home-exterior.jpg",
   compassUrl: "https://www.compass.com/agents/rachel-kovalsky/",

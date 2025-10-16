@@ -1,23 +1,60 @@
+"use client";
 import Image from "next/image";
-
-const LOGOS = [
-  { src: "/logos/compass.svg", alt: "Compass" },
-  { src: "/logos/zillow.svg", alt: "Zillow" },
-  { src: "/logos/realtor.svg", alt: "REALTOR®" },
-];
+import Link from "next/link";
 
 export default function SocialProof() {
   return (
-    <section className="border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-4 py-10">
-        <h3 className="text-center text-sm tracking-[0.2em] text-slate-500">TRUSTED &amp; FEATURED</h3>
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:flex sm:justify-center">
-          {LOGOS.map((l) => (
-            <div key={l.alt} className="rounded-xl border border-slate-200 bg-white p-6 w-[140px] h-[100px] flex items-center justify-center">
-              {/* If an asset is missing, Next/Image throws; use a plain img as a safe fallback */}
-              <img src={l.src} alt={l.alt} width={120} height={36} loading="lazy" />
-            </div>
-          ))}
+    <section aria-label="Trusted and featured" className="border-t border-slate-200 bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-12 text-center">
+        <h2 className="text-sm font-medium uppercase tracking-widest text-slate-500">
+          Trusted & Featured
+        </h2>
+
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-10 opacity-85">
+          <Link
+            href="https://www.compass.com/agents/rachel-kovalsky/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Compass profile (opens in new tab)"
+          >
+            <Image
+              src="/logos/compass.png"
+              alt="Compass"
+              width={110}
+              height={40}
+              className="object-contain grayscale hover:grayscale-0 transition"
+            />
+          </Link>
+
+          <Link
+            href="https://www.zillow.com/profile/rachel-kovalsky4/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Zillow profile (opens in new tab)"
+          >
+            <Image
+              src="/logos/zillow.svg"
+              alt="Zillow"
+              width={90}
+              height={30}
+              className="object-contain grayscale hover:grayscale-0 transition"
+            />
+          </Link>
+
+          <Link
+            href="https://www.realtor.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View REALTOR® profile (opens in new tab)"
+          >
+            <Image
+              src="/logos/realtor.svg"
+              alt="REALTOR®"
+              width={80}
+              height={30}
+              className="object-contain grayscale hover:grayscale-0 transition"
+            />
+          </Link>
         </div>
       </div>
     </section>

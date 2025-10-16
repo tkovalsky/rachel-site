@@ -50,7 +50,7 @@ export default function Hero({
               aria-label={`Call Rachel at ${phoneLabel}`}
               className="inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-3 text-white shadow-sm transition hover:bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20"
             >
-              Call Rachel — {phoneLabel}
+              Call Rachel {phoneLabel}
             </a>
 
             {/* Secondary: Compass profile */}
