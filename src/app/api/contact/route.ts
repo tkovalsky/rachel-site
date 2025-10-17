@@ -1,49 +1,65 @@
+// src/app/api/contact/route.ts
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import { z } from "zod";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const schema = z.object({
   email: z.string().email(),
-  message: z.string().min(5).max(5000).trim(),
-  gotcha: z.string().max(0).optional(),           // honeypot must be empty
-  t: z.number().int().optional(),                 // simple time trap
+  message: z.string().optional(),
+  _gotcha: z.string().optional(), // honeypot
 });
+
+// Helper to parse either JSON or form-encoded bodies
+async function readBody(req: Request) {
+  const ct = req.headers.get("content-type") || "";
+  if (ct.includes("application/json")) return await req.json();
+  if (ct.includes("application/x-www-form-urlencoded") || ct.includes("multipart/form-data")) {
+    const fd = await req.formData();
+    return Object.fromEntries(fd as any);
+  }
+  // Fallback: try formData anyway
+  const fd = await req.formData().catch(() => null);
+  return fd ? Object.fromEntries(fd as any) : {};
+}
 
 export async function POST(req: Request) {
   try {
-    const data = await req.formData();
-    const email = String(data.get("email") || "");
-    const message = String(data.get("message") || "");
-    const gotcha = String(data.get("_gotcha") || "");
-    const started = Number(data.get("_t") || 0);
-
-    // Basic time-trap: require at least 3 seconds from render → submit
-    const now = Date.now();
-    const minDelayMs = 3000;
-    if (!started || now - started < minDelayMs) {
-      return NextResponse.json({ ok: true }, { status: 200 }); // pretend success to starve bots
-    }
-
-    const parsed = schema.safeParse({ email, message, gotcha, t: started });
+    const body = await readBody(req);
+    const parsed = schema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: "Invalid form." }, { status: 400 });
+      return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
     }
-    if (gotcha) {
-      return NextResponse.json({ ok: true }, { status: 200 }); // honeypot filled → ignore
+    const { email, message, _gotcha } = parsed.data;
+
+    // Honeypot: bots get a "success" without email send.
+    if (_gotcha && _gotcha.length > 0) {
+      return NextResponse.json({ ok: true, skipped: true });
     }
 
-    // Send email
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
+    // No key in dev? Return success so the UI flow still works.
+    if (!RESEND_API_KEY) {
+      console.warn("RESEND_API_KEY missing; skipping email send.");
+      return NextResponse.json({ ok: true, skipped: true });
+    }
+
+    // Lazy import so local dev without a key doesn’t even import the lib
+    const { Resend } = await import("resend");
+    const resend = new Resend(RESEND_API_KEY);
+
+    const from = process.env.MAIL_FROM || 'Website Contact <noreply@mail.racheldelray.com>';
+    const to = (process.env.MAIL_TO || 'hi@racheldelray.com').split(',');
+
     await resend.emails.send({
-      from: "Website Contact <noreply@mail.racheldelray.com>",
-      to: process.env.CONTACT_TO!,
-      subject: "New site lead",
-      text: `From: ${email}\n\n${message}`,
+      from,
+      to,
+      subject: "Website contact",
+      text: `From: ${email}\n\n${message || "(no message)"}`,
     });
 
-    return NextResponse.redirect("https://racheldelray.com/thanks", 303);
-  } catch (e) {
-    return NextResponse.json({ error: "Server error." }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("contact route error:", err);
+    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
   }
 }

@@ -1,22 +1,21 @@
+// src/app/page.tsx
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Testimonials from "./components/Testimonials";
 import ContactForm from "./components/ContactForm";
 
-// New sections
 import SocialProof from "./components/SocialProof";
 import MarketHighlights from "./components/MarketHighlights";
 import ProcessSteps from "./components/ProcessSteps";
 import NeighborhoodGrid from "./components/NeighborhoodGrid";
 import GuideDownload from "./components/GuideDownload";
 
-// Content
 import { HERO } from "./content/hero";
 import { ABOUT } from "./content/about";
 import { TESTIMONIALS } from "./content/testimonials";
 import { NEIGHBORHOODS } from "./content/neighborhoods";
 import { PROCESS_STEPS } from "./content/process";
-import { HIGHLIGHTS, REPORT_URL } from "./content/highlights";
+import { MARKET_SEP_2025 } from "./content/market";
 
 export default function HomePage() {
   return (
@@ -28,9 +27,10 @@ export default function HomePage() {
         bullets={HERO.bullets}
         imageSrc={HERO.imageSrc}
         compassUrl={HERO.compassUrl}
-        phone="+15612878966"
-        phoneLabel="(561) 287-8966"
+        phone={HERO.phone}
+        phoneLabel={HERO.phoneLabel}
       />
+
       {/* Trust strip */}
       <SocialProof />
 
@@ -41,7 +41,10 @@ export default function HomePage() {
       <ProcessSteps steps={PROCESS_STEPS} />
 
       {/* Market snapshot */}
-      <MarketHighlights items={HIGHLIGHTS} ctaHref={REPORT_URL} />
+      <MarketHighlights
+        items={MARKET_SEP_2025?.cards ?? []}
+        source={MARKET_SEP_2025?.source}
+      />
 
       {/* About + Testimonials */}
       <About intro={ABOUT.intro} bullets={ABOUT.bullets} />

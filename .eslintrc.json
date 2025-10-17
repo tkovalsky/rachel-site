@@ -1,0 +1,11 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "no-unused-vars": "error",
+    "no-inner-declarations": ["error", "both"],
+    "no-undef": "error",
+    "react/jsx-no-undef": "error",
+    "import/no-duplicates": "error",
+    "import/order": ["warn", { "newlines-between": "always" }]
+  }
+}
