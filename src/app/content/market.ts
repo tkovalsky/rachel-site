@@ -1,34 +1,10 @@
 import type { MarketStat } from "@/app/components/MarketHighlights";
 
-export const MARKET_SEP_2025: {
-  cards: MarketStat[];
-  source?: { label: string; href?: string };
-} = {
+export const MARKET_SEP_2025 = {
   cards: [
-    {
-      key: "median-sale",
-      label: "Median sale price (Boca/Delray)",
-      value: 985000,
-      format: "currency",
-      sublabel: "Last 90 days"
-    },
-    {
-      key: "dom",
-      label: "Median days on market",
-      value: 31,
-      format: "integer",
-      sublabel: "30–90 day trend"
-    },
-    {
-      key: "cash",
-      label: "% cash buyers",
-      value: 42,
-      format: "percent",
-      sublabel: "Estimate, market dependent"
-    }
-  ],
-  source: {
-    label: "Local MLS + Public Recorder (illustrative)",
-    href: "#"
-  }
+    { key: "median", label: "Median Sale Price", value: 675000, format: "currency", sublabel: "Sep 2025" },
+    { key: "mois", label: "Months of Inventory", value: 3.1, format: "raw", sublabel: "Sep 2025" },
+    { key: "yoy", label: "YoY Price Change", value: 4, format: "percent", sublabel: "vs Sep 2024" },
+  ] as MarketStat[],
+  source: { label: "BeachesMLS / local stats" },
 };
