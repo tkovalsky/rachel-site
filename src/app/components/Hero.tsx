@@ -36,25 +36,22 @@ export default function Hero({
             ))}
           </ul>
 
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href={`tel:${phone}`}
-              aria-label={`Call Rachel at ${phoneLabel}`}
-              className="inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-3 text-white shadow-sm transition hover:bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20"
-            >
-              Call Rachel {phoneLabel}
-            </a>
-
-            <Link
-              href={compassUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View Compass profile (opens in new tab)"
-              className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-3 text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/10"
-            >
-              Compass Profile
-            </Link>
-          </div>
+        <div className="mt-7 flex flex-wrap gap-3">
+          {/* Primary CTA: Call */}
+          <a href={`tel:${phone}`} className="btn-primary">
+          Call Rachel Now {phoneLabel}
+        </a>
+          {/* Secondary: Compass profile */}
+          <Link
+            href={compassUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Compass profile (opens in new tab)"
+            className="btn-ghost"
+          >
+            Compass profile
+          </Link>
+        </div>
         </div>
 
         {/* Image — plain <img> so we bypass Next/Image completely */}

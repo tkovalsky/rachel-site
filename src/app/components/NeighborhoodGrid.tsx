@@ -1,3 +1,4 @@
+// src/app/components/NeighborhoodGrid.tsx
 import Link from "next/link";
 import Image from "next/image";
 import type { Neighborhood } from "@/app/content/neighborhoods";
@@ -9,7 +10,7 @@ export default function NeighborhoodGrid({ items }: Props) {
 
   return (
     <section aria-label="Featured Areas" className="border-t border-slate-200 bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="group panel overflow-hidden transition hover:shadow-md">
         <h2 className="text-xl md:text-2xl font-semibold text-slate-900">Featured Areas</h2>
 
         <div className="mt-6 grid gap-6 md:grid-cols-3">
@@ -35,10 +36,10 @@ export default function NeighborhoodGrid({ items }: Props) {
 
                 {/* Text */}
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-900 transition-colors group-hover:text-slate-700">
+                  <h3 className="font-semibold text-ink group-hover:text-brand-700 transition">
                     {n.title}
                   </h3>
-                  <p className="mt-1 text-sm text-slate-600">{n.blurb}</p>
+                  <p className="mt-1 text-sm text-ink-lighter">{n.blurb}</p>
                 </div>
               </Link>
             );
