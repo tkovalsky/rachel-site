@@ -23,15 +23,9 @@ export default function SocialProof() {
   ] as const;
 
   return (
-    <section
-      aria-label="Trusted and featured"
-      className={`border-t border-slate-200 bg-white ${showMobile ? "block" : "hidden"} md:block`}
-    >
-      <div
-        className={`mx-auto max-w-7xl px-4 py-10 text-center transition-all duration-500
-        ${showMobile ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 md:opacity-100 md:translate-y-0"}`}
-      >
-        <h2 className="text-sm font-medium uppercase tracking-widest text-slate-500 mb-6">
+    <section aria-label="Trusted and featured" className="border-t section-alt">
+      <div className="mx-auto max-w-7xl px-4 py-10 text-center">
+        <h2 className="text-sm font-medium tracking-widest text-ink-lighter uppercase">
           Trusted & Featured
         </h2>
 

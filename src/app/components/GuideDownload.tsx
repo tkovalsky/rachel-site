@@ -16,19 +16,19 @@ export default function GuideDownload() {
             <input type="hidden" name="type" value="newsletter" />
             <label htmlFor="nl-email" className="sr-only">Email</label>
             <input
-              id="nl-email"
+              id="gd-email"
               type="email"
               name="email"
               required
               autoComplete="email"
-              placeholder="Your email"
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+              placeholder="youre@thebest.com"
+              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-ink placeholder-slate-400 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
             />
             {/* Honeypot */}
             <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <button
               type="submit"
-              className="rounded-md bg-slate-900 px-5 py-2 font-medium text-white hover:bg-black"
+              className="w-full rounded-md bg-brand-600 px-4 py-2 font-medium text-white transition hover:bg-brand-700 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 md:col-span-1 md:justify-self-start"
               aria-label="Subscribe to weekly market notes"
             >
               Subscribe

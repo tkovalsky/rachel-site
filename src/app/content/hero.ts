@@ -1,7 +1,7 @@
 export const HERO = {
-  title: "Delray & Boca Real Estate — Consultative, No-Pressure.",
+  title: "Delray & Boca Real Estate. Consultative, No-Pressure.",
   subtitle:
-    "Helping professionals and retirees relocate or find their next home in Delray Beach, Boca Raton, and nearby coastal towns.",
+    "Helping families, professionals, and retirees relocate or find their next home in Delray Beach, Boca Raton, and nearby coastal towns.",
   bullets: [
     "Specializing in Delray Beach, Boca Raton, Boynton Beach, Deerfield Beach, West Palm Beach",
     "Relocation & second-home expertise • Coastal & walkable neighborhoods",
