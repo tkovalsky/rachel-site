@@ -1,16 +1,17 @@
+// src/app/components/NeighborhoodGrid.tsx
 import Link from "next/link";
 import Image from "next/image";
 import type { Neighborhood } from "@/app/content/neighborhoods";
 
 type Props = { items?: Neighborhood[] };
 
-export default function NeighborhoodGrid({ items = [] }: Props) {
+export default function NeighborhoodGrid({ items }: Props) {
   const list = Array.isArray(items) ? items : [];
 
   return (
-    <section aria-label="Featured Areas" className="border-t section-alt">
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="text-xl md:text-2xl font-semibold text-ink">Featured Areas</h2>
+    <section aria-label="Featured Areas" className="border-t border-slate-200 bg-white">
+      <div className="group panel overflow-hidden transition hover:shadow-md">
+        <h2 className="text-xl md:text-2xl font-semibold text-slate-900">Featured Areas</h2>
 
         <div className="mt-6 grid gap-6 md:grid-cols-3">
           {list.map((n) => {
@@ -19,7 +20,7 @@ export default function NeighborhoodGrid({ items = [] }: Props) {
               <Link
                 key={n.slug}
                 href={url}
-                className="group panel overflow-hidden transition hover:shadow-md"
+                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/9] md:aspect-[4/3] overflow-hidden">
@@ -29,7 +30,7 @@ export default function NeighborhoodGrid({ items = [] }: Props) {
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    priority={false}
                   />
                 </div>
 
@@ -45,7 +46,7 @@ export default function NeighborhoodGrid({ items = [] }: Props) {
           })}
 
           {list.length === 0 && (
-            <p className="text-sm text-ink-lighter">More neighborhoods coming soon.</p>
+            <p className="text-sm text-slate-500">More neighborhoods coming soon.</p>
           )}
         </div>
       </div>
