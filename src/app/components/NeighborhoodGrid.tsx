@@ -9,21 +9,24 @@ export default function NeighborhoodGrid({ items }: Props) {
   const list = Array.isArray(items) ? items : [];
 
   return (
-    <section aria-label="Featured Areas" className="border-t border-slate-200 bg-white">
-      <div className="group panel overflow-hidden transition hover:shadow-md">
-        <h2 className="text-xl md:text-2xl font-semibold text-slate-900">Featured Areas</h2>
+    <section aria-label="Featured Areas" className="border-t border-divider bg-surface">
+      <div className="section py-16">
+        <h2 className="h2 text-deep text-center">Featured Areas</h2>
+        <p className="mt-4 body-large text-ink-soft text-center max-w-2xl mx-auto">
+          Discover the best neighborhoods in South Florida
+        </p>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
           {list.map((n) => {
             const url = n.href ?? `/areas/${n.slug}`;
             return (
               <Link
                 key={n.slug}
                 href={url}
-                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md"
+                className="group card overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
               >
                 {/* Image */}
-                <div className="relative aspect-[16/9] md:aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[16/9] overflow-hidden">
                   <Image
                     src={n.imageSrc}
                     alt={`${n.title} neighborhood`}
@@ -32,21 +35,25 @@ export default function NeighborhoodGrid({ items }: Props) {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     priority={false}
                   />
+                  {/* Overlay gradient for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
 
                 {/* Text */}
-                <div className="p-4">
-                  <h3 className="font-semibold text-ink group-hover:text-brand-700 transition">
+                <div className="p-6">
+                  <h3 className="h3 text-deep group-hover:text-champagne transition-colors">
                     {n.title}
                   </h3>
-                  <p className="mt-1 text-sm text-ink-lighter">{n.blurb}</p>
+                  <p className="mt-3 body text-ink-soft">{n.blurb}</p>
                 </div>
               </Link>
             );
           })}
 
           {list.length === 0 && (
-            <p className="text-sm text-slate-500">More neighborhoods coming soon.</p>
+            <div className="col-span-full text-center py-12">
+              <p className="body-small text-ink-lighter">More neighborhoods coming soon.</p>
+            </div>
           )}
         </div>
       </div>
