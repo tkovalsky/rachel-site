@@ -8,10 +8,10 @@ export default function Navbar() {
           Rachel Kovalsky
         </Link>
         <nav className="text-base text-ink-soft flex gap-8">
-          <a href="#areas" className="hover:text-ink transition-colors font-medium">Areas</a>
-          <a href="#about" className="hover:text-ink transition-colors font-medium">About</a>
-          <a href="#testimonials" className="hover:text-ink transition-colors font-medium">Reviews</a>
-          <a href="#contact" className="font-semibold text-ink hover:text-champagne transition-colors">
+          <a href="#areas" className="hover:text-ink transition-colors font-medium scroll-smooth">Areas</a>
+          <a href="#about" className="hover:text-ink transition-colors font-medium scroll-smooth">About</a>
+          <a href="#testimonials" className="hover:text-ink transition-colors font-medium scroll-smooth">Reviews</a>
+          <a href="#contact" className="hover:text-ink transition-colors font-medium scroll-smooth">
             Contact
           </a>
         </nav>

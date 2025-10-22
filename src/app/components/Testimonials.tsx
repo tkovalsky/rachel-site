@@ -30,7 +30,7 @@ export default function Testimonials({ items = [] as Review[] }) {
   }, [items]);
 
   return (
-    <section aria-label="Testimonials" className="border-t bg-white">
+    <section id="testimonials" aria-label="Testimonials" className="border-t bg-white">
       <div className="section py-12">
         <h2 className="h2 text-center">What clients say</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-2">

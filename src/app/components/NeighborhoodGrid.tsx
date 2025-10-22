@@ -9,7 +9,7 @@ export default function NeighborhoodGrid({ items }: Props) {
   const list = Array.isArray(items) ? items : [];
 
   return (
-    <section aria-label="Featured Areas" className="border-t border-divider bg-surface">
+    <section id="areas" aria-label="Featured Areas" className="border-t border-divider bg-surface">
       <div className="section py-16">
         <h2 className="h2 text-deep text-center">Featured Areas</h2>
         <p className="mt-4 body-large text-ink-soft text-center max-w-2xl mx-auto">

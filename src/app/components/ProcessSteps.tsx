@@ -13,7 +13,7 @@ type Props = { steps?: Step[] };
 
 export default function ProcessSteps({ steps = [] }: Props) {
   return (
-    <section aria-label="How it works" className="border-t bg-surface-subtle">
+    <section id="process" aria-label="How it works" className="border-t bg-surface-subtle">
       <div className="section py-12">
         <div className="text-center">
           <div className="eyebrow mb-2">How it works</div>
