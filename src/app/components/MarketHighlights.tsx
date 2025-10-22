@@ -18,11 +18,11 @@ type Props = {
 
 export default function MarketHighlights({ items = [], source }: Props) {
   return (
-    <section aria-label="Market Snapshot" className="border-t border-slate-200 bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="text-xl md:text-2xl font-semibold text-slate-900">Market Snapshot</h2>
+    <section aria-label="Market Snapshot" className="border-t border-divider bg-surface">
+      <div className="section py-16">
+        <h2 className="h2 text-deep">Market Snapshot</h2>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {items.map((m) => {
             const v =
               m.value == null
@@ -37,20 +37,20 @@ export default function MarketHighlights({ items = [], source }: Props) {
                 : String(m.value);
 
             return (
-              <div key={m.key ?? m.label} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                <div className="text-4xl font-semibold tracking-tight text-slate-900">{v}</div>
-                <div className="mt-2 text-lg text-slate-800">{m.label}</div>
-                {m.sublabel && <div className="mt-3 text-sm text-slate-500">{m.sublabel}</div>}
+              <div key={m.key ?? m.label} className="card p-6">
+                <div className="text-5xl md:text-6xl font-bold tracking-tight text-deep">{v}</div>
+                <div className="mt-3 body-large text-ink">{m.label}</div>
+                {m.sublabel && <div className="mt-4 body-small text-ink-lighter">{m.sublabel}</div>}
               </div>
             );
           })}
         </div>
 
         {source && (
-          <p className="mt-6 text-xs text-slate-500">
+          <p className="mt-8 body-small text-ink-lighter">
             Source:{" "}
             {source.href ? (
-              <a href={source.href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+              <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-champagne hover:underline">
                 {source.label}
               </a>
             ) : (

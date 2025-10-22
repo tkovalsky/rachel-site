@@ -1,72 +1,50 @@
 // src/app/components/Testimonials.tsx
 "use client";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useMemo } from "react";
 
-type Review = { q: string; a: string };
+export type Review = {
+  quote: string;
+  author: string;
+  role?: string;
+};
 
-export default function Testimonials({ items }: { items: Review[] }) {
-  // deterministic initial render to avoid hydration mismatch
-  const [displayed, setDisplayed] = useState<Review[]>(items.slice(0, 2));
+// NEW: Define the type for the raw, un-normalized data 
+// (which can use 'q'/'a' or 'quote'/'author' keys).
+// The [key: string]: any is added to allow other keys if they exist in the raw data, 
+// satisfying strict rules without breaking the component's expected shape.
+export type RawReview = { q?: string; a?: string; quote?: string; author?: string; [key: string]: unknown; };
 
-  useEffect(() => {
-    // shuffle AFTER hydration
-    const shuffled = [...items].sort(() => 0.5 - Math.random());
-    setDisplayed(shuffled.slice(0, 2));
+
+// simple deterministic hash
+function hash(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return h;
+}
+
+export default function Testimonials({ items = [] as Review[] }) {
+  const displayed = useMemo(() => {
+    if (!items.length) return [];
+    const copy = [...items].sort((a, b) => hash(a.quote) - hash(b.quote));
+    return copy.slice(0, 2);
   }, [items]);
 
   return (
-    <section id="testimonials" className="border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="text-2xl font-semibold text-slate-900">Testimonials</h2>
-
-        <div className="mt-6 grid md:grid-cols-2 gap-6" role="list">
-          {displayed.map((t, i) => (
-            <Card key={i} q={t.q} a={t.a} />
+    <section id="testimonials" aria-label="Testimonials" className="border-t bg-white">
+      <div className="section py-12">
+        <h2 className="h2 text-center">What clients say</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {displayed.map((r) => (
+            <blockquote key={r.quote} className="card p-6 text-ink">
+              <p className="body-large leading-relaxed">"{r.quote}"</p>
+              <footer className="mt-4 body-small text-ink-lighter">
+                — {r.author}{r.role ? `, ${r.role}` : ""}
+              </footer>
+            </blockquote>
           ))}
+          {displayed.length === 0 && <p className="body-small text-ink-lighter">Testimonials coming soon.</p>}
         </div>
-
-        <p className="mt-6 text-sm text-slate-700">
-          Read all reviews on{" "}
-          <Link
-            href="https://www.zillow.com/profile/rachel-kovalsky4#reviews"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-4"
-          >
-            Zillow
-          </Link>
-          .
-        </p>
       </div>
     </section>
-  );
-}
-
-function Card({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <figure
-      className="rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md"
-      role="listitem"
-    >
-      <div aria-hidden="true" className="mb-3 flex gap-1 text-yellow-500">
-        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-      </div>
-      <blockquote className={`text-slate-800 ${open ? "" : "line-clamp-5"}`}>
-        <p>“{q}”</p>
-      </blockquote>
-      <figcaption className="mt-3 text-sm text-slate-600">— {a}</figcaption>
-      {q.length > 260 && (
-        <button
-          type="button"
-          onClick={() => setOpen(v => !v)}
-          className="mt-3 text-sm font-medium text-slate-800 underline underline-offset-4"
-          aria-expanded={open}
-        >
-          {open ? "Show less" : "Read more"}
-        </button>
-      )}
-    </figure>
   );
 }

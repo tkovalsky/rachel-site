@@ -1,63 +1,99 @@
-export default function ContactForm() {
-  return (
-    <section id="contact" className="border-t border-brand-100 bg-surface-subtle">
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <h2 className="text-xl md:text-2xl font-semibold text-ink">
-          Let’s talk about your move
-        </h2>
-        <p className="mt-2 text-ink-soft">
-          No pressure. Share your timing and must-haves.
-        </p>
+"use client";
+import { useState } from "react";
 
-        <form
-          action="https://formspree.io/f/YOUR_ID"
-          method="POST"
-          className="mt-6 grid md:grid-cols-2 gap-4"
-        >
-          <input
-            required
-            name="name"
-            placeholder="Name"
-            className="rounded-lg border border-brand-200 bg-white p-3 text-ink placeholder-ink-lighter focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+export default function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+
+  // Handler must return void for the lint rule
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    void (async () => {
+      try {
+        setStatus("sending");
+        const fd = new FormData(e.currentTarget);
+
+        const getStr = (name: string) => {
+          const v = fd.get(name);
+          return typeof v === "string" ? v : "";
+        };
+
+        const payload = {
+          email: getStr("email"),
+          name: getStr("name"),
+          phone: getStr("phone"),
+          message: getStr("notes"),
+          _gotcha: getStr("_gotcha"),
+        };
+
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        setStatus("ok");
+        e.currentTarget.reset();
+      } catch {
+        setStatus("error");
+      }
+    })();
+  };
+
+  return (
+    <section id="contact" className="border-t bg-surface-subtle">
+      <div className="section py-16">
+        <h2 className="h2 text-deep">Let's talk about your move</h2>
+        <p className="mt-4 body-large text-ink-soft">No pressure. Share your timing and must-haves.</p>
+
+        <form onSubmit={onSubmit} className="mt-6 grid gap-4 md:grid-cols-2">
+          <input 
+            required 
+            name="name" 
+            placeholder="Name" 
+            className="rounded-lg border border-divider bg-surface p-4 text-lg text-ink placeholder:text-ink-lighter focus:border-champagne focus:outline-none transition-colors" 
           />
-          <input
-            required
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="rounded-lg border border-brand-200 bg-white p-3 text-ink placeholder-ink-lighter focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          <input 
+            required 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            className="rounded-lg border border-divider bg-surface p-4 text-lg text-ink placeholder:text-ink-lighter focus:border-champagne focus:outline-none transition-colors" 
           />
-          <input
-            name="phone"
-            placeholder="Phone"
-            className="rounded-lg border border-brand-200 bg-white p-3 text-ink placeholder-ink-lighter focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          <input 
+            name="phone" 
+            placeholder="Phone" 
+            className="rounded-lg border border-divider bg-surface p-4 text-lg text-ink placeholder:text-ink-lighter focus:border-champagne focus:outline-none transition-colors" 
           />
-          <input
-            name="neighborhoods"
-            placeholder="Neighborhoods of interest"
-            className="rounded-lg border border-brand-200 bg-white p-3 text-ink placeholder-ink-lighter focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          <input 
+            name="neighborhoods" 
+            placeholder="Neighborhoods of interest" 
+            className="rounded-lg border border-divider bg-surface p-4 text-lg text-ink placeholder:text-ink-lighter focus:border-champagne focus:outline-none transition-colors" 
           />
-          <textarea
-            name="notes"
-            placeholder="Timing, budget, must-haves…"
-            className="md:col-span-2 rounded-lg border border-brand-200 bg-white p-3 h-28 text-ink placeholder-ink-lighter focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          <textarea 
+            name="notes" 
+            placeholder="Timing, budget, must-haves…" 
+            className="h-32 rounded-lg border border-divider bg-surface p-4 text-lg text-ink placeholder:text-ink-lighter focus:border-champagne focus:outline-none transition-colors md:col-span-2" 
           />
+          {/* Honeypot */}
+          <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
           <div className="md:col-span-2 flex justify-center">
             <button
               type="submit"
-              className="w-full sm:w-1/2 md:w-1/3 rounded-lg bg-brand-600 px-6 py-3 font-medium text-white transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+              disabled={status === "sending"}
+              className="btn-primary w-full sm:w-1/2 md:w-1/3"
             >
-              Send
+              {status === "sending" ? "Sending…" : "Send"}
             </button>
           </div>
         </form>
 
-        <p className="mt-4 text-xs text-ink-lighter">
-          By submitting, you agree to our{" "}
-          <a href="/privacy" className="underline">
-            Privacy Policy
-          </a>.
+        {status === "ok" && <p className="mt-4 body-small text-success">Thanks! We'll be in touch.</p>}
+        {status === "error" && <p className="mt-4 body-small text-danger">Sorry, something went wrong.</p>}
+
+        <p className="mt-6 body-small text-ink-lighter">
+          By submitting, you agree to our <a href="/privacy" className="text-champagne hover:underline">Privacy Policy</a>.
         </p>
       </div>
     </section>

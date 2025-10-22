@@ -1,120 +1,168 @@
-@import "tailwindcss";
+/*
+  The order must be:
+  1. Tailwind directives (@tailwind base, @tailwind components, @tailwind utilities)
+  2. Custom CSS variables (placed inside @layer base)
+  3. Custom utility classes (placed inside @layer utilities)
+*/
 
-/* Tailwind v4 design tokens */
-@theme {
-  /* keep your font vars */
-  --font-sans: var(--font-inter, ui-sans-serif);
-  --font-serif: var(--font-playfair, ui-serif);
+/* 1. Core Tailwind Imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  /* COASTAL NAVY + SAND + CORAL */
-  --color-brand-50:  #f7f8fb;
-  --color-brand-100: #e9eef6;
-  --color-brand-200: #cfd9ea;
-  --color-brand-300: #a8bdd7;
-  --color-brand-400: #6d90b9;
-  --color-brand-500: #2e5c8a;   /* primary (navy) */
-  --color-brand-600: #234a70;
-  --color-brand-700: #1b3957;
-  --color-brand-800: #142a41;
-  --color-brand-900: #0e1c2c;
-
-  --color-accent-50:  #fff6f3;
-  --color-accent-100: #ffe9e1;
-  --color-accent-200: #ffd1c3;
-  --color-accent-300: #ffb29b;
-  --color-accent-400: #ff8f72;
-  --color-accent-500: #ff6e54;  /* coral pop */
-  --color-accent-600: #e15443;
-  --color-accent-700: #b63f33;
-  --color-accent-800: #8c3027;
-  --color-accent-900: #62221b;
-
-  /* neutrals tuned slightly warmer */
-  --color-ink: #0f172a;
-  --color-ink-soft: #3a4457;
-  --color-ink-lighter: #6b7280;
-  --color-surface-light: #ffffff;
-  --color-surface-subtle: #fafaf9;    /* warm subtle background */
-  --color-sand: #f3eee7;              /* section alt bg */
-}
-
-/* Base / globals */
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Use Tailwind tokens for text/background */
-body { @apply font-sans text-ink bg-surface-light antialiased; }
-
-/* Headings use Playfair by default */
-h1, h2, .heading-serif { font-family: var(--font-serif); }
-
-/* Links */
-a { @apply underline-offset-4; }
-a:hover { @apply underline; }
-
-/* Focus ring (accessible, on-brand) */
-:focus-visible {
-  outline: 3px solid var(--color-brand-500);
-  outline-offset: 2px;
-}
-
-/* Screen-reader only helper */
-.sr-only:not(:focus):not(:active) {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap; border: 0;
-}
-
-/* Small utility helpers */
-@layer utilities {
-  .section { @apply mx-auto max-w-7xl px-4; }
-  .card    { @apply rounded-2xl border border-slate-200 bg-white shadow-sm; }
-}
-
-
+/* —— 2. Custom CSS Variables & Base Overrides (Inside @layer base) —— */
 @layer base {
-  h1, .h1 { @apply text-3xl md:text-5xl font-serif font-bold leading-tight; }
-  h2, .h2 { @apply text-2xl md:text-4xl font-serif font-semibold leading-snug; }
-  p, .p   { @apply text-base md:text-lg text-ink-soft; }
-  .lead   { @apply text-lg md:text-xl text-ink; }
+  /* Font Variables (Loaded from next/font in layout.tsx) */
+  :root {
+    --font-sans: var(--font-inter, ui-sans-serif);
+    --font-serif: var(--font-playfair, ui-serif);
+
+    /* brand core - sophisticated luxury */
+    --color-deep: #0A0D12;         /* deep, sophisticated navy */
+    --color-ink: #0F1218;          /* rich primary text */
+    --color-ink-soft: #2D3441;     /* refined secondary text */
+    --color-ink-lighter: #5A6478;  /* sophisticated muted labels */
+
+    /* luxury accents - premium metallics */
+    --color-champagne: #D4AF37;    /* rich, luxurious gold */
+    --color-champagne-light: #E6C547; /* lighter gold for highlights */
+    --color-champagne-dark: #B8941F;  /* darker gold for depth */
+    --color-platinum: #C0C0C0;     /* sophisticated platinum accent */
+    --color-bronze: #CD7F32;       /* warm bronze accent */
+    --color-copper: #B87333;       /* rich copper accent */
+
+    /* neutrals - refined and modern */
+    --color-paper: #FAFBFC;        /* cleaner, more premium background */
+    --color-surface: #FFFFFF;      /* pure white cards */
+    --color-surface-subtle: #F8F9FA;/* more refined section alt */
+    --color-surface-elevated: #FFFFFF; /* elevated surfaces */
+    --color-divider: #E2E8F0;      /* softer, more elegant borders */
+    --color-divider-subtle: #F1F5F9; /* very subtle dividers */
+
+    /* status colors - refined */
+    --color-success: #10B981;
+    --color-danger: #EF4444;
+    --color-warning: #F59E0B;
+  }
+
+  /* Base styles */
+  html { 
+    scroll-behavior: smooth; 
+  }
+  
+  body { 
+    @apply bg-paper text-ink antialiased; 
+  }
+  
+  h1, h2, .heading-serif { 
+    font-family: var(--font-serif); 
+  }
+
+  /* Links: tasteful gold underline on hover */
+  a { 
+    @apply underline-offset-4 decoration-transparent transition; 
+  }
+  
+  a:hover { 
+    @apply decoration-champagne; 
+  }
+
+  /* Focus ring - luxury meets cutting-edge */
+  :focus-visible { 
+    outline: 3px solid var(--color-champagne); 
+    outline-offset: 2px; 
+    box-shadow: 0 0 0 1px var(--color-champagne-light);
+  }
+  
+  /* Luxury gradient backgrounds */
+  .gradient-luxury {
+    background: linear-gradient(135deg, var(--color-champagne) 0%, var(--color-champagne-light) 100%);
+  }
+  
+  .gradient-metallic {
+    background: linear-gradient(135deg, var(--color-bronze) 0%, var(--color-copper) 100%);
+  }
+  
+  .gradient-sophisticated {
+    background: linear-gradient(135deg, var(--color-deep) 0%, var(--color-ink) 100%);
+  }
 }
 
-
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-lg
-           bg-brand-700 text-white px-5 py-3 font-medium shadow-sm
-           hover:bg-brand-800 focus-visible:outline-none
-           focus-visible:ring-2 focus-visible:ring-brand-400
-           transition;
+/* —— 3. Custom Component/Utility Classes (Inside @layer utilities) —— */
+@layer utilities {
+  .section { 
+    @apply mx-auto max-w-7xl px-4; 
+  }
+  
+  .section-alt { 
+    @apply bg-surface-subtle; 
+  }
+  
+  .card { 
+    @apply rounded-2xl border border-divider bg-surface shadow-sm; 
+  }
+  
+  .eyebrow { 
+    @apply text-xs tracking-widest uppercase text-ink-lighter; 
   }
 
-  .btn-ghost {
-    @apply inline-flex items-center justify-center rounded-lg
-           border border-slate-300 text-ink px-5 py-3
-           hover:bg-surface-subtle transition;
+  /* Buttons - luxury meets cutting-edge */
+  .btn { 
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-4 font-medium transition-all duration-300; 
   }
-
-  .chip {
-    @apply inline-flex items-center gap-2 rounded-full px-3 py-1
-           text-sm bg-surface-subtle text-ink-soft border border-slate-200;
+  
+  .btn-primary { 
+    @apply btn bg-deep text-white hover:bg-ink hover:shadow-lg hover:shadow-deep/20; 
   }
-
-  .panel {
-    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  
+  .btn-ghost { 
+    @apply btn border border-divider text-ink hover:border-champagne hover:text-deep hover:shadow-md; 
   }
+  
+  .btn-gold { 
+    @apply btn bg-champagne text-deep hover:bg-champagne-light hover:shadow-lg hover:shadow-champagne/30; 
+  }
+  
+  .btn-bronze {
+    @apply btn bg-bronze text-white hover:bg-bronze/90 hover:shadow-lg hover:shadow-bronze/30;
+  }
+  
+  .btn-platinum {
+    @apply btn bg-platinum text-deep hover:bg-platinum/90 hover:shadow-md;
+  }
+}
 
-  .section-alt {
-    @apply bg-[--color-surface-subtle];
+/* Type presets - Larger, more accessible sizes */
+@layer base {
+  .h1 { 
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold leading-tight; 
+  }
+  
+  .h2 { 
+    @apply text-3xl md:text-5xl lg:text-6xl font-semibold leading-snug; 
+  }
+  
+  .h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold leading-snug;
+  }
+  
+  .lead { 
+    @apply text-xl md:text-2xl lg:text-3xl text-ink-soft leading-relaxed; 
+  }
+  
+  .body-large {
+    @apply text-lg md:text-xl lg:text-2xl text-ink leading-relaxed;
+  }
+  
+  .body {
+    @apply text-base md:text-lg lg:text-xl text-ink leading-relaxed;
+  }
+  
+  .body-small {
+    @apply text-sm md:text-base lg:text-lg text-ink-soft leading-relaxed;
+  }
+  
+  .eyebrow { 
+    @apply text-sm md:text-base lg:text-lg tracking-widest uppercase text-ink-lighter font-medium; 
   }
 }

@@ -1,7 +1,8 @@
 // src/app/page.tsx
 import Hero from "./components/Hero";
 import About from "./components/About";
-import Testimonials from "./components/Testimonials";
+// FIX APPLIED: Importing Testimonials component, and both Review and RawReview types
+import Testimonials, { type Review, type RawReview } from "./components/Testimonials"; 
 import ContactForm from "./components/ContactForm";
 
 import SocialProof from "./components/SocialProof";
@@ -17,7 +18,17 @@ import { NEIGHBORHOODS } from "./content/neighborhoods";
 import { PROCESS_STEPS } from "./content/process";
 import { MARKET_SEP_2025 } from "./content/market";
 
+// REMOVED: The local RawReview definition is now imported from Testimonials.tsx
+
 export default function HomePage() {
+  // FIX APPLIED: Using the imported RawReview type instead of 'any'
+  const normalizedTestimonials: Review[] = (Array.isArray(TESTIMONIALS) ? TESTIMONIALS : [])
+  .map((t: RawReview) => ({
+    quote: t.quote ?? t.q,
+    author: t.author ?? t.a,
+  }))
+  .filter((t) => t.quote && t.author) as Review[]; // Final assertion to satisfy strict types
+  
   return (
     <main className="min-h-screen">
       {/* Hero */}
@@ -48,7 +59,7 @@ export default function HomePage() {
 
       {/* About + Testimonials */}
       <About intro={ABOUT.intro} bullets={ABOUT.bullets} />
-      <Testimonials items={TESTIMONIALS} />
+      <Testimonials items={normalizedTestimonials} /> 
 
       {/* Lead magnet (email capture → /api/contact) */}
       <GuideDownload />

@@ -1,6 +1,7 @@
 // src/app/layout.tsx
-import type { Metadata } from "next";
 import "./globals.css";
+
+import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -12,15 +13,14 @@ export const metadata: Metadata = {
 };
 
 // Load fonts first and expose as CSS variables
-const inter = Inter({subsets: ["latin"],display: "swap",variable: "--font-inter",});
-const playfair = Playfair_Display({subsets: ["latin"],display: "swap",variable: "--font-playfair",});
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const playfair = Playfair_Display({ subsets: ["latin"], display: "swap", variable: "--font-playfair" });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/* Apply font vars + base colors on <body> */}
-          <body className={`${inter.variable} ${playfair.variable} text-slate-900 bg-white`}>
-
+      {/* Apply font vars. Color/text styles are now handled in globals.css */}
+      <body className={`${inter.variable} ${playfair.variable}`}>
         {/* Skip link for a11y */}
         <a
           href="#main"
