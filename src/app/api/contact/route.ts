@@ -4,12 +4,15 @@ export const runtime = "nodejs";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { addLeadToSheet, type LeadData } from "@/lib/googleSheets";
 
 const schema = z.object({
   email: z.string().email(),
   name: z.string().min(1).optional(),
   phone: z.string().optional(),
   message: z.string().optional(),
+  type: z.string().optional(), // 'newsletter' or 'contact'
+  neighborhoods: z.string().optional(),
   _gotcha: z.string().optional(), // honeypot
 });
 
@@ -44,7 +47,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
     }
 
-    const { email, name, phone, message, _gotcha } = parsed.data;
+    const { email, name, phone, message, type, neighborhoods, _gotcha } = parsed.data;
 
     // Honeypot: pretend success if bot
     if (_gotcha && _gotcha.length > 0) {
@@ -74,20 +77,57 @@ export async function POST(req: NextRequest) {
       auth: { user, pass },
     });
 
-    const lines: string[] = [
-      `From: ${name ? `${name} <${email}>` : email}`,
-      phone ? `Phone: ${phone}` : "",
-      "",
-      message ?? "(no message)",
-    ].filter(Boolean);
+    // Add to Google Sheets first
+    const leadData: LeadData = {
+      timestamp: new Date().toISOString(),
+      type: type === 'newsletter' ? 'newsletter' : 'contact',
+      email,
+      name,
+      phone,
+      neighborhoods,
+      message,
+      source: 'Website',
+    };
 
-    await transporter.sendMail({
-      from: fromAddr,
-      to,
-      cc: ccList.length ? ccList : undefined,
-      subject: "New website inquiry",
-      text: lines.join("\n"),
-    });
+    const sheetResult = await addLeadToSheet(leadData);
+    if (!sheetResult.success) {
+      console.warn('Failed to add lead to Google Sheets:', sheetResult.error);
+    }
+
+    // Different handling for newsletter vs contact
+    if (type === 'newsletter') {
+      const lines: string[] = [
+        `Newsletter Signup: ${email}`,
+        name ? `Name: ${name}` : "",
+        "",
+        "This person wants to receive weekly South Florida market updates.",
+      ].filter(Boolean);
+
+      await transporter.sendMail({
+        from: fromAddr,
+        to,
+        cc: ccList.length ? ccList : undefined,
+        subject: "New Newsletter Signup",
+        text: lines.join("\n"),
+      });
+    } else {
+      // Contact form submission
+      const lines: string[] = [
+        `From: ${name ? `${name} <${email}>` : email}`,
+        phone ? `Phone: ${phone}` : "",
+        neighborhoods ? `Neighborhoods of Interest: ${neighborhoods}` : "",
+        "",
+        message ?? "(no message)",
+      ].filter(Boolean);
+
+      await transporter.sendMail({
+        from: fromAddr,
+        to,
+        cc: ccList.length ? ccList : undefined,
+        subject: "New Real Estate Inquiry",
+        text: lines.join("\n"),
+      });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {

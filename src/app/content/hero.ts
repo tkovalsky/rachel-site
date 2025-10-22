@@ -5,7 +5,7 @@ export const HERO = {
   bullets: [
     "Specializing in Delray Beach, Boca Raton, Boynton Beach and Wellington",
     "Investment opportunities in Deerfield Beach, West Palm Beach, and surrounding areas",
-    "Relocation & second-home expertise • Coastal & walkable neighborhoods",
+    "Relocation & second-home expertise in coastal & walkable downtown neighborhoods",
     "Personalized guidance from search to close",
   ],
   imageSrc: "/rachel.jpeg",   // << must exist as /public/rachel.jpeg

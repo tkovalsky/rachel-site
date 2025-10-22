@@ -32,8 +32,8 @@ export default function Hero({
           </ul>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
-            <a href={`tel:${phone}`} className="btn-primary text-lg font-semibold">Call Rachel {phoneLabel}</a>
-            <Link href={compassUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost text-lg font-semibold">
+            <a href={`tel:${phone}`} className="btn-primary">Call Rachel {phoneLabel}</a>
+            <Link href={compassUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost">
               Compass profile
             </Link>
           </div>

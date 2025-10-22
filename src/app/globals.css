@@ -108,27 +108,27 @@
 
   /* Buttons - luxury meets cutting-edge */
   .btn { 
-    @apply inline-flex items-center justify-center rounded-lg px-6 py-4 font-medium transition-all duration-300; 
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-4 text-lg font-semibold transition-all duration-300; 
   }
   
   .btn-primary { 
-    @apply btn bg-deep text-white hover:bg-ink hover:shadow-lg hover:shadow-deep/20; 
+    @apply btn bg-deep text-white hover:bg-ink hover:shadow-lg hover:shadow-deep/20 focus:outline-none focus:ring-4 focus:ring-champagne/30; 
   }
   
   .btn-ghost { 
-    @apply btn border border-divider text-ink hover:border-champagne hover:text-deep hover:shadow-md; 
+    @apply btn border border-divider text-ink hover:border-champagne hover:text-deep hover:shadow-md focus:outline-none focus:ring-4 focus:ring-champagne/30; 
   }
   
   .btn-gold { 
-    @apply btn bg-champagne text-deep hover:bg-champagne-light hover:shadow-lg hover:shadow-champagne/30; 
+    @apply btn bg-champagne text-deep hover:bg-champagne-light hover:shadow-lg hover:shadow-champagne/30 focus:outline-none focus:ring-4 focus:ring-champagne/30; 
   }
   
   .btn-bronze {
-    @apply btn bg-bronze text-white hover:bg-bronze/90 hover:shadow-lg hover:shadow-bronze/30;
+    @apply btn bg-bronze text-white hover:bg-bronze/90 hover:shadow-lg hover:shadow-bronze/30 focus:outline-none focus:ring-4 focus:ring-bronze/30;
   }
   
   .btn-platinum {
-    @apply btn bg-platinum text-deep hover:bg-platinum/90 hover:shadow-md;
+    @apply btn bg-platinum text-deep hover:bg-platinum/90 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-platinum/30;
   }
 }
 
