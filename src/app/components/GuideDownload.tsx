@@ -35,7 +35,7 @@ export default function GuideDownload() {
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         
-        const result = await res.json();
+        const result = await res.json() as { ok: boolean; error?: string; devMessage?: string };
         
         // Handle both success and duplicate cases
         if (result.ok) {

@@ -55,28 +55,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, skipped: true });
     }
 
-    // SMTP env (Titan or other)
-    const host = process.env.SMTP_HOST ?? "";
-    const port = Number(process.env.SMTP_PORT ?? 587); // <-- fixed
-    const user = process.env.SMTP_USER ?? "";
-    const pass = process.env.SMTP_PASS ?? "";
-    const to = (process.env.MAIL_TO ?? "").split(",").map(s => s.trim()).filter(Boolean);
-    const fromAddr = (process.env.MAIL_FROM ?? (user ? `Website <${user}>` : "")).trim();
-    const ccList = (process.env.MAIL_CC ?? "").split(",").map(s => s.trim()).filter(Boolean);
-
-    if (!host || !user || !pass || to.length === 0 || !fromAddr) {
-      console.warn("SMTP env missing; skipping send.");
-      return NextResponse.json({ ok: true, skipped: true });
-    }
-
-    const { createTransport } = await import("nodemailer");
-
-    const transporter = createTransport({
-      host,
-      port,
-      secure: false, // STARTTLS on 587
-      auth: { user, pass },
-    });
+    // SMTP configuration removed - email notifications disabled
+    // const host = process.env.SMTP_HOST ?? "";
+    // const port = Number(process.env.SMTP_PORT ?? 587);
+    // const user = process.env.SMTP_USER ?? "";
+    // const pass = process.env.SMTP_PASS ?? "";
+    // const to = (process.env.MAIL_TO ?? "").split(",").map(s => s.trim()).filter(Boolean);
+    // const fromAddr = (process.env.MAIL_FROM ?? (user ? `Website <${user}>` : "")).trim();
+    // const ccList = (process.env.MAIL_CC ?? "").split(",").map(s => s.trim()).filter(Boolean);
 
     // Add to Google Sheets first
     const leadData: LeadData = {

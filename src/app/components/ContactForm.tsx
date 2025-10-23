@@ -37,7 +37,7 @@ export default function ContactForm() {
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         
-        const result = await res.json();
+        const _result = await res.json() as { ok: boolean; devMessage?: string };
         
         setStatus("ok");
         // Don't reset form - we'll hide it instead

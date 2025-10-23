@@ -86,8 +86,10 @@ async function checkForDuplicateEmail(email: string, spreadsheetId: string, shee
     const normalizedEmail = email.toLowerCase().trim();
     
     // Check if email already exists (case-insensitive)
-    const isDuplicate = existingEmails.some(existingEmail => 
-      existingEmail && existingEmail.toLowerCase().trim() === normalizedEmail
+    const isDuplicate = existingEmails.some((existingEmail: unknown) => 
+      existingEmail && 
+      typeof existingEmail === 'string' && 
+      existingEmail.toLowerCase().trim() === normalizedEmail
     );
 
     return { isDuplicate };
