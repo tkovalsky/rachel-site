@@ -27,7 +27,6 @@ Now, their days begin with sunshine and coffee on the patio, followed by golf wi
 For any woman 50 or better, wondering if it's too late to make a big change or design a life you love—Cheryl and Eddie's story is a gentle reminder: the best chapters are often the ones you write next. And when that time comes, having someone like Rachel by your side can make all the difference.`,
   author: 'Rachel Kovalsky',
   publishDate: '2024-10-23',
-  imageSrc: '/wycliffe-success-story.jpeg',
   featured: true,
   areas: ['lake-worth', 'wellington'],
   developments: ['wycliffe-golf-country-club'],
