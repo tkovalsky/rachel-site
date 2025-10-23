@@ -82,10 +82,13 @@ export async function POST(req: NextRequest) {
       // Don't fail the request if Google Sheets fails, just log it
     }
 
-    // Handle duplicate email case
-    if (sheetResult.isDuplicate) {
-      console.log('Duplicate email detected, skipping email notification');
-      return NextResponse.json({ ok: true, duplicate: true });
+    // Handle different lead actions
+    if (sheetResult.isDuplicate && sheetResult.action === 'skipped') {
+      console.log('Duplicate email with same type, skipping notification');
+      return NextResponse.json({ ok: true, duplicate: true, action: 'skipped' });
+    } else if (sheetResult.action === 'updated') {
+      console.log('Updated existing lead with additional information');
+      return NextResponse.json({ ok: true, updated: true, action: 'updated' });
     }
 
     // Email notifications disabled to avoid spam flags
@@ -97,7 +100,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ 
         ok: true, 
         devMessage: 'Email notifications disabled - lead saved to Google Sheets only',
-        sheetResult: sheetResult.success ? 'Lead saved to Google Sheets' : 'Google Sheets save failed'
+        sheetResult: sheetResult.success ? 'Lead saved to Google Sheets' : 'Google Sheets save failed',
+        action: sheetResult.action || 'added'
       });
     }
 
