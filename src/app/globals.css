@@ -120,7 +120,7 @@
   }
   
   .btn-gold { 
-    @apply btn bg-champagne text-deep hover:bg-champagne-light hover:shadow-lg hover:shadow-champagne/30 focus:outline-none focus:ring-4 focus:ring-champagne/30; 
+    @apply btn bg-champagne text-white hover:bg-champagne-light hover:text-white hover:shadow-lg hover:shadow-champagne/30 focus:outline-none focus:ring-4 focus:ring-champagne/30; 
   }
   
   .btn-bronze {

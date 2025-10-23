@@ -1,0 +1,180 @@
+[
+  {
+    "id": "atlantic-gardens",
+    "name": "Atlantic Gardens",
+    "slug": "atlantic-gardens",
+    "area": "delray-beach",
+    "description": "Luxury country club living with championship golf and resort amenities in the heart of Delray Beach.",
+    "shortDescription": "Luxury country club with championship golf",
+    "imageSrc": "/developments/atlantic-gardens.jpg",
+    "featured": true,
+    "targetSegments": ["55-plus-cash-buyer", "second-home-buyer"],
+    "demographics": {
+      "ageRange": [55, 75],
+      "incomeRange": [150000, 500000],
+      "lifestyle": ["luxury", "active", "social"],
+      "interests": ["golf", "tennis", "fine-dining", "travel"],
+      "painPoints": ["maintenance", "isolation", "boredom"],
+      "motivations": ["luxury", "convenience", "social-connection"]
+    },
+    "amenities": ["golf", "country-club", "tennis", "pool", "spa", "restaurant"],
+    "amenitiesDetailed": [
+      {
+        "name": "Championship Golf Course",
+        "description": "18-hole championship course designed by renowned architect",
+        "category": "recreation",
+        "importance": "essential"
+      },
+      {
+        "name": "Country Club Dining",
+        "description": "Fine dining restaurant with seasonal menus",
+        "category": "luxury",
+        "importance": "important"
+      },
+      {
+        "name": "Tennis Courts",
+        "description": "6 Har-Tru courts with professional instruction",
+        "category": "recreation",
+        "importance": "important"
+      },
+      {
+        "name": "Spa & Wellness",
+        "description": "Full-service spa with massage and wellness programs",
+        "category": "wellness",
+        "importance": "nice-to-have"
+      }
+    ],
+    "priceRange": {
+      "min": 800000,
+      "max": 2500000,
+      "median": 1500000,
+      "pricePerSqFt": 450
+    },
+    "valueProposition": "Luxury country club living with world-class amenities and maintenance-free lifestyle",
+    "investmentPotential": {
+      "rentalYield": 4.2,
+      "appreciationRate": 6.5,
+      "marketTrend": "rising"
+    },
+    "marketData": {
+      "daysOnMarket": 45,
+      "inventoryLevel": "low",
+      "competitionLevel": "medium",
+      "uniqueSellingPoints": [
+        "Championship golf course",
+        "Maintenance-free living",
+        "Prime Delray Beach location",
+        "Exclusive country club membership"
+      ]
+    },
+    "contentHooks": [
+      {
+        "segment": "55-plus-cash-buyer",
+        "hook": "Retire in luxury with world-class amenities at your doorstep",
+        "painPoint": "Worried about maintaining a large home in retirement?",
+        "solution": "Atlantic Gardens offers maintenance-free luxury living with resort-style amenities",
+        "callToAction": "Call Rachel to schedule your private tour of Atlantic Gardens"
+      },
+      {
+        "segment": "second-home-buyer",
+        "hook": "Your perfect vacation home with championship golf",
+        "painPoint": "Want a vacation home that's also a great investment?",
+        "solution": "Atlantic Gardens offers luxury vacation living with strong rental potential",
+        "callToAction": "Discover why Atlantic Gardens is the perfect second home investment"
+      }
+    ],
+    "offMarketProperties": [],
+    "seoKeywords": ["delray-beach-country-club", "golf-communities", "luxury-condos", "atlantic-gardens"],
+    "marketingTags": ["luxury", "golf", "country-club", "delray-beach"],
+    "seasonalAppeal": ["winter", "spring", "fall"]
+  },
+  {
+    "id": "boca-west",
+    "name": "Boca West Country Club",
+    "slug": "boca-west",
+    "area": "boca-raton",
+    "description": "Premier country club with multiple golf courses and luxury amenities in prestigious Boca Raton.",
+    "shortDescription": "Premier country club with multiple golf courses",
+    "imageSrc": "/developments/boca-west.jpg",
+    "featured": true,
+    "targetSegments": ["55-plus-cash-buyer", "upgrade-downgrade"],
+    "demographics": {
+      "ageRange": [50, 80],
+      "incomeRange": [200000, 1000000],
+      "lifestyle": ["luxury", "prestigious", "social"],
+      "interests": ["golf", "tennis", "fine-dining", "cultural-events"],
+      "painPoints": ["status", "exclusivity", "prestige"],
+      "motivations": ["luxury", "status", "exclusivity", "investment"]
+    },
+    "amenities": ["golf", "country-club", "tennis", "pool", "gym", "restaurant"],
+    "amenitiesDetailed": [
+      {
+        "name": "Multiple Golf Courses",
+        "description": "4 championship golf courses designed by top architects",
+        "category": "recreation",
+        "importance": "essential"
+      },
+      {
+        "name": "Luxury Clubhouse",
+        "description": "Grand clubhouse with fine dining and social events",
+        "category": "luxury",
+        "importance": "essential"
+      },
+      {
+        "name": "Tennis Center",
+        "description": "Professional tennis center with instruction and tournaments",
+        "category": "recreation",
+        "importance": "important"
+      },
+      {
+        "name": "Fitness Center",
+        "description": "State-of-the-art fitness center with personal training",
+        "category": "wellness",
+        "importance": "important"
+      }
+    ],
+    "priceRange": {
+      "min": 1200000,
+      "max": 4000000,
+      "median": 2200000,
+      "pricePerSqFt": 650
+    },
+    "valueProposition": "The most prestigious country club in Boca Raton with unmatched amenities and exclusivity",
+    "investmentPotential": {
+      "rentalYield": 3.8,
+      "appreciationRate": 7.2,
+      "marketTrend": "rising"
+    },
+    "marketData": {
+      "daysOnMarket": 60,
+      "inventoryLevel": "low",
+      "competitionLevel": "high",
+      "uniqueSellingPoints": [
+        "4 championship golf courses",
+        "Prestigious Boca Raton location",
+        "Exclusive country club membership",
+        "Luxury amenities and services"
+      ]
+    },
+    "contentHooks": [
+      {
+        "segment": "55-plus-cash-buyer",
+        "hook": "Join the most prestigious country club in Boca Raton",
+        "painPoint": "Ready to upgrade to the ultimate luxury lifestyle?",
+        "solution": "Boca West offers the pinnacle of country club living with unmatched prestige",
+        "callToAction": "Call Rachel to learn about Boca West membership opportunities"
+      },
+      {
+        "segment": "upgrade-downgrade",
+        "hook": "Upgrade to the ultimate luxury lifestyle",
+        "painPoint": "Ready to move up to the most prestigious address in Boca Raton?",
+        "solution": "Boca West offers the ultimate upgrade with world-class amenities",
+        "callToAction": "Discover why Boca West is the ultimate luxury upgrade"
+      }
+    ],
+    "offMarketProperties": [],
+    "seoKeywords": ["boca-west-country-club", "boca-raton-luxury", "golf-communities", "prestigious-communities"],
+    "marketingTags": ["luxury", "prestigious", "golf", "boca-raton"],
+    "seasonalAppeal": ["winter", "spring"]
+  }
+]
