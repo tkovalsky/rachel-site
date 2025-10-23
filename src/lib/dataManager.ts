@@ -2,10 +2,61 @@ import {
   DevelopmentDetails, 
   OffMarketProperty, 
   AreaDetails, 
-  GeneratedContent,
+  GeneratedContent, 
   ContentGenerationConfig,
-  TargetSegment 
+  TargetSegment
 } from '@/app/content/enhancedTypes';
+
+interface RawDevelopment {
+  id: string;
+  name: string;
+  slug: string;
+  area: string;
+  description: string;
+  shortDescription: string;
+  imageSrc: string;
+  featured: boolean;
+  targetSegments: string[];
+  demographics: {
+    ageRange: number[];
+    incomeRange: number[];
+    lifestyle: string[];
+    interests: string[];
+    painPoints: string[];
+    motivations: string[];
+  };
+  [key: string]: any;
+}
+
+interface RawArea {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  imageSrc: string;
+  featured: boolean;
+  targetSegments: string[];
+  developments: string[];
+  articles: string[];
+}
+
+interface RawOffMarketProperty {
+  id: string;
+  development: string;
+  type: string;
+  bedrooms: number;
+  bathrooms: number;
+  squareFeet: number;
+  price: number;
+  description: string;
+  images: string[];
+  specialFeatures: string[];
+  availability: string;
+  exclusivity: string;
+  targetSegments: string[];
+  notes: string;
+  contactRequired: boolean;
+}
 
 // Data storage strategy - can be JSON files, database, or API
 export class DataManager {
@@ -31,17 +82,17 @@ export class DataManager {
     try {
       // Load developments
       const developmentsData = await import('@/app/content/developments.json');
-      developmentsData.default.forEach((dev: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+      developmentsData.default.forEach((dev: RawDevelopment) => {
         // Ensure ageRange is properly typed as tuple
         if (dev.demographics?.ageRange && Array.isArray(dev.demographics.ageRange)) {
           dev.demographics.ageRange = [dev.demographics.ageRange[0], dev.demographics.ageRange[1]] as [number, number];
         }
-        this.developments.set(dev.id, dev);
+        this.developments.set(dev.id, dev as DevelopmentDetails);
       });
 
       // Load areas
       const { AREAS } = await import('@/app/content/areas');
-      AREAS.forEach((area: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+      AREAS.forEach((area: RawArea) => {
         // Convert Area to AreaDetails format
         const areaDetails: AreaDetails = {
           ...area,
@@ -76,12 +127,12 @@ export class DataManager {
 
       // Load off-market properties
       const offMarketData = await import('@/app/content/offMarket.json');
-      offMarketData.default.forEach((property: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+      offMarketData.default.forEach((property: RawOffMarketProperty) => {
         // Ensure type is properly typed
         if (property.type && typeof property.type === 'string') {
           property.type = property.type as 'condo' | 'single-family' | 'townhouse' | 'villa';
         }
-        this.offMarketProperties.set(property.id, property);
+        this.offMarketProperties.set(property.id, property as OffMarketProperty);
       });
 
     } catch (_error) {

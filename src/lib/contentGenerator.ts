@@ -2,8 +2,15 @@ import {
   DevelopmentDetails, 
   GeneratedContent, 
   ContentGenerationConfig,
-  TargetSegment 
+  TargetSegment
 } from '@/app/content/enhancedTypes';
+
+interface ContentHooks {
+  hook: string;
+  painPoint: string;
+  solution: string;
+  callToAction: string;
+}
 import { dataManager } from './dataManager';
 
 export class ContentGenerator {
@@ -141,7 +148,7 @@ export class ContentGenerator {
   }
 
   // Title generation methods
-  private generateArticleTitle(development: DevelopmentDetails, config: ContentGenerationConfig, _hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateArticleTitle(development: DevelopmentDetails, config: ContentGenerationConfig, _hooks: ContentHooks): string {
     const templates = [
       `Why ${development.name} is Perfect for ${this.getSegmentLabel(config.targetSegment)}`,
       `${development.name}: The Ultimate ${this.getSegmentLabel(config.targetSegment)} Community`,
@@ -152,7 +159,7 @@ export class ContentGenerator {
     return templates[Math.floor(Math.random() * templates.length)];
   }
 
-  private generateSocialTitle(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateSocialTitle(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const templates = [
       `🏡 ${development.name} - ${hooks.hook}`,
       `✨ ${development.name} has everything you need!`,
@@ -163,7 +170,7 @@ export class ContentGenerator {
     return templates[Math.floor(Math.random() * templates.length)];
   }
 
-  private generateEmailSubject(development: DevelopmentDetails, _config: ContentGenerationConfig, _hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateEmailSubject(development: DevelopmentDetails, _config: ContentGenerationConfig, _hooks: ContentHooks): string {
     const templates = [
       `Exclusive: ${development.name} Opportunity`,
       `Why ${development.name} is Perfect for You`,
@@ -174,7 +181,7 @@ export class ContentGenerator {
     return templates[Math.floor(Math.random() * templates.length)];
   }
 
-  private generateLandingPageTitle(development: DevelopmentDetails, _config: ContentGenerationConfig, _hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateLandingPageTitle(development: DevelopmentDetails, _config: ContentGenerationConfig, _hooks: ContentHooks): string {
     const templates = [
       `${development.name} - ${this.getSegmentLabel(_config.targetSegment)} Living`,
       `Welcome to ${development.name}`,
@@ -186,7 +193,7 @@ export class ContentGenerator {
   }
 
   // Content generation methods
-  private generateArticleContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateArticleContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const segmentLabel = this.getSegmentLabel(config.targetSegment);
     
     return `
@@ -220,7 +227,7 @@ export class ContentGenerator {
     `;
   }
 
-  private generateSocialContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateSocialContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const segmentLabel = this.getSegmentLabel(config.targetSegment);
     
     return `
@@ -239,7 +246,7 @@ export class ContentGenerator {
     `;
   }
 
-  private generateEmailContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateEmailContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const segmentLabel = this.getSegmentLabel(config.targetSegment);
     
     return `
@@ -275,7 +282,7 @@ export class ContentGenerator {
     `;
   }
 
-  private generateLandingPageContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
+  private generateLandingPageContent(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const segmentLabel = this.getSegmentLabel(config.targetSegment);
     
     return `

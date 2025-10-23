@@ -9,6 +9,13 @@ import {
   TargetSegment 
 } from '@/app/content/types';
 
+interface RawTestimonial {
+  q: string;
+  a: string;
+  targetSegment?: TargetSegment;
+  featured?: boolean;
+}
+
 import { AREAS } from '@/app/content/areas';
 import { DEVELOPMENTS } from '@/app/content/developments';
 import { ARTICLES } from '@/app/content/articles';
@@ -130,7 +137,7 @@ export class ContentService {
   // Get filtered and randomized testimonials
   static getTestimonials(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Testimonial[] {
     // Convert raw testimonials to proper Testimonial format
-    const testimonials: Testimonial[] = TESTIMONIALS.map((testimonial: { q: string; a: string; targetSegment?: TargetSegment; featured?: boolean }, index) => ({
+    const testimonials: Testimonial[] = TESTIMONIALS.map((testimonial: RawTestimonial, index) => ({
       id: `testimonial-${index}`,
       quote: testimonial.q,
       author: testimonial.a,
