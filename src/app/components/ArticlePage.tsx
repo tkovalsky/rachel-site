@@ -83,97 +83,160 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 
                 {/* Right Column - Hero Image */}
                 <div className="relative">
-                  {article.imageSrc ? (
-                    <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
-                      <Image
-                        src={article.imageSrc}
-                        alt={article.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority
-                      />
-                      {/* Image Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+                    <Image
+                      src={article.imageSrc || '/articles/wycliffe-success-story.jpg'}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                      onError={(e) => {
+                        console.log('Image failed to load:', article.imageSrc);
+                        e.currentTarget.src = '/articles/wycliffe-success-story.jpg';
+                      }}
+                    />
+                    {/* Image Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    
+                    {/* Image Badge */}
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-deep">
+                      Success Story
                     </div>
-                  ) : (
-                    <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-champagne/20 to-deep/20 flex items-center justify-center">
-                      <div className="text-center text-white/60">
-                        <div className="w-16 h-16 mx-auto mb-4 bg-white/10 rounded-full flex items-center justify-center">
-                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="text-sm">Hero Image</p>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Article Content - Magazine Style */}
-        <article className="py-16">
+        {/* Beautiful Landing Page Content */}
+        <article className="py-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               
-              {/* Article Meta Bar */}
-              <div className="flex flex-wrap items-center justify-between py-6 border-b border-gray-200 mb-12">
-                <div className="flex items-center gap-6 text-sm text-gray-600">
-                  {article.clientProfile && (
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">Client Profile:</span>
-                      <span>{article.clientProfile.ageRange} • {article.clientProfile.origin}</span>
+              {/* Story Overview Cards */}
+              <div className="grid md:grid-cols-3 gap-8 mb-16">
+                {article.clientProfile && (
+                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
                     </div>
-                  )}
-                  {article.propertyDetails && (
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">Property:</span>
-                      <span>{article.propertyDetails.propertyType} • {article.propertyDetails.priceRange}</span>
+                    <h3 className="text-xl font-bold text-deep mb-2">Client Profile</h3>
+                    <p className="text-gray-600">{article.clientProfile.ageRange} • {article.clientProfile.origin}</p>
+                    <p className="text-sm text-gray-500 mt-1">{article.clientProfile.buyerType}</p>
+                  </div>
+                )}
+                
+                {article.propertyDetails && (
+                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      </svg>
                     </div>
-                  )}
+                    <h3 className="text-xl font-bold text-deep mb-2">Property Details</h3>
+                    <p className="text-gray-600">{article.propertyDetails.propertyType}</p>
+                    <p className="text-sm text-gray-500 mt-1">{article.propertyDetails.priceRange}</p>
+                  </div>
+                )}
+                
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                  <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-4">
+                    <svg className="w-6 h-6 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-deep mb-2">Success Outcome</h3>
+                  <p className="text-gray-600">Successful close</p>
+                  <p className="text-sm text-gray-500 mt-1">Happy clients</p>
+                </div>
+              </div>
+              
+              {/* Main Story Content with Visual Sections */}
+              <div className="grid lg:grid-cols-3 gap-12">
+                
+                {/* Main Content */}
+                <div className="lg:col-span-2">
+                  <div className="prose prose-xl max-w-none">
+                    <div 
+                      className="article-content space-y-8"
+                      dangerouslySetInnerHTML={{ 
+                        __html: contentHtml
+                          .replace(/<h2>/g, '<h2 class="text-3xl font-bold text-deep mt-16 mb-8 leading-tight border-b border-gray-200 pb-4">')
+                          .replace(/<h3>/g, '<h3 class="text-2xl font-semibold text-deep mt-12 mb-6 leading-tight">')
+                          .replace(/<p>/g, '<p class="text-lg leading-relaxed text-gray-700 mb-6">')
+                          .replace(/<blockquote>/g, '<blockquote class="border-l-4 border-champagne pl-8 my-12 italic text-xl text-gray-600 bg-gray-50 py-6 rounded-r-xl">')
+                          .replace(/<ul>/g, '<ul class="space-y-4 my-8">')
+                          .replace(/<li>/g, '<li class="flex items-start gap-4"><span class="w-3 h-3 bg-champagne rounded-full mt-2 flex-shrink-0"></span><span class="text-lg text-gray-700">')
+                          .replace(/<\/li>/g, '</span></li>')
+                      }}
+                    />
+                  </div>
                 </div>
                 
-                <div className="flex items-center gap-4">
-                  <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-deep transition-colors">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                    </svg>
-                    Share
-                  </button>
+                {/* Sidebar */}
+                <div className="space-y-8">
+                  
+                  {/* Key Highlights */}
+                  <div className="bg-gradient-to-br from-champagne/10 to-deep/5 rounded-2xl p-8">
+                    <h3 className="text-xl font-bold text-deep mb-6">Key Highlights</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
+                        <p className="text-gray-700">Expert guidance throughout the process</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
+                        <p className="text-gray-700">Smooth transition from Northeast</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
+                        <p className="text-gray-700">Perfect community match</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
+                        <p className="text-gray-700">Maintenance-free lifestyle</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Client Quote */}
+                  {article.clientProfile && (
+                    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                      <div className="text-4xl text-champagne mb-4">"</div>
+                      <blockquote className="text-lg italic text-gray-700 leading-relaxed mb-4">
+                        "Rachel didn't just help us find a house—she helped us find our family's Florida home."
+                      </blockquote>
+                      <cite className="block text-sm font-semibold text-deep">
+                        — {article.clientProfile.buyerType}
+                      </cite>
+                    </div>
+                  )}
+                  
+                  {/* CTA Card */}
+                  <div className="bg-gradient-to-br from-deep to-champagne rounded-2xl p-8 text-white">
+                    <h3 className="text-xl font-bold mb-4">Ready to Start Your Story?</h3>
+                    <p className="text-white/90 mb-6">Let Rachel help you find your perfect home in South Florida.</p>
+                    <div className="space-y-3">
+                      <a
+                        href="tel:+15612878966"
+                        className="block w-full bg-white text-deep text-center py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors"
+                      >
+                        Call (561) 287-8966
+                      </a>
+                      <a
+                        href="mailto:hi@racheldelray.com"
+                        className="block w-full border-2 border-white text-white text-center py-3 rounded-lg font-semibold hover:bg-white hover:text-deep transition-colors"
+                      >
+                        Email Rachel
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              {/* Article Body with Enhanced Typography */}
-              <div className="prose prose-xl max-w-none">
-                <div 
-                  className="article-content"
-                  dangerouslySetInnerHTML={{ 
-                    __html: contentHtml
-                      .replace(/<h2>/g, '<h2 class="text-3xl font-bold text-deep mt-12 mb-6 leading-tight">')
-                      .replace(/<h3>/g, '<h3 class="text-2xl font-semibold text-deep mt-10 mb-4 leading-tight">')
-                      .replace(/<p>/g, '<p class="text-lg leading-relaxed text-gray-700 mb-6">')
-                      .replace(/<blockquote>/g, '<blockquote class="border-l-4 border-champagne pl-6 my-8 italic text-xl text-gray-600">')
-                      .replace(/<ul>/g, '<ul class="space-y-3 my-6">')
-                      .replace(/<li>/g, '<li class="flex items-start gap-3"><span class="w-2 h-2 bg-champagne rounded-full mt-3 flex-shrink-0"></span><span>')
-                      .replace(/<\/li>/g, '</span></li>')
-                  }}
-                />
-              </div>
-              
-              {/* Pull Quote Section */}
-              {article.clientProfile && (
-                <div className="my-16 p-8 bg-gradient-to-r from-champagne/10 to-deep/5 rounded-2xl border-l-4 border-champagne">
-                  <blockquote className="text-2xl font-light italic text-gray-700 leading-relaxed">
-                    "Rachel didn't just help us find a house—she helped us find our family's Florida home."
-                  </blockquote>
-                  <cite className="block mt-4 text-lg font-semibold text-deep">
-                    — {article.clientProfile.buyerType}
-                  </cite>
-                </div>
-              )}
             </div>
           </div>
         </article>
