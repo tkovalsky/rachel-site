@@ -276,7 +276,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
               </h2>
               <p className="text-xl mb-10 opacity-90 leading-relaxed">
                 Let Rachel help you find your perfect home in South Florida. 
-                {article.clientProfile && ` Whether you're a ${article.clientProfile.buyerType.toLowerCase()}, `}
+                {article.clientProfile?.buyerType && ` Whether you're a ${article.clientProfile.buyerType.toLowerCase()}, `}
                 Rachel's expertise makes the difference.
               </p>
               
