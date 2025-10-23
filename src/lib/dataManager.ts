@@ -16,7 +16,7 @@ export class DataManager {
   private generatedContent: Map<string, GeneratedContent> = new Map();
 
   private constructor() {
-    this.loadData();
+    void this.loadData();
   }
 
   static getInstance(): DataManager {
@@ -31,7 +31,7 @@ export class DataManager {
     try {
       // Load developments
       const developmentsData = await import('@/app/content/developments.json');
-      developmentsData.default.forEach((dev: any) => {
+      developmentsData.default.forEach((dev: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
         // Ensure ageRange is properly typed as tuple
         if (dev.demographics?.ageRange && Array.isArray(dev.demographics.ageRange)) {
           dev.demographics.ageRange = [dev.demographics.ageRange[0], dev.demographics.ageRange[1]] as [number, number];
@@ -41,7 +41,7 @@ export class DataManager {
 
       // Load areas
       const { AREAS } = await import('@/app/content/areas');
-      AREAS.forEach((area: any) => {
+      AREAS.forEach((area: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
         // Convert Area to AreaDetails format
         const areaDetails: AreaDetails = {
           ...area,
@@ -76,7 +76,7 @@ export class DataManager {
 
       // Load off-market properties
       const offMarketData = await import('@/app/content/offMarket.json');
-      offMarketData.default.forEach((property: any) => {
+      offMarketData.default.forEach((property: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
         // Ensure type is properly typed
         if (property.type && typeof property.type === 'string') {
           property.type = property.type as 'condo' | 'single-family' | 'townhouse' | 'villa';
@@ -84,55 +84,55 @@ export class DataManager {
         this.offMarketProperties.set(property.id, property);
       });
 
-    } catch (error) {
+    } catch (_error) {
       console.warn('Could not load enhanced data files, using basic data');
     }
   }
 
   // Development Management
-  async addDevelopment(development: DevelopmentDetails): Promise<void> {
+  addDevelopment(development: DevelopmentDetails): void {
     this.developments.set(development.id, development);
-    await this.saveData();
+    this.saveData();
   }
 
-  async updateDevelopment(id: string, updates: Partial<DevelopmentDetails>): Promise<void> {
+  updateDevelopment(id: string, updates: Partial<DevelopmentDetails>): void {
     const existing = this.developments.get(id);
     if (existing) {
       const updated = { ...existing, ...updates };
       this.developments.set(id, updated);
-      await this.saveData();
+      this.saveData();
     }
   }
 
-  async getDevelopment(id: string): Promise<DevelopmentDetails | null> {
+  getDevelopment(id: string): DevelopmentDetails | null {
     return this.developments.get(id) || null;
   }
 
-  async getDevelopmentsBySegment(segment: TargetSegment): Promise<DevelopmentDetails[]> {
+  getDevelopmentsBySegment(segment: TargetSegment): DevelopmentDetails[] {
     return Array.from(this.developments.values())
       .filter(dev => dev.targetSegments.includes(segment));
   }
 
-  async getAllDevelopments(): Promise<DevelopmentDetails[]> {
+  getAllDevelopments(): DevelopmentDetails[] {
     return Array.from(this.developments.values());
   }
 
   // Off-Market Properties
-  async addOffMarketProperty(property: OffMarketProperty): Promise<void> {
+  addOffMarketProperty(property: OffMarketProperty): void {
     this.offMarketProperties.set(property.id, property);
-    await this.saveData();
+    this.saveData();
   }
 
-  async updateOffMarketProperty(id: string, updates: Partial<OffMarketProperty>): Promise<void> {
+  updateOffMarketProperty(id: string, updates: Partial<OffMarketProperty>): void {
     const existing = this.offMarketProperties.get(id);
     if (existing) {
       const updated = { ...existing, ...updates };
       this.offMarketProperties.set(id, updated);
-      await this.saveData();
+      this.saveData();
     }
   }
 
-  async getOffMarketProperties(development?: string): Promise<OffMarketProperty[]> {
+  getOffMarketProperties(development?: string): OffMarketProperty[] {
     let properties = Array.from(this.offMarketProperties.values());
     
     if (development) {
@@ -143,26 +143,26 @@ export class DataManager {
   }
 
   // Content Generation
-  async generateContent(config: ContentGenerationConfig): Promise<GeneratedContent> {
-    const development = await this.getDevelopment(config.development);
+  generateContent(config: ContentGenerationConfig): GeneratedContent {
+    const development = this.getDevelopment(config.development);
     if (!development) {
       throw new Error(`Development ${config.development} not found`);
     }
 
     // Generate content based on development and target segment
-    const content = await this.generateContentForDevelopment(development, config);
+    const content = this.generateContentForDevelopment(development, config);
     
     // Store generated content
     this.generatedContent.set(content.id, content);
-    await this.saveData();
+    this.saveData();
     
     return content;
   }
 
-  private async generateContentForDevelopment(
+  private generateContentForDevelopment(
     development: DevelopmentDetails, 
     config: ContentGenerationConfig
-  ): Promise<GeneratedContent> {
+  ): GeneratedContent {
     const contentHooks = development.contentHooks.find(hook => hook.segment === config.targetSegment);
     
     if (!contentHooks) {
@@ -278,30 +278,30 @@ export class DataManager {
   }
 
   // Analytics and Performance
-  async getContentByDevelopment(development: string): Promise<GeneratedContent[]> {
+  getContentByDevelopment(development: string): GeneratedContent[] {
     return Array.from(this.generatedContent.values())
       .filter(content => content.development === development);
   }
 
-  async getContentBySegment(segment: TargetSegment): Promise<GeneratedContent[]> {
+  getContentBySegment(segment: TargetSegment): GeneratedContent[] {
     return Array.from(this.generatedContent.values())
       .filter(content => content.targetSegment === segment);
   }
 
   // Save data (in a real app, this would save to database)
-  private async saveData(): Promise<void> {
+  private saveData(): void {
     // In a real implementation, this would save to a database
     // For now, we'll just log that data was updated
     console.log('Data updated successfully');
   }
 
   // Export data for backup or migration
-  async exportData(): Promise<{
+  exportData(): {
     developments: DevelopmentDetails[];
     offMarketProperties: OffMarketProperty[];
     areas: AreaDetails[];
     generatedContent: GeneratedContent[];
-  }> {
+  } {
     return {
       developments: Array.from(this.developments.values()),
       offMarketProperties: Array.from(this.offMarketProperties.values()),

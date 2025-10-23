@@ -15,7 +15,7 @@ export default function DevelopmentsPage({ searchParams }: DevelopmentsPageProps
   
   const _developments = ContentService.getDevelopments({ 
     targetSegment: segment,
-    amenity: amenity as any,
+    amenity: amenity as 'golf' | 'pickleball' | 'tennis' | 'gym' | 'pool' | 'country-club' | 'beach-access' | 'marina' | 'spa' | 'restaurant' | 'social-club' | 'fitness-center' | 'tennis-courts' | 'walking-trails' | 'dog-park' | undefined,
     featured: true,
     limit: 12 
   });

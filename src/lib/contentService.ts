@@ -18,7 +18,7 @@ import { MARKET_DATA } from '@/app/content/marketData';
 // Content filtering and randomization utilities
 export class ContentService {
   // Get filtered and randomized areas
-  static getAreas(filter: ContentFilter = {}, options: ContentDisplayOptions = {}): Area[] {
+  static getAreas(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Area[] {
     let areas = [...AREAS];
 
     // Apply filters
@@ -50,7 +50,7 @@ export class ContentService {
   }
 
   // Get filtered and randomized developments
-  static getDevelopments(filter: ContentFilter = {}, options: ContentDisplayOptions = {}): Development[] {
+  static getDevelopments(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Development[] {
     let developments = [...DEVELOPMENTS];
 
     // Apply filters
@@ -88,7 +88,7 @@ export class ContentService {
   }
 
   // Get filtered and randomized articles
-  static getArticles(filter: ContentFilter = {}, options: ContentDisplayOptions = {}): Article[] {
+  static getArticles(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Article[] {
     let articles = [...ARTICLES];
 
     // Apply filters
@@ -128,9 +128,9 @@ export class ContentService {
   }
 
   // Get filtered and randomized testimonials
-  static getTestimonials(filter: ContentFilter = {}, options: ContentDisplayOptions = {}): Testimonial[] {
+  static getTestimonials(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Testimonial[] {
     // Convert raw testimonials to proper Testimonial format
-    const testimonials: Testimonial[] = TESTIMONIALS.map((testimonial: any, index) => ({
+    const testimonials: Testimonial[] = TESTIMONIALS.map((testimonial: { q: string; a: string; targetSegment?: TargetSegment; featured?: boolean }, index) => ({
       id: `testimonial-${index}`,
       quote: testimonial.q,
       author: testimonial.a,
@@ -167,7 +167,7 @@ export class ContentService {
   }
 
   // Get filtered market data
-  static getMarketData(filter: ContentFilter = {}, options: ContentDisplayOptions = {}): MarketData[] {
+  static getMarketData(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): MarketData[] {
     let marketData = [...MARKET_DATA];
 
     // Apply filters

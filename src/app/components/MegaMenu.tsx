@@ -29,16 +29,13 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   return (
     <div 
       className="fixed inset-0 z-50 bg-black/50" 
-      onClick={onClose}
-      onKeyDown={(e) => e.key === 'Escape' && onClose()}
       role="dialog"
       aria-modal="true"
       aria-labelledby="mega-menu-title"
     >
       <div 
-        className="absolute top-0 left-0 right-0 bg-surface shadow-2xl" 
-        onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
+        className="absolute top-0 left-0 right-0 bg-surface shadow-2xl"
+        role="document"
       >
         <div className="section py-8">
           {/* Header */}
