@@ -1,6 +1,7 @@
 import { Article } from '../types';
+import { createArticle } from './helpers';
 
-export const wycliffeSuccessStory: Article = {
+export const wycliffeSuccessStory: Article = createArticle({
   id: 'wycliffe-success-story',
   title: 'From Golf Dreams to Real Life: Cheryl & Eddie\'s Wycliffe Story',
   slug: 'wycliffe-success-story',
@@ -46,4 +47,4 @@ For any woman 50 or better, wondering if it's too late to make a big change or d
     specialFeatures: ['golf-cart garage', 'sunlit patio', 'maintenance-free living']
   },
   adSource: 'wycliffe-success-story'
-};
+});
