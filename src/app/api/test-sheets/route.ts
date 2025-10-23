@@ -19,7 +19,7 @@ export async function GET() {
     const envValues = {
       GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID ? `${process.env.GOOGLE_SHEET_ID.substring(0, 10)}...` : 'NOT_SET',
       GOOGLE_SHEET_NAME: process.env.GOOGLE_SHEET_NAME || 'NOT_SET',
-      GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ? `${process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL.substring(0, 20)}...` : 'NOT_SET',
+      GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 'NOT_SET', // Show full email for sharing
       GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY ? `${process.env.GOOGLE_PRIVATE_KEY.substring(0, 30)}...` : 'NOT_SET',
     };
 
