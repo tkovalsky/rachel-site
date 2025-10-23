@@ -33,7 +33,6 @@ The Johnsons are now happily settled in their new home and couldn't be more plea
 This test article demonstrates our content workflow is functioning correctly.`,
   author: 'Rachel Kovalsky',
   publishDate: '2024-10-23',
-  imageSrc: '/articles/test-success-story.jpg',
   featured: false,
   areas: ['boca-raton'],
   developments: [],
