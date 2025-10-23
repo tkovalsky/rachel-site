@@ -13,11 +13,12 @@
 - ✅ **Format flexibility** - allows spaces, dashes, parentheses
 - ✅ **Optional field** - not required for submission
 
-### **3. Multi-Select Neighborhoods**
-- ✅ **Complete city list** - All Palm Beach and Broward County cities
+### **3. Multi-Select Service Areas**
+- ✅ **Focused service areas** - Rachel's core markets only
 - ✅ **Checkbox interface** - Easy multi-selection
-- ✅ **Scrollable list** - Organized in 3 columns
-- ✅ **Selected summary** - Shows chosen cities
+- ✅ **Clean layout** - Organized in 3 columns
+- ✅ **Selected summary** - Shows chosen areas
+- ✅ **"Other areas" option** - Captures referral opportunities
 - ✅ **Comma-separated storage** - Easy to parse in Google Sheets
 
 ## 📋 **Google Sheets Enhancement Suggestions**
@@ -60,12 +61,14 @@ Manual tracking:
 
 ### **3. Automated Data Processing**
 
-#### **Neighborhood Analysis**
-Create a separate sheet for neighborhood insights:
+#### **Service Area Analysis**
+Create a separate sheet for service area insights:
 ```
-Neighborhood | Count | Conversion Rate | Avg Lead Score
+Service Area | Count | Conversion Rate | Avg Lead Score
 Boca Raton   | 15    | 40%            | High
 Delray Beach | 12    | 35%            | High
+Boynton Beach| 8     | 30%            | Medium
+Other areas  | 5     | 20%            | Low (referral opportunity)
 ```
 
 #### **Lead Source Performance**
@@ -170,8 +173,15 @@ Set up Google Sheets notifications for:
 ### **For Business Growth:**
 - ✅ **Higher conversion rates** with better data
 - ✅ **Faster response times** with alerts
-- ✅ **Market intelligence** from neighborhood data
+- ✅ **Market intelligence** from service area data
+- ✅ **Referral opportunities** from "Other areas" leads
 - ✅ **Process optimization** with analytics
+
+### **For Referral Management:**
+- ✅ **"Other areas" leads** automatically flagged for referral
+- ✅ **Referral partner tracking** for out-of-area leads
+- ✅ **Commission tracking** for referral fees
+- ✅ **Network building** through strategic referrals
 
 ## 🔧 **Quick Setup Guide**
 

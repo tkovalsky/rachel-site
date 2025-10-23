@@ -1,25 +1,20 @@
 "use client";
 import { useState } from "react";
 
-// Palm Beach and Broward County cities
-const FLORIDA_CITIES = [
-  // Palm Beach County
-  "Boca Raton", "Boynton Beach", "Delray Beach", "West Palm Beach", "Palm Beach",
-  "Jupiter", "Palm Beach Gardens", "Wellington", "Royal Palm Beach", "Lantana",
-  "Lake Worth", "Greenacres", "Loxahatchee", "Tequesta", "Belle Glade",
-  "Pahokee", "South Bay", "Cloud Lake", "Glen Ridge", "Haverhill",
-  "Hypoluxo", "Juno Beach", "Lake Clarke Shores", "Lake Park", "Mangonia Park",
-  "North Palm Beach", "Ocean Ridge", "Palm Beach Shores", "Riviera Beach",
-  "South Palm Beach", "Village of Golf", "Village of North Palm Beach",
-  
-  // Broward County
-  "Fort Lauderdale", "Hollywood", "Pembroke Pines", "Miramar", "Coral Springs",
-  "Pompano Beach", "Plantation", "Sunrise", "Tamarac", "Weston", "Davie",
-  "Lauderhill", "Margate", "Deerfield Beach", "Coconut Creek", "Cooper City",
-  "Dania Beach", "Hallandale Beach", "Lighthouse Point", "North Lauderdale",
-  "Parkland", "Pembroke Park", "Sea Ranch Lakes", "Southwest Ranches",
-  "Wilton Manors", "Lauderdale Lakes", "Lauderdale-by-the-Sea", "Oakland Park"
-].sort();
+// Rachel's core service areas
+const SERVICE_AREAS = [
+  "Boca Raton",
+  "Boynton Beach", 
+  "Deerfield Beach",
+  "Delray Beach",
+  "Greenacres",
+  "Lake Worth",
+  "Palm Beach Gardens",
+  "Parkland",
+  "Pompano Beach",
+  "West Palm Beach",
+  "Other areas"
+];
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
@@ -185,17 +180,17 @@ export default function ContactForm() {
               <label className="block text-sm font-medium text-ink mb-2">
                 Areas of Interest (select all that apply)
               </label>
-              <div className="max-h-48 overflow-y-auto border border-divider rounded-lg p-4 bg-surface">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                  {FLORIDA_CITIES.map((city) => (
-                    <label key={city} className="flex items-center space-x-2 text-sm">
+              <div className="border border-divider rounded-lg p-4 bg-surface">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {SERVICE_AREAS.map((area) => (
+                    <label key={area} className="flex items-center space-x-2 text-sm cursor-pointer hover:bg-surface-subtle p-2 rounded">
                       <input
                         type="checkbox"
-                        checked={selectedNeighborhoods.includes(city)}
-                        onChange={(e) => handleNeighborhoodChange(city, e.target.checked)}
+                        checked={selectedNeighborhoods.includes(area)}
+                        onChange={(e) => handleNeighborhoodChange(area, e.target.checked)}
                         className="rounded border-divider text-champagne focus:ring-champagne focus:ring-2"
                       />
-                      <span className="text-ink">{city}</span>
+                      <span className="text-ink font-medium">{area}</span>
                     </label>
                   ))}
                 </div>
