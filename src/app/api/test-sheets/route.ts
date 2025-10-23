@@ -41,8 +41,32 @@ export async function GET() {
       const authClient = await auth.getClient();
       authTest = { success: true, message: "Authentication successful" };
       
-      // Test Google Sheets connection
-      sheetTest = await setupSheetHeaders();
+      // Test Google Sheets connection with detailed error logging
+      try {
+        // First test: Try to access the sheet directly
+        const sheets = google.sheets({ version: 'v4', auth });
+        const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+        const sheetName = process.env.GOOGLE_SHEET_NAME || 'Leads';
+        
+        // Test basic sheet access
+        const testResponse = await sheets.spreadsheets.get({
+          spreadsheetId: spreadsheetId,
+        });
+        
+        console.log("Sheet access test successful:", testResponse.data.title);
+        
+        // Now test the setupSheetHeaders function
+        sheetTest = await setupSheetHeaders();
+      } catch (sheetError) {
+        console.error("Sheet test error:", sheetError);
+        sheetTest = { 
+          success: false, 
+          error: sheetError instanceof Error ? sheetError.message : "Sheet access failed",
+          details: sheetError,
+          errorCode: (sheetError as any)?.code,
+          status: (sheetError as any)?.status
+        };
+      }
     } catch (authError) {
       authTest = { 
         success: false, 
