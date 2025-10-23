@@ -1,5 +1,5 @@
 import { ContentService } from '@/lib/contentService';
-import { ContentFilter, TargetSegment } from '@/app/content/types';
+import { TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -205,7 +205,7 @@ export function DynamicTestimonials({
           </footer>
           {testimonial.rating && (
             <div className="mt-2 flex">
-              {[...Array(5)].map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <span
                   key={i}
                   className={`text-lg ${

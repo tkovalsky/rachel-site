@@ -3,7 +3,26 @@
 import { DynamicTestimonials } from './DynamicContent';
 import { TargetSegment } from '@/app/content/types';
 
+export interface Review {
+  id: string;
+  quote: string;
+  author: string;
+  role?: string;
+  location?: string;
+  targetSegment: TargetSegment;
+  featured: boolean;
+  rating?: number;
+}
+
+export interface RawReview {
+  q: string;
+  a: string;
+  targetSegment?: TargetSegment;
+  featured?: boolean;
+}
+
 interface TestimonialsProps {
+  items?: Review[];
   targetSegment?: TargetSegment;
   limit?: number;
   randomize?: boolean;

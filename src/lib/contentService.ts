@@ -129,32 +129,41 @@ export class ContentService {
 
   // Get filtered and randomized testimonials
   static getTestimonials(filter: ContentFilter = {}, options: ContentDisplayOptions = {}): Testimonial[] {
-    let testimonials = [...TESTIMONIALS];
+    // Convert raw testimonials to proper Testimonial format
+    const testimonials: Testimonial[] = TESTIMONIALS.map((testimonial: any, index) => ({
+      id: `testimonial-${index}`,
+      quote: testimonial.q,
+      author: testimonial.a,
+      targetSegment: testimonial.targetSegment || 'professional' as TargetSegment,
+      featured: testimonial.featured || false,
+    }));
+
+    let filteredTestimonials = [...testimonials];
 
     // Apply filters
     if (filter.targetSegment) {
-      testimonials = testimonials.filter(testimonial => 
+      filteredTestimonials = filteredTestimonials.filter(testimonial => 
         testimonial.targetSegment === filter.targetSegment
       );
     }
 
     if (filter.featured !== undefined) {
-      testimonials = testimonials.filter(testimonial => 
+      filteredTestimonials = filteredTestimonials.filter(testimonial => 
         testimonial.featured === filter.featured
       );
     }
 
     // Randomize if requested
     if (filter.randomize) {
-      testimonials = this.shuffleArray(testimonials);
+      filteredTestimonials = this.shuffleArray(filteredTestimonials);
     }
 
     // Apply limit
     if (filter.limit) {
-      testimonials = testimonials.slice(0, filter.limit);
+      filteredTestimonials = filteredTestimonials.slice(0, filter.limit);
     }
 
-    return testimonials;
+    return filteredTestimonials;
   }
 
   // Get filtered market data

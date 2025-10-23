@@ -13,7 +13,7 @@ export default function DevelopmentsPage({ searchParams }: DevelopmentsPageProps
   const segment = searchParams.segment as TargetSegment | undefined;
   const amenity = searchParams.amenity;
   
-  const developments = ContentService.getDevelopments({ 
+  const _developments = ContentService.getDevelopments({ 
     targetSegment: segment,
     amenity: amenity as any,
     featured: true,

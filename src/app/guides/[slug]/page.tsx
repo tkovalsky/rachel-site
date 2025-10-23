@@ -19,6 +19,6 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 }
 
 // Optional for static generation (recommended)
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
 }

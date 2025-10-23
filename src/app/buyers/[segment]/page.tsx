@@ -55,7 +55,7 @@ export default function BuyerPage({ params }: BuyerPageProps) {
   }
 
   const segmentInfo = segmentLabels[segment];
-  const content = ContentService.getContentBySegment(segment, 3);
+  const _content = ContentService.getContentBySegment(segment, 3);
 
   return (
     <main className="min-h-screen bg-paper">

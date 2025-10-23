@@ -1,7 +1,17 @@
 // src/app/components/MarketHighlights.tsx
 import { DynamicMarketData } from './DynamicContent';
 
+export interface MarketStat {
+  key: string;
+  label: string;
+  value: number;
+  format: 'currency' | 'percent' | 'raw';
+  sublabel: string;
+}
+
 type Props = {
+  items?: MarketStat[];
+  source?: { label: string };
   area?: string;
   limit?: number;
   randomize?: boolean;

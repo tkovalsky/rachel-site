@@ -1,4 +1,30 @@
-export default function GuideLandingPage({ article }) {
+interface GuideArticle {
+  slug: string;
+  title: string;
+  subtitle: string;
+  bullets: string[];
+  contentHtml: string;
+  developments?: Array<{
+    title: string;
+    description: string;
+    url: string;
+    image: string;
+    imageAlt?: string;
+  }>;
+  relatedArticles?: Array<{
+    title: string;
+    description: string;
+    url: string;
+  }>;
+}
+
+import Image from 'next/image';
+
+interface GuideLandingPageProps {
+  article: GuideArticle;
+}
+
+export default function GuideLandingPage({ article }: GuideLandingPageProps) {
   return (
     <>
       <main className="min-h-screen bg-paper" role="main">
@@ -68,7 +94,13 @@ export default function GuideLandingPage({ article }) {
                     aria-label={`Read more about ${dev.title}`}
                     className="group card overflow-hidden hover:shadow-lg transition-all duration-300"
                   >
-                    <img src={dev.image} alt={dev.imageAlt || dev.title} className="w-full h-48 object-cover" />
+                    <Image 
+                      src={dev.image} 
+                      alt={dev.imageAlt || dev.title} 
+                      width={400}
+                      height={192}
+                      className="w-full h-48 object-cover" 
+                    />
                     <div className="p-6">
                       <h4 className="h3 text-deep group-hover:text-champagne transition-colors mb-2">{dev.title}</h4>
                       <p className="body text-ink-soft">{dev.description}</p>

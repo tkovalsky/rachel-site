@@ -31,19 +31,56 @@ export class DataManager {
     try {
       // Load developments
       const developmentsData = await import('@/app/content/developments.json');
-      developmentsData.default.forEach(dev => {
+      developmentsData.default.forEach((dev: any) => {
+        // Ensure ageRange is properly typed as tuple
+        if (dev.demographics?.ageRange && Array.isArray(dev.demographics.ageRange)) {
+          dev.demographics.ageRange = [dev.demographics.ageRange[0], dev.demographics.ageRange[1]] as [number, number];
+        }
         this.developments.set(dev.id, dev);
       });
 
       // Load areas
-      const areasData = await import('@/app/content/areas.json');
-      areasData.default.forEach(area => {
-        this.areas.set(area.id, area);
+      const { AREAS } = await import('@/app/content/areas');
+      AREAS.forEach((area: any) => {
+        // Convert Area to AreaDetails format
+        const areaDetails: AreaDetails = {
+          ...area,
+          shortDescription: area.description,
+          demographics: {
+            population: 0,
+            medianAge: 0,
+            medianIncome: 0,
+            educationLevel: 'college',
+            lifestyle: []
+          },
+          marketProfile: {
+            priceRange: [0, 0] as [number, number],
+            marketType: 'luxury' as const,
+            growthRate: 0,
+            stability: 'stable' as const
+          },
+          lifestyle: {
+            walkability: 0,
+            nightlife: 'quiet' as const,
+            dining: 'good' as const,
+            shopping: 'good' as const,
+            culture: 'moderate' as const
+          },
+          contentHooks: [],
+          seoKeywords: [],
+          marketingTags: [],
+          seasonalAppeal: []
+        };
+        this.areas.set(area.id, areaDetails);
       });
 
       // Load off-market properties
       const offMarketData = await import('@/app/content/offMarket.json');
-      offMarketData.default.forEach(property => {
+      offMarketData.default.forEach((property: any) => {
+        // Ensure type is properly typed
+        if (property.type && typeof property.type === 'string') {
+          property.type = property.type as 'condo' | 'single-family' | 'townhouse' | 'villa';
+        }
         this.offMarketProperties.set(property.id, property);
       });
 
@@ -154,7 +191,7 @@ export class DataManager {
   }
 
   private generateTitle(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string {
-    const templates = {
+    const templates: Record<string, string[]> = {
       'article': [
         `Why ${development.name} is Perfect for ${this.getSegmentLabel(config.targetSegment)}`,
         `${development.name}: The Ultimate ${this.getSegmentLabel(config.targetSegment)} Community`,
@@ -169,6 +206,11 @@ export class DataManager {
         `Exclusive: ${development.name} Opportunity`,
         `Why ${development.name} is Perfect for You`,
         `Don't Miss: ${development.name} Insider Access`
+      ],
+      'landing-page': [
+        `Welcome to ${development.name}`,
+        `${development.name} - Your Perfect Home`,
+        `Discover ${development.name}`
       ]
     };
 

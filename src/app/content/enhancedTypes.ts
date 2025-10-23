@@ -1,5 +1,10 @@
 // Enhanced content types for AI generation and lead nurturing
 
+import type { TargetSegment, Amenity } from './types';
+
+// Re-export types for external use
+export type { TargetSegment, Amenity };
+
 export interface DevelopmentDetails {
   id: string;
   name: string;

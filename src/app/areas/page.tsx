@@ -1,6 +1,7 @@
 import { ContentService } from '@/lib/contentService';
 import { DynamicAreas } from '@/app/components/DynamicContent';
 import { TargetSegment } from '@/app/content/types';
+import Link from 'next/link';
 
 interface AreasPageProps {
   searchParams: {
@@ -11,7 +12,7 @@ interface AreasPageProps {
 export default function AreasPage({ searchParams }: AreasPageProps) {
   const segment = searchParams.segment as TargetSegment | undefined;
   
-  const areas = ContentService.getAreas({ 
+  const _areas = ContentService.getAreas({ 
     targetSegment: segment,
     featured: true,
     limit: 12 
@@ -44,10 +45,10 @@ export default function AreasPage({ searchParams }: AreasPageProps) {
             </p>
             {!segment && (
               <div className="flex flex-wrap gap-3 justify-center">
-                <a href="/buyers/55-plus-cash-buyer" className="btn-ghost">Active Adults</a>
-                <a href="/buyers/family" className="btn-ghost">Families</a>
-                <a href="/buyers/investor" className="btn-ghost">Investors</a>
-                <a href="/buyers/relocating" className="btn-ghost">Relocating</a>
+                <Link href="/buyers/55-plus-cash-buyer" className="btn-ghost">Active Adults</Link>
+                <Link href="/buyers/family" className="btn-ghost">Families</Link>
+                <Link href="/buyers/investor" className="btn-ghost">Investors</Link>
+                <Link href="/buyers/relocating" className="btn-ghost">Relocating</Link>
               </div>
             )}
           </div>

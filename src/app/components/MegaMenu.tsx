@@ -27,12 +27,23 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   const developments = ContentService.getDevelopments({ featured: true, limit: 6 });
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50" onClick={onClose}>
-      <div className="absolute top-0 left-0 right-0 bg-surface shadow-2xl" onClick={(e) => e.stopPropagation()}>
+    <div 
+      className="fixed inset-0 z-50 bg-black/50" 
+      onClick={onClose}
+      onKeyDown={(e) => e.key === 'Escape' && onClose()}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mega-menu-title"
+    >
+      <div 
+        className="absolute top-0 left-0 right-0 bg-surface shadow-2xl" 
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <div className="section py-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
-            <h2 className="h2 text-deep">Find Your Perfect Home</h2>
+            <h2 id="mega-menu-title" className="h2 text-deep">Find Your Perfect Home</h2>
             <button 
               onClick={onClose}
               className="text-ink-lighter hover:text-ink text-2xl"
