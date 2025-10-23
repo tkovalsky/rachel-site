@@ -22,7 +22,7 @@ export interface LeadData {
   source: string;
 }
 
-export async function addLeadToSheet(leadData: LeadData): Promise<{ success: boolean; error?: string }> {
+export async function addLeadToSheet(leadData: LeadData): Promise<{ success: boolean; error?: string; isDuplicate?: boolean }> {
   try {
     const spreadsheetId = process.env.GOOGLE_SHEET_ID;
     const sheetName = process.env.GOOGLE_SHEET_NAME || 'Leads';
@@ -32,15 +32,27 @@ export async function addLeadToSheet(leadData: LeadData): Promise<{ success: boo
       return { success: false, error: 'Sheet not configured' };
     }
 
-    // Prepare the row data
+    // Check for duplicate email first (but don't fail if check fails)
+    try {
+      const duplicateCheck = await checkForDuplicateEmail(leadData.email, spreadsheetId, sheetName);
+      if (duplicateCheck.isDuplicate) {
+        console.log('Duplicate email detected:', leadData.email);
+        return { success: true, isDuplicate: true };
+      }
+    } catch (duplicateError) {
+      console.warn('Duplicate check failed, proceeding with lead addition:', duplicateError);
+      // Continue with lead addition even if duplicate check fails
+    }
+
+    // Prepare the row data with validation
     const rowData = [
       leadData.timestamp,
       leadData.type,
-      leadData.email,
-      leadData.name || '',
-      leadData.phone || '',
-      leadData.neighborhoods || '',
-      leadData.message || '',
+      leadData.email.toLowerCase().trim(), // Normalize email
+      (leadData.name || '').trim(),
+      (leadData.phone || '').trim(),
+      (leadData.neighborhoods || '').trim(),
+      (leadData.message || '').trim(),
       leadData.source,
     ];
 
@@ -59,6 +71,29 @@ export async function addLeadToSheet(leadData: LeadData): Promise<{ success: boo
   } catch (error) {
     console.error('Error adding lead to Google Sheets:', error);
     return { success: false, error: 'Failed to add lead to sheet' };
+  }
+}
+
+async function checkForDuplicateEmail(email: string, spreadsheetId: string, sheetName: string): Promise<{ isDuplicate: boolean; error?: string }> {
+  try {
+    // Get all existing emails from column C (Email column)
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `${sheetName}!C:C`,
+    });
+
+    const existingEmails = response.data.values?.flat() || [];
+    const normalizedEmail = email.toLowerCase().trim();
+    
+    // Check if email already exists (case-insensitive)
+    const isDuplicate = existingEmails.some(existingEmail => 
+      existingEmail && existingEmail.toLowerCase().trim() === normalizedEmail
+    );
+
+    return { isDuplicate };
+  } catch (error) {
+    console.error('Error checking for duplicate email:', error);
+    return { isDuplicate: false, error: 'Failed to check for duplicates' };
   }
 }
 

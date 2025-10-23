@@ -13,6 +13,7 @@ const schema = z.object({
   message: z.string().optional(),
   type: z.string().optional(), // 'newsletter' or 'contact'
   neighborhoods: z.string().optional(),
+  source: z.string().optional(), // 'contact-form', 'newsletter-signup', etc.
   _gotcha: z.string().optional(), // honeypot
 });
 
@@ -47,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
     }
 
-    const { email, name, phone, message, type, neighborhoods, _gotcha } = parsed.data;
+    const { email, name, phone, message, type, neighborhoods, source, _gotcha } = parsed.data;
 
     // Honeypot: pretend success if bot
     if (_gotcha && _gotcha.length > 0) {
@@ -86,52 +87,40 @@ export async function POST(req: NextRequest) {
       phone,
       neighborhoods,
       message,
-      source: 'Website',
+      source: source || 'Website',
     };
 
     const sheetResult = await addLeadToSheet(leadData);
     if (!sheetResult.success) {
       console.warn('Failed to add lead to Google Sheets:', sheetResult.error);
+      // Don't fail the request if Google Sheets fails, just log it
     }
 
-    // Different handling for newsletter vs contact
-    if (type === 'newsletter') {
-      const lines: string[] = [
-        `Newsletter Signup: ${email}`,
-        name ? `Name: ${name}` : "",
-        "",
-        "This person wants to receive weekly South Florida market updates.",
-      ].filter(Boolean);
+    // Handle duplicate email case
+    if (sheetResult.isDuplicate) {
+      console.log('Duplicate email detected, skipping email notification');
+      return NextResponse.json({ ok: true, duplicate: true });
+    }
 
-      await transporter.sendMail({
-        from: fromAddr,
-        to,
-        cc: ccList.length ? ccList : undefined,
-        subject: "New Newsletter Signup",
-        text: lines.join("\n"),
-      });
-    } else {
-      // Contact form submission
-      const lines: string[] = [
-        `From: ${name ? `${name} <${email}>` : email}`,
-        phone ? `Phone: ${phone}` : "",
-        neighborhoods ? `Neighborhoods of Interest: ${neighborhoods}` : "",
-        "",
-        message ?? "(no message)",
-      ].filter(Boolean);
-
-      await transporter.sendMail({
-        from: fromAddr,
-        to,
-        cc: ccList.length ? ccList : undefined,
-        subject: "New Real Estate Inquiry",
-        text: lines.join("\n"),
+    // Email notifications disabled to avoid spam flags
+    // TODO: Integrate with proper email marketing tool (Mailchimp, ConvertKit, etc.)
+    console.log('Email notifications disabled - lead saved to Google Sheets only');
+    
+    // In development, return additional info
+    if (process.env.NODE_ENV === 'development') {
+      return NextResponse.json({ 
+        ok: true, 
+        devMessage: 'Email notifications disabled - lead saved to Google Sheets only',
+        sheetResult: sheetResult.success ? 'Lead saved to Google Sheets' : 'Google Sheets save failed'
       });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("contact route error:", err);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+    const errorMessage = process.env.NODE_ENV === 'development' 
+      ? `Server error: ${err instanceof Error ? err.message : 'Unknown error'}` 
+      : "Server error";
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 });
   }
 }
