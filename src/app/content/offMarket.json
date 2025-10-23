@@ -1,0 +1,82 @@
+[
+  {
+    "id": "atlantic-gardens-301",
+    "development": "atlantic-gardens",
+    "type": "condo",
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "squareFeet": 2400,
+    "price": 1850000,
+    "description": "Stunning 3BR/3BA corner unit with panoramic golf course views. Recently renovated with high-end finishes throughout.",
+    "images": [
+      "/off-market/atlantic-gardens-301-1.jpg",
+      "/off-market/atlantic-gardens-301-2.jpg",
+      "/off-market/atlantic-gardens-301-3.jpg"
+    ],
+    "specialFeatures": [
+      "Corner unit with panoramic views",
+      "Recently renovated kitchen",
+      "Private balcony overlooking golf course",
+      "Premium finishes throughout",
+      "Covered parking space"
+    ],
+    "availability": "available",
+    "exclusivity": "exclusive",
+    "targetSegments": ["55-plus-cash-buyer", "second-home-buyer"],
+    "notes": "Owner motivated to sell quickly. Perfect for active adults who want maintenance-free luxury living.",
+    "contactRequired": true
+  },
+  {
+    "id": "boca-west-villa-12",
+    "development": "boca-west",
+    "type": "villa",
+    "bedrooms": 4,
+    "bathrooms": 4,
+    "squareFeet": 3200,
+    "price": 3200000,
+    "description": "Exceptional 4BR/4BA villa with private pool and golf course frontage. Recently updated with luxury finishes.",
+    "images": [
+      "/off-market/boca-west-villa-12-1.jpg",
+      "/off-market/boca-west-villa-12-2.jpg",
+      "/off-market/boca-west-villa-12-3.jpg"
+    ],
+    "specialFeatures": [
+      "Private pool and spa",
+      "Golf course frontage",
+      "Recently updated kitchen",
+      "Master suite with walk-in closet",
+      "Covered lanai with outdoor kitchen"
+    ],
+    "availability": "coming-soon",
+    "exclusivity": "pre-market",
+    "targetSegments": ["55-plus-cash-buyer", "upgrade-downgrade"],
+    "notes": "Coming to market in 30 days. Perfect for buyers who want first access to this exceptional property.",
+    "contactRequired": true
+  },
+  {
+    "id": "delray-beach-club-205",
+    "development": "delray-beach-club",
+    "type": "condo",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "squareFeet": 1800,
+    "price": 650000,
+    "description": "Charming 2BR/2BA unit in active adult community. Move-in ready with updated appliances and finishes.",
+    "images": [
+      "/off-market/delray-beach-club-205-1.jpg",
+      "/off-market/delray-beach-club-205-2.jpg"
+    ],
+    "specialFeatures": [
+      "Updated kitchen with granite counters",
+      "Private balcony",
+      "Walk-in closet in master",
+      "Updated bathrooms",
+      "Covered parking"
+    ],
+    "availability": "available",
+    "exclusivity": "exclusive",
+    "targetSegments": ["55-plus-cash-buyer"],
+    "notes": "Perfect for active adults who want maintenance-free living with resort-style amenities.",
+    "contactRequired": true
+  }
+]

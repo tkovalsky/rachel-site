@@ -2,7 +2,8 @@
 import Hero from "./components/Hero";
 import About from "./components/About";
 // FIX APPLIED: Importing Testimonials component, and both Review and RawReview types
-import Testimonials, { type Review, type RawReview } from "./components/Testimonials"; 
+import Testimonials, { type Review, type RawReview } from "./components/Testimonials";
+import { type TargetSegment } from "./content/types"; 
 import ContactForm from "./components/ContactForm";
 
 import SocialProof from "./components/SocialProof";
@@ -23,9 +24,12 @@ import { MARKET_SEP_2025 } from "./content/market";
 export default function HomePage() {
   // FIX APPLIED: Using the imported RawReview type instead of 'any'
   const normalizedTestimonials: Review[] = (Array.isArray(TESTIMONIALS) ? TESTIMONIALS : [])
-  .map((t: RawReview) => ({
-    quote: t.quote ?? t.q,
-    author: t.author ?? t.a,
+  .map((t: RawReview, index: number) => ({
+    id: `testimonial-${index}`,
+    quote: t.q,
+    author: t.a,
+    targetSegment: t.targetSegment || 'professional' as TargetSegment,
+    featured: t.featured || false,
   }))
   .filter((t) => t.quote && t.author) as Review[]; // Final assertion to satisfy strict types
   
