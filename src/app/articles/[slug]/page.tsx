@@ -1,8 +1,8 @@
 import { ALL_ARTICLES } from '@/app/content/articles/index';
-import GuideLandingPage from '@/app/components/GuideLandingPage';
+import ArticlePage from '@/app/components/ArticlePage';
 
 // ✅ make the function async and await params
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ArticlePageRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; // ✅ unwrap the Promise
 
   const article = ALL_ARTICLES.find((a) => a.slug === slug);
@@ -15,10 +15,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     );
   }
 
-  return <GuideLandingPage article={article} />;
+  return <ArticlePage article={article} />;
 }
 
 // Optional for static generation (recommended)
 export function generateStaticParams() {
   return ALL_ARTICLES.map((a) => ({ slug: a.slug }));
 }
+// Force rebuild Thu Oct 23 16:25:15 EDT 2025
