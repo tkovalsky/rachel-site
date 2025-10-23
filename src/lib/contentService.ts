@@ -18,7 +18,7 @@ interface RawTestimonial {
 
 import { AREAS } from '@/app/content/areas';
 import { DEVELOPMENTS } from '@/app/content/developments';
-import { ALL_ARTICLES as ARTICLES } from '@/app/content/articles';
+import { ALL_ARTICLES as ARTICLES } from '@/app/content/articles/index';
 import { TESTIMONIALS } from '@/app/content/testimonials';
 import { MARKET_DATA } from '@/app/content/marketData';
 
