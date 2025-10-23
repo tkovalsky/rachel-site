@@ -42,6 +42,22 @@ export interface Article {
   developments: string[]; // Development IDs
   targetSegments: TargetSegment[];
   tags: string[];
+  // Success story fields
+  storyType?: 'success-story' | 'guide' | 'market-update' | 'area-guide';
+  clientProfile?: {
+    ageRange?: string;
+    origin?: string; // e.g., "Northeast"
+    buyerType?: string; // e.g., "55+ cash buyer"
+    familyStructure?: string; // e.g., "married couple"
+  };
+  propertyDetails?: {
+    development?: string;
+    propertyType?: string;
+    priceRange?: string;
+    specialFeatures?: string[];
+  };
+  relatedStories?: string[]; // IDs of related success stories
+  adSource?: string; // For tracking which content generated leads
 }
 
 export interface Testimonial {

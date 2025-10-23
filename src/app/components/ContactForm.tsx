@@ -87,6 +87,7 @@ export default function ContactForm() {
           message: getStr("notes"),
           type: "contact",
           source: "contact-form",
+          adSource: getStr("adSource") || "contact-form", // Track which content generated the lead
           _gotcha: getStr("_gotcha"),
         };
 
@@ -211,6 +212,9 @@ export default function ContactForm() {
             </div>
             {/* Honeypot */}
             <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+            
+            {/* Ad Source Tracking */}
+            <input type="hidden" name="adSource" value="contact-form" />
 
             <div className="md:col-span-2 flex justify-center">
               <button

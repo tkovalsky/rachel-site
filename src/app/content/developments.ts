@@ -128,4 +128,16 @@ export const DEVELOPMENTS: Development[] = [
     featured: true,
     targetSegments: ['55-plus-cash-buyer', 'second-home-buyer'],
   },
+  {
+    id: 'wycliffe-golf-country-club',
+    name: 'Wycliffe Golf & Country Club',
+    slug: 'wycliffe-golf-country-club',
+    area: 'lake-worth',
+    description: 'Private, gated country club community with championship golf and resort amenities.',
+    imageSrc: '/developments/wycliffe-golf-country-club.jpg',
+    amenities: ['golf', 'country-club', 'tennis', 'pickleball', 'pool', 'spa', 'restaurant', 'social-club', 'walking-trails'],
+    priceRange: { min: 800000, max: 2000000 },
+    featured: true,
+    targetSegments: ['55-plus-cash-buyer', 'second-home-buyer'],
+  },
 ];

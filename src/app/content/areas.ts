@@ -56,4 +56,15 @@ export const AREAS: Area[] = [
     developments: ['cityplace-tower', 'waterfront-condos'],
     articles: ['west-palm-beach-urban', 'downtown-living'],
   },
+  {
+    id: 'lake-worth',
+    name: 'Lake Worth',
+    slug: 'lake-worth',
+    description: 'Charming coastal community with historic downtown and beach access.',
+    imageSrc: '/neighborhoods/lake-worth-downtown.jpg',
+    featured: true,
+    targetSegments: ['55-plus-cash-buyer', 'second-home-buyer', 'professional'],
+    developments: ['wycliffe-golf-country-club'],
+    articles: ['wycliffe-success-story'],
+  },
 ];
