@@ -25,7 +25,7 @@ interface RawDevelopment {
     painPoints: string[];
     motivations: string[];
   };
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface RawArea {
@@ -58,6 +58,13 @@ interface RawOffMarketProperty {
   contactRequired: boolean;
 }
 
+interface ContentHooks {
+  hook: string;
+  painPoint: string;
+  solution: string;
+  callToAction: string;
+}
+
 // Data storage strategy - can be JSON files, database, or API
 export class DataManager {
   private static instance: DataManager;
@@ -87,7 +94,7 @@ export class DataManager {
         if (dev.demographics?.ageRange && Array.isArray(dev.demographics.ageRange)) {
           dev.demographics.ageRange = [dev.demographics.ageRange[0], dev.demographics.ageRange[1]] as [number, number];
         }
-        this.developments.set(dev.id, dev as DevelopmentDetails);
+        this.developments.set(dev.id, dev as unknown as DevelopmentDetails);
       });
 
       // Load areas
@@ -132,10 +139,10 @@ export class DataManager {
         if (property.type && typeof property.type === 'string') {
           property.type = property.type as 'condo' | 'single-family' | 'townhouse' | 'villa';
         }
-        this.offMarketProperties.set(property.id, property as OffMarketProperty);
+        this.offMarketProperties.set(property.id, property as unknown as OffMarketProperty);
       });
 
-    } catch (_error) {
+    } catch {
       console.warn('Could not load enhanced data files, using basic data');
     }
   }
@@ -241,7 +248,7 @@ export class DataManager {
     };
   }
 
-  private generateTitle(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string {
+  private generateTitle(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const templates: Record<string, string[]> = {
       'article': [
         `Why ${development.name} is Perfect for ${this.getSegmentLabel(config.targetSegment)}`,
@@ -269,7 +276,7 @@ export class DataManager {
     return templateList[Math.floor(Math.random() * templateList.length)];
   }
 
-  private generateContentBody(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: any): string {
+  private generateContentBody(development: DevelopmentDetails, config: ContentGenerationConfig, hooks: ContentHooks): string {
     const segments = {
       '55-plus-cash-buyer': 'active adults',
       'second-home-buyer': 'second home buyers',
