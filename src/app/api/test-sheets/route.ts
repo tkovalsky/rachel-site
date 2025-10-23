@@ -53,7 +53,7 @@ export async function GET() {
           spreadsheetId: spreadsheetId,
         });
         
-        console.log("Sheet access test successful:", testResponse.data.title);
+        console.log("Sheet access test successful:", (testResponse.data as any).title);
         
         // Now test the setupSheetHeaders function
         sheetTest = await setupSheetHeaders();
