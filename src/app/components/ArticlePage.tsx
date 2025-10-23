@@ -91,10 +91,6 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
                       priority
-                      onError={(e) => {
-                        console.log('Image failed to load:', article.imageSrc);
-                        e.currentTarget.src = '/articles/wycliffe-success-story.jpg';
-                      }}
                     />
                     {/* Image Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
