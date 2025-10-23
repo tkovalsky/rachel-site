@@ -32,7 +32,7 @@ Include:
 - Call to action for similar clients`,
   author: 'Rachel Kovalsky',
   publishDate: '2024-10-23', // Update to actual publish date
-  imageSrc: '/story-image.jpg', // Update to actual image path
+  imageSrc: '/articles/story-slug-here.jpg', // Auto-generated based on slug
   featured: true, // Set to true for important stories
   areas: ['area-id-1', 'area-id-2'], // Link to relevant areas
   developments: ['development-id'], // Link to relevant developments
