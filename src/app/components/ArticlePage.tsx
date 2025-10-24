@@ -45,14 +45,14 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   </blockquote>
                   
                   {/* Author & Meta */}
-                  <div className="flex flex-wrap items-center gap-6 text-sm">
+                  <div className="flex flex-wrap items-center gap-6 text-base">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-champagne/20 rounded-full flex items-center justify-center">
-                        <span className="text-champagne font-bold">RK</span>
+                      <div className="w-12 h-12 bg-champagne/20 rounded-full flex items-center justify-center">
+                        <span className="text-champagne font-bold text-lg">RK</span>
                       </div>
                       <div>
-                        <div className="font-semibold">By {article.author}</div>
-                        <div className="text-white/70">{new Date(article.publishDate).toLocaleDateString('en-US', { 
+                        <div className="font-semibold text-lg">By {article.author}</div>
+                        <div className="text-white/70 text-base">{new Date(article.publishDate).toLocaleDateString('en-US', { 
                           year: 'numeric', 
                           month: 'long', 
                           day: 'numeric' 
@@ -61,7 +61,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                     </div>
                     
                     {/* Reading Time */}
-                    <div className="text-white/70">
+                    <div className="text-white/70 text-base">
                       {Math.ceil(article.content.split(' ').length / 200)} min read
                     </div>
                   </div>
@@ -72,7 +72,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                       {article.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs font-medium border border-white/20"
+                          className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium border border-white/20"
                         >
                           {tag.replace('-', ' ')}
                         </span>
@@ -120,9 +120,9 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-bold text-deep mb-2">Client Profile</h3>
-                    <p className="text-gray-600">{article.clientProfile.ageRange} • {article.clientProfile.origin}</p>
-                    <p className="text-sm text-gray-500 mt-1">{article.clientProfile.buyerType}</p>
+                    <h3 className="text-2xl font-bold text-deep mb-3">Client Profile</h3>
+                    <p className="text-lg text-gray-600 mb-2">{article.clientProfile.ageRange} • {article.clientProfile.origin}</p>
+                    <p className="text-base text-gray-500">{article.clientProfile.buyerType}</p>
                   </div>
                 )}
                 
@@ -133,9 +133,9 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-bold text-deep mb-2">Property Details</h3>
-                    <p className="text-gray-600">{article.propertyDetails.propertyType}</p>
-                    <p className="text-sm text-gray-500 mt-1">{article.propertyDetails.priceRange}</p>
+                    <h3 className="text-2xl font-bold text-deep mb-3">Property Details</h3>
+                    <p className="text-lg text-gray-600 mb-2">{article.propertyDetails.propertyType}</p>
+                    <p className="text-base text-gray-500">{article.propertyDetails.priceRange}</p>
                   </div>
                 )}
                 
@@ -145,9 +145,9 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-deep mb-2">Success Outcome</h3>
-                  <p className="text-gray-600">Successful close</p>
-                  <p className="text-sm text-gray-500 mt-1">Happy clients</p>
+                  <h3 className="text-2xl font-bold text-deep mb-3">Success Outcome</h3>
+                  <p className="text-lg text-gray-600 mb-2">Successful close</p>
+                  <p className="text-base text-gray-500">Happy clients</p>
                 </div>
               </div>
               
@@ -161,12 +161,12 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                       className="article-content space-y-8"
                       dangerouslySetInnerHTML={{ 
                         __html: contentHtml
-                          .replace(/<h2>/g, '<h2 class="text-3xl font-bold text-deep mt-16 mb-8 leading-tight border-b border-gray-200 pb-4">')
-                          .replace(/<h3>/g, '<h3 class="text-2xl font-semibold text-deep mt-12 mb-6 leading-tight">')
-                          .replace(/<p>/g, '<p class="text-lg leading-relaxed text-gray-700 mb-6">')
-                          .replace(/<blockquote>/g, '<blockquote class="border-l-4 border-champagne pl-8 my-12 italic text-xl text-gray-600 bg-gray-50 py-6 rounded-r-xl">')
-                          .replace(/<ul>/g, '<ul class="space-y-4 my-8">')
-                          .replace(/<li>/g, '<li class="flex items-start gap-4"><span class="w-3 h-3 bg-champagne rounded-full mt-2 flex-shrink-0"></span><span class="text-lg text-gray-700">')
+                          .replace(/<h2>/g, '<h2 class="text-4xl font-bold text-deep mt-20 mb-10 leading-tight border-b border-gray-200 pb-6">')
+                          .replace(/<h3>/g, '<h3 class="text-3xl font-semibold text-deep mt-16 mb-8 leading-tight">')
+                          .replace(/<p>/g, '<p class="text-xl leading-relaxed text-gray-700 mb-8">')
+                          .replace(/<blockquote>/g, '<blockquote class="border-l-4 border-champagne pl-8 my-16 italic text-2xl text-gray-600 bg-gray-50 py-8 rounded-r-xl">')
+                          .replace(/<ul>/g, '<ul class="space-y-6 my-12">')
+                          .replace(/<li>/g, '<li class="flex items-start gap-4"><span class="w-4 h-4 bg-champagne rounded-full mt-3 flex-shrink-0"></span><span class="text-xl text-gray-700">')
                           .replace(/<\/li>/g, '</span></li>')
                       }}
                     />
@@ -178,23 +178,23 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   
                   {/* Key Highlights */}
                   <div className="bg-gradient-to-br from-champagne/10 to-deep/5 rounded-2xl p-8">
-                    <h3 className="text-xl font-bold text-deep mb-6">Key Highlights</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
-                        <p className="text-gray-700">Expert guidance throughout the process</p>
+                    <h3 className="text-2xl font-bold text-deep mb-8">Key Highlights</h3>
+                    <div className="space-y-6">
+                      <div className="flex items-start gap-4">
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
+                        <p className="text-lg text-gray-700">Expert guidance throughout the process</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
-                        <p className="text-gray-700">Smooth transition from Northeast</p>
+                      <div className="flex items-start gap-4">
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
+                        <p className="text-lg text-gray-700">Smooth transition from Northeast</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
-                        <p className="text-gray-700">Perfect community match</p>
+                      <div className="flex items-start gap-4">
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
+                        <p className="text-lg text-gray-700">Perfect community match</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-champagne rounded-full mt-3"></div>
-                        <p className="text-gray-700">Maintenance-free lifestyle</p>
+                      <div className="flex items-start gap-4">
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
+                        <p className="text-lg text-gray-700">Maintenance-free lifestyle</p>
                       </div>
                     </div>
                   </div>
@@ -203,10 +203,10 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   {article.clientProfile && (
                     <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                       <div className="text-4xl text-champagne mb-4">"</div>
-                      <blockquote className="text-lg italic text-gray-700 leading-relaxed mb-4">
+                      <blockquote className="text-xl italic text-gray-700 leading-relaxed mb-6">
                         "Rachel didn't just help us find a house—she helped us find our family's Florida home."
                       </blockquote>
-                      <cite className="block text-sm font-semibold text-deep">
+                      <cite className="block text-base font-semibold text-deep">
                         — {article.clientProfile.buyerType}
                       </cite>
                     </div>
@@ -214,18 +214,18 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   
                   {/* CTA Card */}
                   <div className="bg-gradient-to-br from-deep to-champagne rounded-2xl p-8 text-white">
-                    <h3 className="text-xl font-bold mb-4">Ready to Start Your Story?</h3>
-                    <p className="text-white/90 mb-6">Let Rachel help you find your perfect home in South Florida.</p>
+                    <h3 className="text-2xl font-bold mb-6">Ready to Start Your Story?</h3>
+                    <p className="text-white/90 mb-8 text-lg">Let Rachel help you find your perfect home in South Florida.</p>
                     <div className="space-y-3">
                       <a
                         href="tel:+15612878966"
-                        className="block w-full bg-white text-deep text-center py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors"
+                        className="block w-full bg-white text-deep text-center py-4 rounded-lg font-semibold hover:bg-white/90 transition-colors text-lg"
                       >
                         Call (561) 287-8966
                       </a>
                       <a
                         href="mailto:hi@racheldelray.com"
-                        className="block w-full border-2 border-white text-white text-center py-3 rounded-lg font-semibold hover:bg-white hover:text-deep transition-colors"
+                        className="block w-full border-2 border-white text-white text-center py-4 rounded-lg font-semibold hover:bg-white hover:text-deep transition-colors text-lg"
                       >
                         Email Rachel
                       </a>
@@ -242,17 +242,17 @@ export default function ArticlePage({ article }: ArticlePageProps) {
           <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold text-deep mb-8 text-center">Explore Related Areas</h2>
+                <h2 className="text-4xl font-bold text-deep mb-10 text-center">Explore Related Areas</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {article.areas.map((area) => (
                     <div
                       key={area}
                       className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200"
                     >
-                      <h3 className="text-xl font-semibold text-deep mb-2 group-hover:text-champagne transition-colors">
+                      <h3 className="text-2xl font-semibold text-deep mb-3 group-hover:text-champagne transition-colors">
                         {area.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Discover properties and communities in this beautiful area
                       </p>
                     </div>
