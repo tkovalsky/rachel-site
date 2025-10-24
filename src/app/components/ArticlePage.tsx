@@ -168,87 +168,62 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 </div>
               </div>
               
-              {/* Main Story Content with Visual Sections */}
-              <div className="grid lg:grid-cols-3 gap-12">
-                
-                {/* Main Content */}
-                <div className="lg:col-span-2">
-                  <div className="prose prose-2xl max-w-none">
-                    <div 
-                      className="article-content space-y-12"
-                      dangerouslySetInnerHTML={{ 
-                        __html: contentHtml
-                          .replace(/<h2>/g, '<h2 class="h2 text-deep mt-24 mb-12 border-b-2 border-divider pb-8">')
-                          .replace(/<h3>/g, '<h3 class="h3 text-deep mt-20 mb-10">')
-                          .replace(/<p>/g, '<p class="body-large text-ink leading-relaxed mb-10 max-w-4xl">')
-                          .replace(/<blockquote>/g, '<blockquote class="border-l-6 border-champagne pl-10 my-20 italic lead text-ink-soft bg-surface-subtle py-12 rounded-r-2xl">')
-                          .replace(/<ul>/g, '<ul class="space-y-8 my-16">')
-                          .replace(/<li>/g, '<li class="flex items-start gap-6"><span class="w-6 h-6 bg-champagne rounded-full mt-4 flex-shrink-0"></span><span class="body-large text-ink leading-relaxed">')
-                          .replace(/<\/li>/g, '</span></li>')
-                      }}
-                    />
+              {/* Main Story Content */}
+              <div className="max-w-4xl mx-auto">
+                <div className="prose prose-2xl max-w-none">
+                  <div 
+                    className="article-content space-y-12"
+                    dangerouslySetInnerHTML={{ 
+                      __html: contentHtml
+                        .replace(/<h2>/g, '<h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-deep mt-24 mb-12 border-b-2 border-divider pb-8">')
+                        .replace(/<h3>/g, '<h3 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-deep mt-20 mb-10">')
+                        .replace(/<p>/g, '<p class="text-2xl md:text-3xl lg:text-4xl text-ink leading-relaxed mb-10 max-w-4xl">')
+                        .replace(/<blockquote>/g, '<blockquote class="border-l-6 border-champagne pl-10 my-20 italic text-3xl md:text-4xl lg:text-5xl text-ink-soft bg-surface-subtle py-12 rounded-r-2xl">')
+                        .replace(/<ul>/g, '<ul class="space-y-8 my-16">')
+                        .replace(/<li>/g, '<li class="flex items-start gap-6"><span class="w-6 h-6 bg-champagne rounded-full mt-4 flex-shrink-0"></span><span class="text-2xl md:text-3xl lg:text-4xl text-ink leading-relaxed">')
+                        .replace(/<\/li>/g, '</span></li>')
+                    }}
+                  />
+                </div>
+              </div>
+              
+              {/* Key Highlights and Testimonial - Below Content */}
+              <div className="grid md:grid-cols-2 gap-8 mt-16">
+                {/* Key Highlights */}
+                <div className="card p-8">
+                  <h3 className="h3 text-deep mb-8">Key Highlights</h3>
+                  <div className="space-y-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                      <p className="body-large text-ink">Expert guidance throughout the process</p>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                      <p className="body-large text-ink">Smooth transition from Northeast</p>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                      <p className="body-large text-ink">Perfect community match</p>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                      <p className="body-large text-ink">Maintenance-free lifestyle</p>
+                    </div>
                   </div>
                 </div>
                 
-                {/* Sidebar */}
-                <div className="space-y-8">
-                  
-                  {/* Key Highlights */}
+                {/* Client Quote */}
+                {article.clientProfile && (
                   <div className="card p-8">
-                    <h3 className="h3 text-deep mb-8">Key Highlights</h3>
-                    <div className="space-y-6">
-                      <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
-                        <p className="body-large text-ink">Expert guidance throughout the process</p>
-                      </div>
-                      <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
-                        <p className="body-large text-ink">Smooth transition from Northeast</p>
-                      </div>
-                      <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
-                        <p className="body-large text-ink">Perfect community match</p>
-                      </div>
-                      <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
-                        <p className="body-large text-ink">Maintenance-free lifestyle</p>
-                      </div>
-                    </div>
+                    <div className="text-4xl text-champagne mb-4">"</div>
+                    <blockquote className="lead italic text-ink leading-relaxed mb-6">
+                      "Rachel didn't just help us find a house—she helped us find our family's Florida home."
+                    </blockquote>
+                    <cite className="block body font-semibold text-deep">
+                      — {article.clientProfile.buyerType}
+                    </cite>
                   </div>
-                  
-                  {/* Client Quote */}
-                  {article.clientProfile && (
-                    <div className="card p-8">
-                      <div className="text-4xl text-champagne mb-4">"</div>
-                      <blockquote className="lead italic text-ink leading-relaxed mb-6">
-                        "Rachel didn't just help us find a house—she helped us find our family's Florida home."
-                      </blockquote>
-                      <cite className="block body font-semibold text-deep">
-                        — {article.clientProfile.buyerType}
-                      </cite>
-                    </div>
-                  )}
-                  
-                  {/* CTA Card */}
-                  <div className="bg-gradient-to-br from-deep to-champagne rounded-2xl p-8 text-white">
-                    <h3 className="h3 text-white mb-6">Ready to Start Your Story?</h3>
-                    <p className="body-large text-white/90 mb-8">Let Rachel help you find your perfect home in South Florida.</p>
-                    <div className="space-y-3">
-                      <a
-                        href="tel:+15612878966"
-                        className="block w-full bg-white text-deep text-center py-4 rounded-lg font-semibold hover:bg-white/90 transition-colors body-large"
-                      >
-                        Call (561) 287-8966
-                      </a>
-                      <a
-                        href="mailto:hi@racheldelray.com"
-                        className="block w-full border-2 border-white text-white text-center py-4 rounded-lg font-semibold hover:bg-white hover:text-deep transition-colors body-large"
-                      >
-                        Email Rachel
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -391,8 +366,8 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                     South Florida Expert
                   </div>
                   <div className="flex items-center gap-3">
-                    <svg className="w-6 h-6 text-champagne" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    <svg className="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
                     </svg>
                     Compass Florida
                   </div>
