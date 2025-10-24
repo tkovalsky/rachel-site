@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { marked } from 'marked';
 import { Article, Area, Development } from '@/app/content/types';
 
 // Content directory structure
@@ -86,12 +87,15 @@ export class MarkdownProcessor {
 
   // Process article markdown
   private static processArticle(frontmatter: MarkdownFrontmatter, content: string, filePath: string): Article {
+    // Convert markdown to HTML synchronously
+    const htmlContent = marked.parse(content) as string;
+    
     return {
       id: frontmatter.id,
       title: frontmatter.title,
       slug: frontmatter.slug,
       excerpt: frontmatter.excerpt,
-      content: content,
+      content: htmlContent,
       author: frontmatter.author || 'Rachel Kovalsky',
       publishDate: frontmatter.publishDate,
       featured: frontmatter.featured || false,
