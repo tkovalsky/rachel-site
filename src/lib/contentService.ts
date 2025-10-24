@@ -18,7 +18,6 @@ interface RawTestimonial {
 
 import { AREAS } from '@/app/content/areas';
 import { DEVELOPMENTS } from '@/app/content/developments';
-import { ALL_ARTICLES as ARTICLES } from '@/app/content/articles/index';
 import { TESTIMONIALS } from '@/app/content/testimonials';
 import { MARKET_DATA } from '@/app/content/marketData';
 
@@ -96,7 +95,8 @@ export class ContentService {
 
   // Get filtered and randomized articles
   static getArticles(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Article[] {
-    let articles = [...ARTICLES];
+    // Note: Articles are now handled by MarkdownContentService
+    let articles: Article[] = [];
 
     // Apply filters
     if (filter.targetSegment) {
@@ -244,12 +244,12 @@ export class ContentService {
     return {
       totalAreas: AREAS.length,
       totalDevelopments: DEVELOPMENTS.length,
-      totalArticles: ARTICLES.length,
+      totalArticles: 0, // Articles now handled by MarkdownContentService
       totalTestimonials: TESTIMONIALS.length,
       totalMarketData: MARKET_DATA.length,
       featuredAreas: AREAS.filter(area => area.featured).length,
       featuredDevelopments: DEVELOPMENTS.filter(dev => dev.featured).length,
-      featuredArticles: ARTICLES.filter(article => article.featured).length,
+      featuredArticles: 0, // Articles now handled by MarkdownContentService
     };
   }
 }

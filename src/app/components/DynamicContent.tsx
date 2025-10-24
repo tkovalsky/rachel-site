@@ -1,4 +1,4 @@
-import { ContentService } from '@/lib/contentService';
+import { MarkdownContentService } from '@/lib/markdownContentService';
 import { TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export function DynamicAreas({
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const areas = ContentService.getAreas({
+  const areas = MarkdownContentService.getAreas({
     targetSegment,
     area,
     limit,
@@ -75,7 +75,7 @@ export function DynamicDevelopments({
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const developments = ContentService.getDevelopments({
+  const developments = MarkdownContentService.getDevelopments({
     targetSegment,
     area,
     limit,
@@ -138,7 +138,7 @@ export function DynamicArticles({
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const articles = ContentService.getArticles({
+  const articles = MarkdownContentService.getArticles({
     targetSegment,
     area,
     limit,
@@ -187,7 +187,7 @@ export function DynamicTestimonials({
   limit = 2, 
   randomize = true 
 }: DynamicContentProps) {
-  const testimonials = ContentService.getTestimonials({
+  const testimonials = MarkdownContentService.getTestimonials({
     targetSegment,
     limit,
     randomize,
@@ -228,7 +228,7 @@ export function DynamicMarketData({
   limit = 3, 
   randomize = true 
 }: DynamicContentProps) {
-  const marketData = ContentService.getMarketData({
+  const marketData = MarkdownContentService.getMarketData({
     area,
     limit,
     randomize,

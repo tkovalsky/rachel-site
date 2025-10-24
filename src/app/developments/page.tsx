@@ -1,4 +1,4 @@
-import { ContentService } from '@/lib/contentService';
+import { MarkdownContentService } from '@/lib/markdownContentService';
 import { DynamicDevelopments } from '@/app/components/DynamicContent';
 import { TargetSegment } from '@/app/content/types';
 
@@ -13,7 +13,7 @@ export default function DevelopmentsPage({ searchParams }: DevelopmentsPageProps
   const segment = searchParams.segment as TargetSegment | undefined;
   const amenity = searchParams.amenity;
   
-  const _developments = ContentService.getDevelopments({ 
+  const _developments = MarkdownContentService.getDevelopments({ 
     targetSegment: segment,
     amenity: amenity as 'golf' | 'pickleball' | 'tennis' | 'gym' | 'pool' | 'country-club' | 'beach-access' | 'marina' | 'spa' | 'restaurant' | 'social-club' | 'fitness-center' | 'tennis-courts' | 'walking-trails' | 'dog-park' | undefined,
     featured: true,

@@ -20,7 +20,6 @@ interface RawTestimonial {
 // Import existing content as fallback
 import { AREAS as FALLBACK_AREAS } from '@/app/content/areas';
 import { DEVELOPMENTS as FALLBACK_DEVELOPMENTS } from '@/app/content/developments';
-import { ALL_ARTICLES as FALLBACK_ARTICLES } from '@/app/content/articles/index';
 import { TESTIMONIALS as FALLBACK_TESTIMONIALS } from '@/app/content/testimonials';
 import { MARKET_DATA as FALLBACK_MARKET_DATA } from '@/app/content/marketData';
 
@@ -33,7 +32,7 @@ export class MarkdownContentService {
     } catch (error) {
       console.warn('Markdown processing failed, using fallback content:', error);
       return {
-        articles: FALLBACK_ARTICLES,
+        articles: [],
         areas: FALLBACK_AREAS,
         developments: FALLBACK_DEVELOPMENTS
       };
