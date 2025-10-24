@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 interface ExploreAreasSectionProps {
   currentArticle?: {
-    areas: string[];
+    areas?: string[];
   };
 }
 
@@ -14,7 +14,7 @@ export default function ExploreAreasSection({ currentArticle }: ExploreAreasSect
   
   // If we have a current article, show related areas, otherwise show featured areas
   const areasToShow = currentArticle?.areas?.length 
-    ? allAreas.filter(area => currentArticle.areas.includes(area.id))
+    ? allAreas.filter(area => currentArticle.areas?.includes(area.id || ''))
     : allAreas.filter(area => area.featured).slice(0, 3);
 
   if (areasToShow.length === 0) {
@@ -37,7 +37,7 @@ export default function ExploreAreasSection({ currentArticle }: ExploreAreasSect
                 <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
                   <Image
                     src={area.imageSrc || '/areas/default.jpg'}
-                    alt={area.name}
+                    alt={area.name || 'Area'}
                     width={400}
                     height={300}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

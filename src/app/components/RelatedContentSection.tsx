@@ -12,8 +12,8 @@ export default function RelatedContentSection({ article }: RelatedContentSection
 
   const relatedArticles = allArticles
     .filter(a => a.id !== article.id &&
-      (a.targetSegments.some(seg => article.targetSegments.includes(seg)) ||
-       a.areas.some(area => article.areas.includes(area))))
+      (a.targetSegments?.some(seg => article.targetSegments?.includes(seg)) ||
+        a.areas?.some(area => article.areas?.includes(area))))
     .slice(0, 3);
 
   if (relatedArticles.length === 0) {
@@ -36,7 +36,7 @@ export default function RelatedContentSection({ article }: RelatedContentSection
                 <div className="aspect-[4/3] rounded-lg overflow-hidden mb-4">
                   <Image
                     src={relatedArticle.imageSrc || '/articles/default.jpg'}
-                    alt={relatedArticle.title}
+                    alt={relatedArticle.title || 'Article'}
                     width={400}
                     height={300}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

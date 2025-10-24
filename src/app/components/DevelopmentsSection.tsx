@@ -38,7 +38,7 @@ export default function DevelopmentsSection({ areaId, limit = 6 }: DevelopmentsS
                 <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
                   <Image
                     src={development.imageSrc || '/developments/default.jpg'}
-                    alt={development.name}
+                    alt={development.name || 'Development'}
                     width={400}
                     height={300}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -67,7 +67,10 @@ export default function DevelopmentsSection({ areaId, limit = 6 }: DevelopmentsS
                 
                 {/* Price Range */}
                 <div className="text-2xl font-bold text-deep mb-4">
-                  ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
+                  {development.priceRange ? 
+                    `$${development.priceRange.min.toLocaleString()} - $${development.priceRange.max.toLocaleString()}` :
+                    'Price on request'
+                  }
                 </div>
                 
                 <div className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body">

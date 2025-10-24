@@ -1,255 +1,162 @@
-import { 
-  Area, 
-  Development, 
-  Article, 
-  Testimonial, 
-  MarketData, 
-  ContentFilter, 
-  ContentDisplayOptions,
-  TargetSegment 
-} from '@/app/content/types';
+// Client-side content service that fetches from API
+import { TargetSegment, Amenity } from '@/app/content/types';
 
-interface RawTestimonial {
-  q: string;
-  a: string;
-  targetSegment?: TargetSegment;
+export interface ContentError {
+  file: string;
+  error: string;
+  line?: number;
+}
+
+export interface HealthStatus {
+  totalFiles: number;
+  errors: number;
+  successRate: number;
+  errorList: ContentError[];
+}
+
+export interface BaseContent {
+  id?: string;
+  slug?: string;
+  name?: string;
+  title?: string;
+  description?: string;
+  excerpt?: string;
+  imageSrc?: string;
   featured?: boolean;
+  targetSegments?: TargetSegment[];
+  areas?: string[];
+  area?: string;
+  neighborhoods?: string[];
+  neighborhood?: string;
+  developments?: string[];
+  development?: string;
+  amenities?: Amenity[];
+  priceRange?: {
+    min: number;
+    max: number;
+  };
+  content?: string;
+  bannerColor?: 'blue' | 'black' | 'gold' | 'deep' | 'champagne';
+  [key: string]: any;
 }
 
-import { AREAS } from '@/app/content/areas';
-import { DEVELOPMENTS } from '@/app/content/developments';
-import { TESTIMONIALS } from '@/app/content/testimonials';
-import { MARKET_DATA } from '@/app/content/marketData';
+export interface Area extends BaseContent {
+  type: 'area';
+  developments: string[];
+  articles: string[];
+}
 
-// Content filtering and randomization utilities
-export class ContentService {
-  // Get filtered and randomized areas
-  static getAreas(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Area[] {
-    let areas = [...AREAS];
+export interface Neighborhood extends BaseContent {
+  type: 'neighborhood';
+  area: string;
+}
 
-    // Apply filters
-    if (filter.targetSegment) {
-      areas = areas.filter(area => 
-        area.targetSegments.includes(filter.targetSegment!)
-      );
+export interface Development extends BaseContent {
+  type: 'development';
+  area: string;
+  neighborhood?: string;
+}
+
+export interface Article extends BaseContent {
+  type: 'article';
+  areas: string[];
+}
+
+export type ContentItem = Area | Neighborhood | Development | Article;
+
+class ContentService {
+  private baseUrl = '/api/content';
+
+  async getAreas(): Promise<Area[]> {
+    try {
+      const response = await fetch(`${this.baseUrl}/areas`);
+      if (!response.ok) throw new Error('Failed to fetch areas');
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching areas:', error);
+      return [];
     }
-
-    if (filter.area) {
-      areas = areas.filter(area => area.id === filter.area);
-    }
-
-    if (filter.featured !== undefined) {
-      areas = areas.filter(area => area.featured === filter.featured);
-    }
-
-    // Randomize if requested
-    if (filter.randomize) {
-      areas = this.shuffleArray(areas);
-    }
-
-    // Apply limit
-    if (filter.limit) {
-      areas = areas.slice(0, filter.limit);
-    }
-
-    return areas;
   }
 
-  // Get filtered and randomized developments
-  static getDevelopments(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Development[] {
-    let developments = [...DEVELOPMENTS];
-
-    // Apply filters
-    if (filter.targetSegment) {
-      developments = developments.filter(dev => 
-        dev.targetSegments.includes(filter.targetSegment!)
-      );
+  async getNeighborhoods(areaId?: string): Promise<Neighborhood[]> {
+    try {
+      const url = areaId ? `${this.baseUrl}/neighborhoods?area=${areaId}` : `${this.baseUrl}/neighborhoods`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to fetch neighborhoods');
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching neighborhoods:', error);
+      return [];
     }
-
-    if (filter.area) {
-      developments = developments.filter(dev => dev.area === filter.area);
-    }
-
-    if (filter.amenity) {
-      developments = developments.filter(dev => 
-        dev.amenities.includes(filter.amenity!)
-      );
-    }
-
-    if (filter.featured !== undefined) {
-      developments = developments.filter(dev => dev.featured === filter.featured);
-    }
-
-    // Randomize if requested
-    if (filter.randomize) {
-      developments = this.shuffleArray(developments);
-    }
-
-    // Apply limit
-    if (filter.limit) {
-      developments = developments.slice(0, filter.limit);
-    }
-
-    return developments;
   }
 
-  // Get filtered and randomized articles
-  static getArticles(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Article[] {
-    // Note: Articles are now handled by MarkdownContentService
-    let articles: Article[] = [];
-
-    // Apply filters
-    if (filter.targetSegment) {
-      articles = articles.filter(article => 
-        article.targetSegments.includes(filter.targetSegment!)
-      );
+  async getDevelopments(areaId?: string, neighborhoodId?: string): Promise<Development[]> {
+    try {
+      const params = new URLSearchParams();
+      if (areaId) params.append('area', areaId);
+      if (neighborhoodId) params.append('neighborhood', neighborhoodId);
+      
+      const queryString = params.toString();
+      const url = queryString ? `${this.baseUrl}/developments?${queryString}` : `${this.baseUrl}/developments`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to fetch developments');
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching developments:', error);
+      return [];
     }
-
-    if (filter.area) {
-      articles = articles.filter(article => 
-        article.areas.includes(filter.area!)
-      );
-    }
-
-    if (filter.development) {
-      articles = articles.filter(article => 
-        article.developments.includes(filter.development!)
-      );
-    }
-
-    if (filter.featured !== undefined) {
-      articles = articles.filter(article => article.featured === filter.featured);
-    }
-
-    // Randomize if requested
-    if (filter.randomize) {
-      articles = this.shuffleArray(articles);
-    }
-
-    // Apply limit
-    if (filter.limit) {
-      articles = articles.slice(0, filter.limit);
-    }
-
-    return articles;
   }
 
-  // Get filtered and randomized testimonials
-  static getTestimonials(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): Testimonial[] {
-    // Convert raw testimonials to proper Testimonial format
-    const testimonials: Testimonial[] = TESTIMONIALS.map((testimonial: RawTestimonial, index) => ({
-      id: `testimonial-${index}`,
-      quote: testimonial.q,
-      author: testimonial.a,
-      targetSegment: testimonial.targetSegment || 'professional' as TargetSegment,
-      featured: testimonial.featured || false,
-    }));
-
-    let filteredTestimonials = [...testimonials];
-
-    // Apply filters
-    if (filter.targetSegment) {
-      filteredTestimonials = filteredTestimonials.filter(testimonial => 
-        testimonial.targetSegment === filter.targetSegment
-      );
+  async getArticles(areaId?: string): Promise<Article[]> {
+    try {
+      const url = areaId ? `${this.baseUrl}/articles?area=${areaId}` : `${this.baseUrl}/articles`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to fetch articles');
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+      return [];
     }
-
-    if (filter.featured !== undefined) {
-      filteredTestimonials = filteredTestimonials.filter(testimonial => 
-        testimonial.featured === filter.featured
-      );
-    }
-
-    // Randomize if requested
-    if (filter.randomize) {
-      filteredTestimonials = this.shuffleArray(filteredTestimonials);
-    }
-
-    // Apply limit
-    if (filter.limit) {
-      filteredTestimonials = filteredTestimonials.slice(0, filter.limit);
-    }
-
-    return filteredTestimonials;
   }
 
-  // Get filtered market data
-  static getMarketData(filter: ContentFilter = {}, _options: ContentDisplayOptions = {}): MarketData[] {
-    let marketData = [...MARKET_DATA];
-
-    // Apply filters
-    if (filter.area) {
-      marketData = marketData.filter(data => data.area === filter.area);
+  async getContentById(id: string): Promise<ContentItem | null> {
+    try {
+      const response = await fetch(`${this.baseUrl}/${id}`);
+      if (!response.ok) return null;
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching content by ID:', error);
+      return null;
     }
-
-    if (filter.featured !== undefined) {
-      marketData = marketData.filter(data => data.featured === filter.featured);
-    }
-
-    // Randomize if requested
-    if (filter.randomize) {
-      marketData = this.shuffleArray(marketData);
-    }
-
-    // Apply limit
-    if (filter.limit) {
-      marketData = marketData.slice(0, filter.limit);
-    }
-
-    return marketData;
   }
 
-  // Get content by target segment
-  static getContentBySegment(segment: TargetSegment, limit: number = 3) {
+  async getContentBySlug(slug: string, type?: string): Promise<ContentItem | null> {
+    try {
+      const url = type ? `${this.baseUrl}/slug/${slug}?type=${type}` : `${this.baseUrl}/slug/${slug}`;
+      const response = await fetch(url);
+      if (!response.ok) return null;
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching content by slug:', error);
+      return null;
+    }
+  }
+
+  async getHealthStatus(): Promise<HealthStatus> {
+    try {
+      const response = await fetch(`${this.baseUrl}/health`);
+      if (!response.ok) throw new Error('Failed to fetch health status');
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching health status:', error);
     return {
-      areas: this.getAreas({ targetSegment: segment, limit }),
-      developments: this.getDevelopments({ targetSegment: segment, limit }),
-      articles: this.getArticles({ targetSegment: segment, limit }),
-      testimonials: this.getTestimonials({ targetSegment: segment, limit }),
-    };
-  }
-
-  // Get featured content
-  static getFeaturedContent(limit: number = 3) {
-    return {
-      areas: this.getAreas({ featured: true, limit }),
-      developments: this.getDevelopments({ featured: true, limit }),
-      articles: this.getArticles({ featured: true, limit }),
-      testimonials: this.getTestimonials({ featured: true, limit }),
-    };
-  }
-
-  // Get random content
-  static getRandomContent(limit: number = 3) {
-    return {
-      areas: this.getAreas({ randomize: true, limit }),
-      developments: this.getDevelopments({ randomize: true, limit }),
-      articles: this.getArticles({ randomize: true, limit }),
-      testimonials: this.getTestimonials({ randomize: true, limit }),
-    };
-  }
-
-  // Utility function to shuffle array
-  private static shuffleArray<T>(array: T[]): T[] {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        totalFiles: 0,
+        errors: 0,
+        successRate: 0,
+        errorList: []
+      };
     }
-    return shuffled;
-  }
-
-  // Get content statistics
-  static getContentStats() {
-    return {
-      totalAreas: AREAS.length,
-      totalDevelopments: DEVELOPMENTS.length,
-      totalArticles: 0, // Articles now handled by MarkdownContentService
-      totalTestimonials: TESTIMONIALS.length,
-      totalMarketData: MARKET_DATA.length,
-      featuredAreas: AREAS.filter(area => area.featured).length,
-      featuredDevelopments: DEVELOPMENTS.filter(dev => dev.featured).length,
-      featuredArticles: 0, // Articles now handled by MarkdownContentService
-    };
   }
 }
+
+export const contentService = new ContentService();

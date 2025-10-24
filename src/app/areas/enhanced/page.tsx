@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { ContentService } from '@/lib/contentService';
+// import { contentService } from '@/lib/contentService';
 import { MarkdownContentService } from '@/lib/markdownContentService';
-import { DynamicAreas, DynamicDevelopments, DynamicArticles } from '@/app/components/DynamicContent';
+// import { DynamicAreas, DynamicDevelopments, DynamicArticles } from '@/app/components/DynamicContent';
 import { TargetSegment, Area, Development, Article } from '@/app/content/types';
 import Link from 'next/link';
 
@@ -50,7 +50,7 @@ export default function EnhancedAreasPage() {
 
   // Load content based on filters
   useEffect(() => {
-    const loadContent = async () => {
+    const loadContent = () => {
       setLoading(true);
       
       try {
@@ -73,7 +73,7 @@ export default function EnhancedAreasPage() {
         const loadedDevelopments = MarkdownContentService.getDevelopments(developmentFilter);
 
         // Load articles
-        const articleFilter = {
+        const _articleFilter = {
           targetSegment: filters.targetSegment !== 'all' ? filters.targetSegment : undefined,
           featured: filters.featured !== 'all' ? filters.featured : undefined,
           limit: 12,
@@ -83,7 +83,7 @@ export default function EnhancedAreasPage() {
           let matches = true;
           
           if (filters.targetSegment !== 'all') {
-            matches = matches && article.targetSegments.includes(filters.targetSegment);
+            matches = matches && (article.targetSegments?.includes(filters.targetSegment) || false);
           }
           
           if (filters.featured !== 'all') {
@@ -103,13 +103,13 @@ export default function EnhancedAreasPage() {
       }
     };
 
-    loadContent();
+    void loadContent();
   }, [filters]);
 
-  const handleFilterChange = (key: keyof FilterState, value: any) => {
+  const handleFilterChange = (key: keyof FilterState, value: unknown) => {
     setFilters(prev => ({
       ...prev,
-      [key]: value
+      [key]: value as FilterState[keyof FilterState]
     }));
   };
 
@@ -261,7 +261,7 @@ export default function EnhancedAreasPage() {
                               {area.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
-                              {area.targetSegments.map((segment) => (
+                              {area.targetSegments?.map((segment) => (
                                 <span
                                   key={segment}
                                   className="px-3 py-1 text-sm bg-champagne/10 text-champagne rounded-full font-medium"
@@ -303,7 +303,7 @@ export default function EnhancedAreasPage() {
                               {development.description}
                             </p>
                             <div className="flex flex-wrap gap-2 mb-4">
-                              {development.amenities.slice(0, 3).map((amenity) => (
+                              {development.amenities?.slice(0, 3).map((amenity) => (
                                 <span
                                   key={amenity}
                                   className="px-3 py-1 text-sm bg-champagne/10 text-champagne rounded-full font-medium"
@@ -313,7 +313,10 @@ export default function EnhancedAreasPage() {
                               ))}
                             </div>
                             <div className="text-2xl font-bold text-deep">
-                              ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
+                              {development.priceRange ? 
+                                `$${development.priceRange.min.toLocaleString()} - $${development.priceRange.max.toLocaleString()}` :
+                                'Price on request'
+                              }
                             </div>
                           </div>
                         </Link>
@@ -349,7 +352,7 @@ export default function EnhancedAreasPage() {
                             </p>
                             <div className="flex justify-between items-center">
                               <span className="text-lg text-ink-lighter">
-                                {new Date(article.publishDate).toLocaleDateString()}
+                                {article.publishDate ? new Date(article.publishDate).toLocaleDateString() : 'Recent'}
                               </span>
                               <span className="text-lg font-semibold text-champagne">Read More →</span>
                             </div>

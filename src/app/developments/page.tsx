@@ -1,4 +1,4 @@
-import { ContentService } from '@/lib/contentService';
+import { unifiedContentService } from '@/lib/unifiedContentService';
 import { DynamicDevelopments } from '@/app/components/DynamicContent';
 import { TargetSegment } from '@/app/content/types';
 
@@ -9,16 +9,11 @@ interface DevelopmentsPageProps {
   };
 }
 
-export default function DevelopmentsPage({ searchParams }: DevelopmentsPageProps) {
+export default async function DevelopmentsPage({ searchParams }: DevelopmentsPageProps) {
   const segment = searchParams.segment as TargetSegment | undefined;
   const amenity = searchParams.amenity;
   
-  const _developments = ContentService.getDevelopments({ 
-    targetSegment: segment,
-    amenity: amenity as 'golf' | 'pickleball' | 'tennis' | 'gym' | 'pool' | 'country-club' | 'beach-access' | 'marina' | 'spa' | 'restaurant' | 'social-club' | 'fitness-center' | 'tennis-courts' | 'walking-trails' | 'dog-park' | undefined,
-    featured: true,
-    limit: 12 
-  });
+  const _developments = unifiedContentService.getDevelopments();
 
   const segmentInfo = segment ? {
     '55-plus-cash-buyer': 'Active Adult Communities',

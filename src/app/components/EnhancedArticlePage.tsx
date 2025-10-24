@@ -16,13 +16,13 @@ export default function EnhancedArticlePage({ article }: EnhancedArticlePageProp
   
   // Extract first paragraph for hero quote
   const contentHtml = article.content;
-  const firstParagraph = contentHtml.match(/<p[^>]*>([^<]+)<\/p>/)?.[1] || article.excerpt;
+  const firstParagraph = contentHtml?.match(/<p[^>]*>([^<]+)<\/p>/)?.[1] || article.excerpt;
   
   // Load content associations
   useEffect(() => {
     const loadAssociations = async () => {
       try {
-        const relatedContent = ContentAssociationEngine.generateContentAssociations(article.id, 'article');
+        const relatedContent = ContentAssociationEngine.generateContentAssociations(article.id || '', 'article');
         setAssociations(relatedContent);
       } catch (error) {
         console.error('Error loading content associations:', error);
@@ -87,17 +87,17 @@ export default function EnhancedArticlePage({ article }: EnhancedArticlePageProp
                       </div>
                       <div>
                         <div className="font-semibold text-lg">By {article.author}</div>
-                        <div className="text-white/70 text-base">{new Date(article.publishDate).toLocaleDateString('en-US', { 
+                        <div className="text-white/70 text-base">{article.publishDate ? new Date(article.publishDate).toLocaleDateString('en-US', {
                           year: 'numeric', 
                           month: 'long', 
                           day: 'numeric' 
-                        })}</div>
+                        }) : 'Recent'}</div>
                       </div>
                     </div>
                     
                     {/* Reading Time */}
                     <div className="text-white/70 text-base">
-                      {Math.ceil(article.content.split(' ').length / 200)} min read
+                      {article.content ? Math.ceil(article.content.split(' ').length / 200) : 5} min read
                     </div>
                   </div>
                   
@@ -121,7 +121,7 @@ export default function EnhancedArticlePage({ article }: EnhancedArticlePageProp
                   <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
                       src={article.imageSrc || '/articles/wycliffe-success-story.jpg'}
-                      alt={article.title}
+                      alt={article.title || 'Article'}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -195,7 +195,7 @@ export default function EnhancedArticlePage({ article }: EnhancedArticlePageProp
                     <div 
                       className="article-content space-y-8"
                       dangerouslySetInnerHTML={{ 
-                        __html: contentHtml
+                        __html: contentHtml || ''
                           .replace(/<h2>/g, '<h2 class="text-4xl font-bold text-deep mt-20 mb-10 leading-tight border-b border-gray-200 pb-6">')
                           .replace(/<h3>/g, '<h3 class="text-3xl font-semibold text-deep mt-16 mb-8 leading-tight">')
                           .replace(/<p>/g, '<p class="text-xl leading-relaxed text-gray-700 mb-8">')

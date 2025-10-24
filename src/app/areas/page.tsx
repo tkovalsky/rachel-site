@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { MarkdownContentService } from '@/lib/markdownContentService';
+import { contentService } from '@/lib/contentService';
 import { Area, Development, Article, TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import DynamicTagsFilter from '@/app/components/DynamicTagsFilter';
-import DevelopmentsSection from '@/app/components/DevelopmentsSection';
+// import DevelopmentsSection from '@/app/components/DevelopmentsSection';
 
 interface FilterState {
   targetSegment: string;
@@ -30,12 +30,12 @@ export default function AreasPage() {
   useEffect(() => {
     const loadContent = async () => {
       try {
-        const allAreas = MarkdownContentService.getAreas();
-        const allDevelopments = MarkdownContentService.getDevelopments();
-        const allArticles = MarkdownContentService.getAllArticles();
+        const allAreas = await contentService.getAreas();
+        const allDevelopments = await contentService.getDevelopments();
+        const allArticles = await contentService.getArticles();
 
         // Alphabetize areas
-        const sortedAreas = allAreas.sort((a, b) => a.name.localeCompare(b.name));
+        const sortedAreas = allAreas.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
         
         setAreas(sortedAreas);
         setDevelopments(allDevelopments);
@@ -47,12 +47,12 @@ export default function AreasPage() {
       }
     };
 
-    loadContent();
+    void loadContent();
   }, []);
 
   // Filter content based on current filters
   const filteredAreas = areas.filter(area => {
-    if (filters.targetSegment !== 'all' && !area.targetSegments.includes(filters.targetSegment as TargetSegment)) {
+    if (filters.targetSegment !== 'all' && !area.targetSegments?.includes(filters.targetSegment as TargetSegment)) {
       return false;
     }
     if (filters.featuredStatus === 'featured' && !area.featured) {
@@ -62,7 +62,7 @@ export default function AreasPage() {
   });
 
   const filteredDevelopments = developments.filter(dev => {
-    if (filters.targetSegment !== 'all' && !dev.targetSegments.includes(filters.targetSegment as TargetSegment)) {
+    if (filters.targetSegment !== 'all' && !dev.targetSegments?.includes(filters.targetSegment as TargetSegment)) {
       return false;
     }
     if (filters.featuredStatus === 'featured' && !dev.featured) {
@@ -71,8 +71,8 @@ export default function AreasPage() {
     return true;
   });
 
-  const filteredArticles = articles.filter(article => {
-    if (filters.targetSegment !== 'all' && !article.targetSegments.includes(filters.targetSegment as TargetSegment)) {
+  const _filteredArticles = articles.filter(article => {
+    if (filters.targetSegment !== 'all' && !article.targetSegments?.includes(filters.targetSegment as TargetSegment)) {
       return false;
     }
     if (filters.featuredStatus === 'featured' && !article.featured) {
@@ -83,13 +83,13 @@ export default function AreasPage() {
 
   // Generate tag data for filter
   const targetSegments = [
-    { id: '55-plus-cash-buyer', label: '55+ Cash Buyers', count: areas.filter(a => a.targetSegments.includes('55-plus-cash-buyer')).length },
-    { id: 'second-home-buyer', label: 'Second Home Buyers', count: areas.filter(a => a.targetSegments.includes('second-home-buyer')).length },
-    { id: 'family', label: 'Families', count: areas.filter(a => a.targetSegments.includes('family')).length },
-    { id: 'professional', label: 'Professionals', count: areas.filter(a => a.targetSegments.includes('professional')).length },
-    { id: 'investor', label: 'Investors', count: areas.filter(a => a.targetSegments.includes('investor')).length },
-    { id: 'relocating', label: 'Relocating', count: areas.filter(a => a.targetSegments.includes('relocating')).length },
-    { id: 'upgrade-downgrade', label: 'Upgrade/Downgrade', count: areas.filter(a => a.targetSegments.includes('upgrade-downgrade')).length }
+    { id: '55-plus-cash-buyer', label: '55+ Cash Buyers', count: areas.filter(a => a.targetSegments?.includes('55-plus-cash-buyer')).length },
+    { id: 'second-home-buyer', label: 'Second Home Buyers', count: areas.filter(a => a.targetSegments?.includes('second-home-buyer')).length },
+    { id: 'family', label: 'Families', count: areas.filter(a => a.targetSegments?.includes('family')).length },
+    { id: 'professional', label: 'Professionals', count: areas.filter(a => a.targetSegments?.includes('professional')).length },
+    { id: 'investor', label: 'Investors', count: areas.filter(a => a.targetSegments?.includes('investor')).length },
+    { id: 'relocating', label: 'Relocating', count: areas.filter(a => a.targetSegments?.includes('relocating')).length },
+    { id: 'upgrade-downgrade', label: 'Upgrade/Downgrade', count: areas.filter(a => a.targetSegments?.includes('upgrade-downgrade')).length }
   ];
 
   const contentTypes = [
@@ -158,7 +158,7 @@ export default function AreasPage() {
                       <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
                         <Image
                           src={area.imageSrc || '/areas/default.jpg'}
-                          alt={area.name}
+                          alt={area.name || 'Area'}
                           width={400}
                           height={300}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -172,8 +172,9 @@ export default function AreasPage() {
                       <p className="body text-ink-soft mb-6">{area.description}</p>
                       
                       {/* Target Segments */}
-                      <div className="flex flex-wrap gap-2">
-                        {area.targetSegments.slice(0, 3).map((segment) => (
+                      {area.targetSegments && area.targetSegments.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {area.targetSegments.slice(0, 3).map((segment) => (
                           <span
                             key={segment}
                             className="px-3 py-1 bg-champagne/20 text-champagne text-sm rounded-full"
@@ -181,7 +182,8 @@ export default function AreasPage() {
                             {segment.replace('-', ' ')}
                           </span>
                         ))}
-                      </div>
+                        </div>
+                      )}
                     </Link>
                   ))}
                 </div>
@@ -203,7 +205,7 @@ export default function AreasPage() {
                       <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
                         <Image
                           src={development.imageSrc || '/developments/default.jpg'}
-                          alt={development.name}
+                          alt={development.name || 'Development'}
                           width={400}
                           height={300}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -232,7 +234,10 @@ export default function AreasPage() {
                       
                       {/* Price Range */}
                       <div className="text-2xl font-bold text-deep mb-4">
-                        ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
+                        {development.priceRange ? 
+                          `$${development.priceRange.min.toLocaleString()} - $${development.priceRange.max.toLocaleString()}` :
+                          'Price on request'
+                        }
                       </div>
                       
                       <div className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body">

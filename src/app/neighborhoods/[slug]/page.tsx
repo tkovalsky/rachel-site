@@ -2,57 +2,52 @@
 
 import { useState, useEffect } from 'react';
 import { contentService } from '@/lib/contentService';
-import { Area, Development, Article, Neighborhood } from '@/app/content/types';
+import { Neighborhood, Development, Article } from '@/app/content/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import DevelopmentsSection from '@/app/components/DevelopmentsSection';
 
-interface AreaPageProps {
+interface NeighborhoodPageProps {
   params: {
     slug: string;
   };
 }
 
-export default function AreaPage({ params }: AreaPageProps) {
-  const [area, setArea] = useState<Area | null>(null);
-  const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
+export default function NeighborhoodPage({ params }: NeighborhoodPageProps) {
+  const [neighborhood, setNeighborhood] = useState<Neighborhood | null>(null);
   const [developments, setDevelopments] = useState<Development[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadAreaContent = async () => {
+    const loadNeighborhoodContent = async () => {
       try {
-        const foundContent = await contentService.getContentBySlug(params.slug, 'area');
-        const foundArea = foundContent && foundContent.type === 'area' ? foundContent as Area : null;
+        const foundContent = await contentService.getContentBySlug(params.slug, 'neighborhood');
+        const foundNeighborhood = foundContent && foundContent.type === 'neighborhood' ? foundContent as Neighborhood : null;
         
-        if (!foundArea) {
+        if (!foundNeighborhood) {
           setLoading(false);
           return;
         }
 
-        setArea(foundArea);
+        setNeighborhood(foundNeighborhood);
 
-        // Load neighborhoods for this area
-        const areaNeighborhoods = await contentService.getNeighborhoods(foundArea.id);
-        setNeighborhoods(areaNeighborhoods);
-
-        // Load developments for this area
-        const areaDevelopments = await contentService.getDevelopments(foundArea.id);
-        setDevelopments(areaDevelopments);
+        // Load developments for this neighborhood
+        const neighborhoodDevelopments = await contentService.getDevelopments(foundNeighborhood.area, foundNeighborhood.id);
+        setDevelopments(neighborhoodDevelopments);
 
         // Load articles for this area
-        const areaArticles = await contentService.getArticles(foundArea.id);
+        const areaArticles = await contentService.getArticles(foundNeighborhood.area);
         setArticles(areaArticles);
 
         setLoading(false);
       } catch (error) {
-        console.error('Error loading area content:', error);
+        console.error('Error loading neighborhood content:', error);
         setLoading(false);
       }
     };
 
-    void loadAreaContent();
+    loadNeighborhoodContent();
   }, [params.slug]);
 
   if (loading) {
@@ -66,12 +61,12 @@ export default function AreaPage({ params }: AreaPageProps) {
     );
   }
 
-  if (!area) {
+  if (!neighborhood) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="h1 text-deep mb-4">Area Not Found</h1>
-          <p className="lead text-ink-soft mb-8">The area you're looking for doesn't exist.</p>
+          <h1 className="h1 text-deep mb-4">Neighborhood Not Found</h1>
+          <p className="lead text-ink-soft mb-8">The neighborhood you're looking for doesn't exist.</p>
           <Link href="/areas" className="btn-primary">
             Back to Areas
           </Link>
@@ -88,20 +83,20 @@ export default function AreaPage({ params }: AreaPageProps) {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="text-white">
-                <h1 className="h1 text-white mb-8">{area.name}</h1>
-                <p className="lead text-white/90 mb-8">{area.description}</p>
+                <h1 className="h1 text-white mb-8">{neighborhood.name}</h1>
+                <p className="lead text-white/90 mb-8">{neighborhood.description}</p>
                 
                 {/* Target Segments */}
-                {area.targetSegments && area.targetSegments.length > 0 && (
+                {neighborhood.targetSegments && neighborhood.targetSegments.length > 0 && (
                   <div className="flex flex-wrap gap-3 mb-8">
-                    {area.targetSegments.map((segment) => (
-                    <span
-                      key={segment}
-                      className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium border border-white/30"
-                    >
-                      {segment.replace('-', ' ')}
-                    </span>
-                  ))}
+                    {neighborhood.targetSegments.map((segment) => (
+                      <span
+                        key={segment}
+                        className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium border border-white/30"
+                      >
+                        {segment.replace('-', ' ')}
+                      </span>
+                    ))}
                   </div>
                 )}
               </div>
@@ -109,8 +104,8 @@ export default function AreaPage({ params }: AreaPageProps) {
               <div className="relative">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src={area.imageSrc || '/areas/default.jpg'}
-                    alt={area.name || 'Area'}
+                    src={neighborhood.imageSrc || '/neighborhoods/default.jpg'}
+                    alt={neighborhood.name || 'Neighborhood'}
                     fill
                     className="object-cover"
                     priority
@@ -122,60 +117,9 @@ export default function AreaPage({ params }: AreaPageProps) {
         </div>
       </section>
 
-      {/* Neighborhoods Section */}
-      {neighborhoods.length > 0 && (
-        <section className="py-20 bg-white">
-          <div className="section">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="h2 text-deep mb-12 text-center">Neighborhoods in {area.name}</h2>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {neighborhoods.map((neighborhood) => (
-                  <Link
-                    key={neighborhood.id}
-                    href={`/neighborhoods/${neighborhood.slug}`}
-                    className="card p-6 group hover:shadow-lg transition-all duration-300 block"
-                  >
-                    <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
-                      <Image
-                        src={neighborhood.imageSrc || '/neighborhoods/default.jpg'}
-                        alt={neighborhood.name || 'Neighborhood'}
-                        width={400}
-                        height={300}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    
-                    <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
-                      {neighborhood.name}
-                    </h3>
-                    
-                    <p className="body text-ink-soft mb-6">{neighborhood.description}</p>
-                    
-                    {/* Target Segments */}
-                    {neighborhood.targetSegments && neighborhood.targetSegments.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {neighborhood.targetSegments.slice(0, 3).map((segment) => (
-                          <span
-                            key={segment}
-                            className="px-3 py-1 bg-champagne/20 text-champagne text-sm rounded-full"
-                          >
-                            {segment.replace('-', ' ')}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Developments Section */}
       {developments.length > 0 && (
-        <DevelopmentsSection areaId={area.id} />
+        <DevelopmentsSection areaId={neighborhood.area} />
       )}
 
       {/* Articles Section */}
@@ -183,7 +127,7 @@ export default function AreaPage({ params }: AreaPageProps) {
         <section className="py-20 bg-surface-subtle">
           <div className="section">
             <div className="max-w-6xl mx-auto">
-              <h2 className="h2 text-deep mb-12 text-center">Success Stories in {area.name}</h2>
+              <h2 className="h2 text-deep mb-12 text-center">Local Insights in {neighborhood.name}</h2>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {articles.map((article) => (
@@ -226,9 +170,9 @@ export default function AreaPage({ params }: AreaPageProps) {
       <section className="py-20 bg-gradient-to-br from-slate-800 to-deep text-white">
         <div className="section">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="h1 text-white mb-8">Ready to Explore {area.name}?</h2>
+            <h2 className="h1 text-white mb-8">Ready to Explore {neighborhood.name}?</h2>
             <p className="lead text-white/90 mb-12">
-              Let Rachel help you find the perfect property in {area.name} that matches your lifestyle and needs.
+              Let Rachel help you find the perfect property in {neighborhood.name} that matches your lifestyle and needs.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

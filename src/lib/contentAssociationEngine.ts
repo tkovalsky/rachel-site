@@ -71,12 +71,12 @@ export class ContentAssociationEngine {
         const strength = commonTags.length / Math.max(sourceTags.length, article.tags?.length || 1);
         
         associations.push({
-          id: article.id,
+          id: article.id || '',
           type: 'article',
-          title: article.title,
-          slug: article.slug,
-          description: article.excerpt,
-          imageSrc: article.imageSrc,
+          title: article.title || '',
+          slug: article.slug || '',
+          description: article.excerpt || '',
+          imageSrc: article.imageSrc || '',
           relationshipType: 'similar',
           strength: strength,
           metadata: { commonTags, sourceTags: sourceTags, targetTags: article.tags }
@@ -99,12 +99,12 @@ export class ContentAssociationEngine {
     allContent.areas.forEach(area => {
       if (sourceAreas.includes(area.id)) {
         associations.push({
-          id: area.id,
+          id: area.id || '',
           type: 'area',
-          title: area.name,
-          slug: area.slug,
-          description: area.description,
-          imageSrc: area.imageSrc,
+          title: area.name || '',
+          slug: area.slug || '',
+          description: area.description || '',
+          imageSrc: area.imageSrc || '',
           relationshipType: 'related',
           strength: 0.9,
           metadata: { sourceAreas, targetArea: area.id }
@@ -116,12 +116,12 @@ export class ContentAssociationEngine {
     allContent.developments.forEach(development => {
       if (sourceAreas.includes(development.area)) {
         associations.push({
-          id: development.id,
+          id: development.id || '',
           type: 'development',
-          title: development.name,
-          slug: development.slug,
-          description: development.description,
-          imageSrc: development.imageSrc,
+          title: development.name || '',
+          slug: development.slug || '',
+          description: development.description || '',
+          imageSrc: development.imageSrc || '',
           relationshipType: 'complementary',
           strength: 0.8,
           metadata: { sourceAreas, targetArea: development.area }
@@ -149,12 +149,12 @@ export class ContentAssociationEngine {
         const strength = commonSegments.length / Math.max(sourceSegments.length, article.targetSegments?.length || 1);
         
         associations.push({
-          id: article.id,
+          id: article.id || '',
           type: 'article',
-          title: article.title,
-          slug: article.slug,
-          description: article.excerpt,
-          imageSrc: article.imageSrc,
+          title: article.title || '',
+          slug: article.slug || '',
+          description: article.excerpt || '',
+          imageSrc: article.imageSrc || '',
           relationshipType: 'similar',
           strength: strength * 0.8, // Slightly lower than tag-based
           metadata: { commonSegments, sourceSegments, targetSegments: article.targetSegments }
@@ -189,9 +189,9 @@ export class ContentAssociationEngine {
           id: `image-${article.id}`,
           type: 'image',
           title: `${article.title} - Image`,
-          slug: article.slug,
+          slug: article.slug || '',
           description: `Related image from ${article.title}`,
-          imageSrc: article.imageSrc,
+          imageSrc: article.imageSrc || '',
           relationshipType: 'complementary',
           strength: 0.6,
           metadata: { sourceImage, targetImage: article.imageSrc, commonAreas }
@@ -225,12 +225,12 @@ export class ContentAssociationEngine {
       
       if (similarity > 0.3 || titleSimilarity > 0.5) {
         associations.push({
-          id: article.id,
+          id: article.id || '',
           type: 'article',
-          title: article.title,
-          slug: article.slug,
-          description: article.excerpt,
-          imageSrc: article.imageSrc,
+          title: article.title || '',
+          slug: article.slug || '',
+          description: article.excerpt || '',
+          imageSrc: article.imageSrc || '',
           relationshipType: 'cross-reference',
           strength: Math.max(similarity, titleSimilarity) * 0.7,
           metadata: { textSimilarity: similarity, titleSimilarity }
@@ -280,12 +280,12 @@ export class ContentAssociationEngine {
     // Add all content as nodes
     articles.forEach(article => {
       nodes.push({
-        id: article.id,
+        id: article.id || '',
         type: 'article',
-        title: article.title,
-        slug: article.slug,
-        description: article.excerpt,
-        imageSrc: article.imageSrc,
+        title: article.title || '',
+        slug: article.slug || '',
+        description: article.excerpt || '',
+        imageSrc: article.imageSrc || '',
         relationshipType: 'related',
         strength: 1
       });
@@ -293,12 +293,12 @@ export class ContentAssociationEngine {
     
     areas.forEach(area => {
       nodes.push({
-        id: area.id,
+        id: area.id || '',
         type: 'area',
-        title: area.name,
-        slug: area.slug,
-        description: area.description,
-        imageSrc: area.imageSrc,
+        title: area.name || '',
+        slug: area.slug || '',
+        description: area.description || '',
+        imageSrc: area.imageSrc || '',
         relationshipType: 'related',
         strength: 1
       });
@@ -306,12 +306,12 @@ export class ContentAssociationEngine {
     
     developments.forEach(development => {
       nodes.push({
-        id: development.id,
+        id: development.id || '',
         type: 'development',
-        title: development.name,
-        slug: development.slug,
-        description: development.description,
-        imageSrc: development.imageSrc,
+        title: development.name || '',
+        slug: development.slug || '',
+        description: development.description || '',
+        imageSrc: development.imageSrc || '',
         relationshipType: 'related',
         strength: 1
       });
@@ -319,16 +319,18 @@ export class ContentAssociationEngine {
     
     // Generate edges between related content
     articles.forEach(article => {
-      const associations = this.generateContentAssociations(article.id, 'article');
-      
-      associations.forEach(assoc => {
-        edges.push({
-          from: article.id,
-          to: assoc.id,
-          relationship: assoc.relationshipType,
-          strength: assoc.strength
+      if (article.id) {
+        const associations = this.generateContentAssociations(article.id, 'article');
+        
+        associations.forEach(assoc => {
+          edges.push({
+            from: article.id!,
+            to: assoc.id,
+            relationship: assoc.relationshipType,
+            strength: assoc.strength
+          });
         });
-      });
+      }
     });
     
     return { nodes, edges };
@@ -349,23 +351,23 @@ export class ContentAssociationEngine {
       case 'discovery':
         // Show featured content and area guides
         recommendations = [
-          ...articles.filter(a => a.featured).map(a => ({
-            id: a.id,
+          ...articles.filter(a => a.featured && a.id).map(a => ({
+            id: a.id!,
             type: 'article' as const,
-            title: a.title,
-            slug: a.slug,
-            description: a.excerpt,
-            imageSrc: a.imageSrc,
+            title: a.title || '',
+            slug: a.slug || '',
+            description: a.excerpt || '',
+            imageSrc: a.imageSrc || '',
             relationshipType: 'related' as const,
             strength: 0.9
           })),
-          ...areas.filter(a => a.featured).map(a => ({
-            id: a.id,
+          ...areas.filter(a => a.featured && a.id).map(a => ({
+            id: a.id!,
             type: 'area' as const,
-            title: a.name,
-            slug: a.slug,
-            description: a.description,
-            imageSrc: a.imageSrc,
+            title: a.name || '',
+            slug: a.slug || '',
+            description: a.description || '',
+            imageSrc: a.imageSrc || '',
             relationshipType: 'related' as const,
             strength: 0.8
           }))
@@ -375,14 +377,14 @@ export class ContentAssociationEngine {
       case 'research':
         // Show detailed content and comparisons
         recommendations = articles
-          .filter(a => userProfile.areas?.some(area => a.areas.includes(area)))
+          .filter(a => a.id && userProfile.areas?.some(area => a.areas?.includes(area)))
           .map(a => ({
-            id: a.id,
+            id: a.id!,
             type: 'article' as const,
-            title: a.title,
-            slug: a.slug,
-            description: a.excerpt,
-            imageSrc: a.imageSrc,
+            title: a.title || '',
+            slug: a.slug || '',
+            description: a.excerpt || '',
+            imageSrc: a.imageSrc || '',
             relationshipType: 'similar' as const,
             strength: 0.8
           }));
@@ -391,15 +393,15 @@ export class ContentAssociationEngine {
       case 'consideration':
         // Show success stories and testimonials
         recommendations = articles
-          .filter(a => a.storyType === 'success-story')
-          .filter(a => userProfile.segments?.some((seg: string) => a.targetSegments.includes(seg as any)))
+          .filter(a => a.id && a.storyType === 'success-story')
+          .filter(a => userProfile.segments?.some((seg: string) => a.targetSegments?.includes(seg as any)))
           .map(a => ({
-            id: a.id,
+            id: a.id!,
             type: 'article' as const,
-            title: a.title,
-            slug: a.slug,
-            description: a.excerpt,
-            imageSrc: a.imageSrc,
+            title: a.title || '',
+            slug: a.slug || '',
+            description: a.excerpt || '',
+            imageSrc: a.imageSrc || '',
             relationshipType: 'similar' as const,
             strength: 0.9
           }));

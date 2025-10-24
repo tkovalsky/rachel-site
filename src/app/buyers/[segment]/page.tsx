@@ -1,4 +1,4 @@
-import { ContentService } from '@/lib/contentService';
+// import { contentService } from '@/lib/contentService';
 import { DynamicAreas, DynamicDevelopments, DynamicArticles, DynamicTestimonials } from '@/app/components/DynamicContent';
 import { TargetSegment } from '@/app/content/types';
 import { notFound } from 'next/navigation';
@@ -55,7 +55,7 @@ export default function BuyerPage({ params }: BuyerPageProps) {
   }
 
   const segmentInfo = segmentLabels[segment];
-  const _content = ContentService.getContentBySegment(segment, 3);
+  // const _content = contentService.getContentBySegment(segment, 3);
 
   return (
     <main className="min-h-screen bg-paper">

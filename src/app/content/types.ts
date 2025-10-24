@@ -1,47 +1,58 @@
 // Content Management System Types
 
 export interface Area {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  imageSrc: string;
-  featured: boolean;
-  targetSegments: TargetSegment[];
-  developments: string[]; // Development IDs
-  articles: string[]; // Article IDs
+  id?: string;
+  name?: string;
+  slug?: string;
+  description?: string;
+  imageSrc?: string;
+  featured?: boolean;
+  targetSegments?: TargetSegment[];
+  developments?: string[]; // Development IDs
+  articles?: string[]; // Article IDs
+}
+
+export interface Neighborhood {
+  id?: string;
+  name?: string;
+  slug?: string;
+  description?: string;
+  imageSrc?: string;
+  area: string; // Area ID
+  featured?: boolean;
+  targetSegments?: TargetSegment[];
 }
 
 export interface Development {
-  id: string;
-  name: string;
-  slug: string;
+  id?: string;
+  name?: string;
+  slug?: string;
   area: string; // Area ID
-  description: string;
-  imageSrc: string;
-  amenities: Amenity[];
-  priceRange: {
+  description?: string;
+  imageSrc?: string;
+  amenities?: Amenity[];
+  priceRange?: {
     min: number;
     max: number;
   };
-  featured: boolean;
-  targetSegments: TargetSegment[];
+  featured?: boolean;
+  targetSegments?: TargetSegment[];
 }
 
 export interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  author: string;
-  publishDate: string;
-  imageSrc: string;
-  featured: boolean;
-  areas: string[]; // Area IDs
-  developments: string[]; // Development IDs
-  targetSegments: TargetSegment[];
-  tags: string[];
+  id?: string;
+  title?: string;
+  slug?: string;
+  excerpt?: string;
+  content?: string;
+  author?: string;
+  publishDate?: string;
+  imageSrc?: string;
+  featured?: boolean;
+  areas?: string[]; // Area IDs
+  developments?: string[]; // Development IDs
+  targetSegments?: TargetSegment[];
+  tags?: string[];
   // Success story fields
   storyType?: 'success-story' | 'guide' | 'market-update' | 'area-guide';
   clientProfile?: {

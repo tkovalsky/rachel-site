@@ -205,9 +205,10 @@ export class MarkdownProcessor {
     content.articles.forEach(article => {
       article.relatedStories = content.articles
         .filter(other => other.id !== article.id)
-        .filter(other => other.tags.some(tag => article.tags.includes(tag)))
+        .filter(other => other.tags?.some(tag => article.tags?.includes(tag)))
         .slice(0, 3)
-        .map(other => other.slug);
+        .map(other => other.slug)
+        .filter((slug): slug is string => slug !== undefined);
     });
 
     return content;

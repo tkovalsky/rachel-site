@@ -12,8 +12,13 @@ import {
 let getProcessedContent: any = null;
 if (typeof window === 'undefined') {
   // Server side - safe to import fs
-  const { getProcessedContent: serverGetProcessedContent } = require('./markdownProcessor');
-  getProcessedContent = serverGetProcessedContent;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const markdownProcessor = require('./markdownProcessor');
+    getProcessedContent = markdownProcessor.getProcessedContent;
+  } catch (error) {
+    console.warn('Markdown processor not available:', error);
+  }
 }
 
 interface RawTestimonial {

@@ -1,7 +1,7 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ContentService } from '@/lib/contentService';
+import { contentService } from '@/lib/contentService';
 import { TargetSegment } from '@/app/content/types';
 
 interface MegaMenuProps {
@@ -11,6 +11,18 @@ interface MegaMenuProps {
 
 export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   const [activeTab, setActiveTab] = useState<TargetSegment | 'areas' | 'developments'>('areas');
+  const [areas, setAreas] = useState<any[]>([]);
+  const [developments, setDevelopments] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const areasData = await contentService.getAreas();
+      const developmentsData = await contentService.getDevelopments();
+      setAreas(areasData);
+      setDevelopments(developmentsData);
+    };
+    void loadData();
+  }, []);
 
   if (!isOpen) return null;
 
@@ -22,9 +34,6 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
     { key: 'investor', label: 'Investors', description: 'Value opportunities & rental potential' },
     { key: 'relocating', label: 'Relocating', description: 'New to area? Start here' },
   ];
-
-  const areas = ContentService.getAreas({ featured: true, limit: 5 });
-  const developments = ContentService.getDevelopments({ featured: true, limit: 6 });
 
   return (
     <div 
@@ -102,8 +111,9 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       {area.name}
                     </h3>
                     <p className="mt-3 body text-ink-soft">{area.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {area.targetSegments.slice(0, 2).map((segment) => (
+                    {area.targetSegments && area.targetSegments.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {area.targetSegments.slice(0, 2).map((segment: string) => (
                         <span
                           key={segment}
                           className="px-2 py-1 text-xs bg-champagne/10 text-champagne rounded-full"
@@ -111,7 +121,8 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                           {segment.replace('-', ' ')}
                         </span>
                       ))}
-                    </div>
+                      </div>
+                    )}
                   </Link>
                 ))}
               </div>
@@ -130,8 +141,9 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                       {development.name}
                     </h3>
                     <p className="mt-3 body text-ink-soft">{development.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {development.amenities.slice(0, 3).map((amenity) => (
+                    {development.amenities && development.amenities.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {development.amenities.slice(0, 3).map((amenity: string) => (
                         <span
                           key={amenity}
                           className="px-2 py-1 text-xs bg-champagne/10 text-champagne rounded-full"
@@ -139,9 +151,13 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                           {amenity.replace('-', ' ')}
                         </span>
                       ))}
-                    </div>
+                      </div>
+                    )}
                     <div className="mt-4 body-small text-ink-lighter">
-                      ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
+                      {development.priceRange ? 
+                        `$${development.priceRange.min.toLocaleString()} - $${development.priceRange.max.toLocaleString()}` :
+                        'Price on request'
+                      }
                     </div>
                   </Link>
                 ))}

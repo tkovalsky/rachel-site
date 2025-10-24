@@ -1,5 +1,5 @@
 // Use fallback content service for client components
-import { ContentService } from '@/lib/contentService';
+import { contentService } from '@/lib/contentService';
 import { TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,19 +12,14 @@ interface DynamicContentProps {
   showImages?: boolean;
 }
 
-export function DynamicAreas({ 
+export async function DynamicAreas({ 
   targetSegment, 
   area, 
   limit = 3, 
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const areas = ContentService.getAreas({
-    targetSegment,
-    area,
-    limit,
-    randomize,
-  });
+  const areas = await contentService.getAreas();
 
   return (
     <div className="grid gap-6 md:grid-cols-3">
@@ -37,8 +32,8 @@ export function DynamicAreas({
           {showImages && (
             <div className="relative aspect-[16/9] overflow-hidden">
               <Image
-                src={area.imageSrc}
-                alt={`${area.name} neighborhood`}
+                src={area.imageSrc || '/areas/default.jpg'}
+                alt={`${area.name || 'Area'} neighborhood`}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -50,7 +45,7 @@ export function DynamicAreas({
               {area.name}
             </h3>
             <p className="text-xl md:text-2xl text-ink-soft leading-relaxed">{area.description}</p>
-            {targetSegment && (
+            {targetSegment && area.targetSegments && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {area.targetSegments.map((segment) => (
                   <span
@@ -69,19 +64,14 @@ export function DynamicAreas({
   );
 }
 
-export function DynamicDevelopments({ 
+export async function DynamicDevelopments({ 
   targetSegment, 
   area, 
   limit = 3, 
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const developments = ContentService.getDevelopments({
-    targetSegment,
-    area,
-    limit,
-    randomize,
-  });
+  const developments = await contentService.getDevelopments();
 
   return (
     <div className="grid gap-6 md:grid-cols-3">
@@ -94,8 +84,8 @@ export function DynamicDevelopments({
           {showImages && (
             <div className="relative aspect-[16/9] overflow-hidden">
               <Image
-                src={development.imageSrc}
-                alt={`${development.name} development`}
+                src={development.imageSrc || '/developments/default.jpg'}
+                alt={`${development.name || 'Development'} development`}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -107,8 +97,9 @@ export function DynamicDevelopments({
               {development.name}
             </h3>
             <p className="text-xl md:text-2xl text-ink-soft leading-relaxed">{development.description}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {development.amenities.slice(0, 3).map((amenity) => (
+            {development.amenities && development.amenities.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {development.amenities.slice(0, 3).map((amenity) => (
                 <span
                   key={amenity}
                   className="px-2 py-1 text-xs bg-champagne/10 text-champagne rounded-full"
@@ -121,9 +112,13 @@ export function DynamicDevelopments({
                   +{development.amenities.length - 3} more
                 </span>
               )}
-            </div>
+              </div>
+            )}
             <div className="mt-6 text-2xl md:text-3xl font-bold text-deep">
-              ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
+              {development.priceRange ? 
+                `$${development.priceRange.min.toLocaleString()} - $${development.priceRange.max.toLocaleString()}` :
+                'Price on request'
+              }
             </div>
           </div>
         </Link>
@@ -132,19 +127,14 @@ export function DynamicDevelopments({
   );
 }
 
-export function DynamicArticles({ 
+export async function DynamicArticles({ 
   targetSegment, 
   area, 
   limit = 3, 
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const articles = ContentService.getArticles({
-    targetSegment,
-    area,
-    limit,
-    randomize,
-  });
+  const articles = await contentService.getArticles();
 
   return (
     <div className="grid gap-6 md:grid-cols-3">
@@ -157,8 +147,8 @@ export function DynamicArticles({
           {showImages && (
             <div className="relative aspect-[16/9] overflow-hidden">
               <Image
-                src={article.imageSrc}
-                alt={article.title}
+                src={article.imageSrc || '/articles/default.jpg'}
+                alt={article.title || 'Article'}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -188,15 +178,11 @@ export function DynamicTestimonials({
   limit = 2, 
   randomize = true 
 }: DynamicContentProps) {
-  const testimonials = ContentService.getTestimonials({
-    targetSegment,
-    limit,
-    randomize,
-  });
+  // const testimonials = await contentService.getTestimonials();
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      {testimonials.map((testimonial) => (
+      {/* {testimonials.map((testimonial) => (
         <blockquote key={testimonial.id} className="card p-6 text-ink">
           <p className="body-large leading-relaxed">"{testimonial.quote}"</p>
           <footer className="mt-4 body-small text-ink-lighter">
@@ -219,7 +205,7 @@ export function DynamicTestimonials({
             </div>
           )}
         </blockquote>
-      ))}
+      ))} */}
     </div>
   );
 }
@@ -229,15 +215,11 @@ export function DynamicMarketData({
   limit = 3, 
   randomize = true 
 }: DynamicContentProps) {
-  const marketData = ContentService.getMarketData({
-    area,
-    limit,
-    randomize,
-  });
+  // const marketData = await contentService.getMarketData();
 
   return (
     <div className="grid gap-6 md:grid-cols-3">
-      {marketData.map((data) => {
+      {/* {marketData.map((data) => {
         const value = data.format === 'currency'
           ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
               .format(Number(data.value))
@@ -254,7 +236,7 @@ export function DynamicMarketData({
             <div className="mt-4 body-small text-ink-lighter">{data.period}</div>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 }

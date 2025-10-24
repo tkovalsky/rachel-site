@@ -1,6 +1,6 @@
 import { Article } from '@/app/content/types';
 import Image from 'next/image';
-import { MarkdownContentService } from '@/lib/markdownContentService';
+// import { MarkdownContentService } from '@/lib/markdownContentService';
 import RelatedContentSection from './RelatedContentSection';
 import ExploreAreasSection from './ExploreAreasSection';
 
@@ -11,7 +11,7 @@ interface ArticlePageProps {
 export default function ArticlePage({ article }: ArticlePageProps) {
   // Extract first paragraph for hero quote
   const contentHtml = article.content;
-  const firstParagraph = contentHtml.match(/<p[^>]*>([^<]+)<\/p>/)?.[1] || article.excerpt;
+  const _firstParagraph = contentHtml?.match(/<p[^>]*>([^<]+)<\/p>/)?.[1] || article.excerpt;
   
   return (
     <>
@@ -56,17 +56,17 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                       </div>
                       <div>
                         <div className="font-semibold body-large text-white">By {article.author}</div>
-                        <div className="text-white/70 body">{new Date(article.publishDate).toLocaleDateString('en-US', { 
+                        <div className="text-white/70 body">{article.publishDate ? new Date(article.publishDate).toLocaleDateString('en-US', {
                           year: 'numeric', 
                           month: 'long', 
                           day: 'numeric' 
-                        })}</div>
+                        }) : 'Recent'}</div>
                       </div>
                     </div>
                     
                     {/* Reading Time */}
                     <div className="text-white/70 body">
-                      {Math.ceil(article.content.split(' ').length / 200)} min read
+                      {article.content ? Math.ceil(article.content.split(' ').length / 200) : 5} min read
                     </div>
                   </div>
                   
@@ -90,7 +90,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
                       src={article.imageSrc || '/articles/wycliffe-success-story.jpg'}
-                      alt={article.title}
+                      alt={article.title || 'Article'}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -177,7 +177,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   <div 
                     className="article-content space-y-12"
                     dangerouslySetInnerHTML={{ 
-                      __html: contentHtml
+                      __html: contentHtml || ''
                           .replace(/<h2>/g, '<h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-deep mt-24 mb-12 border-b-2 border-divider pb-8" role="heading" aria-level="2">')
                           .replace(/<h3>/g, '<h3 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-deep mt-20 mb-10" role="heading" aria-level="3">')
                           .replace(/<p>/g, '<p class="text-2xl md:text-3xl lg:text-4xl text-ink leading-relaxed mb-10 max-w-4xl">')
