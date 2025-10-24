@@ -91,7 +91,7 @@ export class MarkdownProcessor {
       title: frontmatter.title,
       slug: frontmatter.slug,
       excerpt: frontmatter.excerpt,
-      // content: content // Removed - not part of Area type,
+      content: content,
       author: frontmatter.author || 'Rachel Kovalsky',
       publishDate: frontmatter.publishDate,
       featured: frontmatter.featured || false,

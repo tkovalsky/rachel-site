@@ -1,4 +1,4 @@
-import { Article, Area, Development } from '@/app/content/types';
+import { Article, Area, Development, TargetSegment } from '@/app/content/types';
 import { MarkdownContentService } from './markdownContentService';
 
 // Enhanced content association system
@@ -260,7 +260,7 @@ export class SmartContentManager {
       if (article.id === sourceContent.id) return;
       
       const articleSegments = article.targetSegments || [];
-      const commonSegments = sourceSegments.filter((seg: string) => articleSegments.includes(seg));
+      const commonSegments = sourceSegments.filter((seg: TargetSegment) => articleSegments.includes(seg));
       const articleJourney = this.determineUserJourney(article);
       
       if (commonSegments.length > 0 || articleJourney === sourceJourney) {

@@ -1,29 +1,29 @@
 ---
-id: [area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier]
-title: "[Compelling Article Title]"
-slug: [area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier]
-excerpt: "[Brief 1-2 sentence description of the story]"
+id: "template-article"
+title: "Template Article"
+slug: "template-article"
+excerpt: "Template article for creating new content"
 author: Rachel Kovalsky
 publishDate: "2024-10-23"
-featured: true
-areas: ["[primary-area]", "[secondary-area-if-applicable]"]
-developments: ["[development-name-if-applicable]"]
-targetSegments: ["[primary-segment]", "[secondary-segment-if-applicable]"]
-tags: ["success-story", "[area]", "[property-type]", "[buyer-segment]", "[lifestyle-tags]", "[amenity-tags]"]
+featured: false
+areas: ["boca-raton"]
+developments: []
+targetSegments: ["55-plus-cash-buyer"]
+tags: ["success-story", "boca-raton", "condo", "55-plus-cash-buyer"]
 storyType: "success-story"
 clientProfile:
-  ageRange: "[age-range]"
-  origin: "[origin-region]"
-  buyerType: "[buyer-type]"
-  familyStructure: "[family-structure]"
+  ageRange: "55-70"
+  origin: "Northeast"
+  buyerType: "55+ cash buyer"
+  familyStructure: "married couple"
 propertyDetails:
-  development: "[development-name]"
-  propertyType: "[property-type]"
-  priceRange: "[price-range]"
-  specialFeatures: ["[feature-1]", "[feature-2]", "[feature-3]"]
-adSource: "[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier]"
+  development: "Sample Development"
+  propertyType: "condo"
+  priceRange: "$800,000"
+  specialFeatures: ["golf-cart garage", "sunlit patio", "maintenance-free living"]
+adSource: "template-article"
 relatedStories: []
-imageSrc: "/articles/[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier].jpg"
+imageSrc: "/articles/template-article.jpg"
 ---
 
 # [Compelling Article Title]
