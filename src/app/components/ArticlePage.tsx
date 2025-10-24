@@ -35,12 +35,12 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   </div>
                   
                   {/* Main Title */}
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                     {article.title}
                   </h1>
                   
                   {/* Hero Quote */}
-                  <blockquote className="text-xl md:text-2xl leading-relaxed font-light italic border-l-4 border-champagne pl-6">
+                  <blockquote className="text-2xl md:text-3xl lg:text-4xl leading-relaxed font-light italic border-l-6 border-champagne pl-8">
                     "{firstParagraph}"
                   </blockquote>
                   
@@ -156,17 +156,17 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 
                 {/* Main Content */}
                 <div className="lg:col-span-2">
-                  <div className="prose prose-xl max-w-none">
+                  <div className="prose prose-2xl max-w-none">
                     <div 
-                      className="article-content space-y-8"
+                      className="article-content space-y-12"
                       dangerouslySetInnerHTML={{ 
                         __html: contentHtml
-                          .replace(/<h2>/g, '<h2 class="text-4xl font-bold text-deep mt-20 mb-10 leading-tight border-b border-gray-200 pb-6">')
-                          .replace(/<h3>/g, '<h3 class="text-3xl font-semibold text-deep mt-16 mb-8 leading-tight">')
-                          .replace(/<p>/g, '<p class="text-xl leading-relaxed text-gray-700 mb-8">')
-                          .replace(/<blockquote>/g, '<blockquote class="border-l-4 border-champagne pl-8 my-16 italic text-2xl text-gray-600 bg-gray-50 py-8 rounded-r-xl">')
-                          .replace(/<ul>/g, '<ul class="space-y-6 my-12">')
-                          .replace(/<li>/g, '<li class="flex items-start gap-4"><span class="w-4 h-4 bg-champagne rounded-full mt-3 flex-shrink-0"></span><span class="text-xl text-gray-700">')
+                          .replace(/<h2>/g, '<h2 class="text-5xl md:text-6xl font-bold text-deep mt-24 mb-12 leading-tight border-b-2 border-gray-200 pb-8">')
+                          .replace(/<h3>/g, '<h3 class="text-4xl md:text-5xl font-semibold text-deep mt-20 mb-10 leading-tight">')
+                          .replace(/<p>/g, '<p class="text-2xl md:text-3xl leading-relaxed text-gray-700 mb-10 max-w-4xl">')
+                          .replace(/<blockquote>/g, '<blockquote class="border-l-6 border-champagne pl-10 my-20 italic text-3xl md:text-4xl text-gray-600 bg-gray-50 py-12 rounded-r-2xl">')
+                          .replace(/<ul>/g, '<ul class="space-y-8 my-16">')
+                          .replace(/<li>/g, '<li class="flex items-start gap-6"><span class="w-6 h-6 bg-champagne rounded-full mt-4 flex-shrink-0"></span><span class="text-2xl md:text-3xl text-gray-700 leading-relaxed">')
                           .replace(/<\/li>/g, '</span></li>')
                       }}
                     />

@@ -4,7 +4,7 @@ import About from "./components/About";
 // FIX APPLIED: Importing Testimonials component, and both Review and RawReview types
 import Testimonials, { type Review, type RawReview } from "./components/Testimonials";
 import { type TargetSegment } from "./content/types"; 
-import ContactForm from "./components/ContactForm";
+import HomepageContactForm from "./components/HomepageContactForm";
 import ReadyToMoveCTA from "./components/ReadyToMoveCTA";
 
 import SocialProof from "./components/SocialProof";
@@ -73,7 +73,7 @@ export default function HomePage() {
       <ReadyToMoveCTA />
 
       {/* Contact */}
-      <ContactForm />
+      <HomepageContactForm />
     </main>
   );
 }

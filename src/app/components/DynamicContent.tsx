@@ -45,11 +45,11 @@ export function DynamicAreas({
               />
             </div>
           )}
-          <div className="p-6">
-            <h3 className="h3 text-deep group-hover:text-champagne transition-colors">
+          <div className="p-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-deep group-hover:text-champagne transition-colors mb-4">
               {area.name}
             </h3>
-            <p className="mt-3 body text-ink-soft">{area.description}</p>
+            <p className="text-xl md:text-2xl text-ink-soft leading-relaxed">{area.description}</p>
             {targetSegment && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {area.targetSegments.map((segment) => (
@@ -102,11 +102,11 @@ export function DynamicDevelopments({
               />
             </div>
           )}
-          <div className="p-6">
-            <h3 className="h3 text-deep group-hover:text-champagne transition-colors">
+          <div className="p-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-deep group-hover:text-champagne transition-colors mb-4">
               {development.name}
             </h3>
-            <p className="mt-3 body text-ink-soft">{development.description}</p>
+            <p className="text-xl md:text-2xl text-ink-soft leading-relaxed">{development.description}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {development.amenities.slice(0, 3).map((amenity) => (
                 <span
@@ -122,7 +122,7 @@ export function DynamicDevelopments({
                 </span>
               )}
             </div>
-            <div className="mt-4 body-small text-ink-lighter">
+            <div className="mt-6 text-2xl md:text-3xl font-bold text-deep">
               ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
             </div>
           </div>
@@ -165,16 +165,16 @@ export function DynamicArticles({
               />
             </div>
           )}
-          <div className="p-6">
-            <h3 className="h3 text-deep group-hover:text-champagne transition-colors">
+          <div className="p-8">
+            <h3 className="text-3xl md:text-4xl font-bold text-deep group-hover:text-champagne transition-colors mb-4">
               {article.title}
             </h3>
-            <p className="mt-3 body text-ink-soft">{article.excerpt}</p>
-            <div className="mt-4 flex justify-between items-center">
-              <span className="body-small text-ink-lighter">
+            <p className="text-xl md:text-2xl text-ink-soft leading-relaxed">{article.excerpt}</p>
+            <div className="mt-6 flex justify-between items-center">
+              <span className="text-lg text-ink-lighter">
                 {new Date(article.publishDate).toLocaleDateString()}
               </span>
-              <span className="body-small text-champagne">Read More →</span>
+              <span className="text-lg font-semibold text-champagne">Read More →</span>
             </div>
           </div>
         </Link>
