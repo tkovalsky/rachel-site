@@ -131,73 +131,124 @@ export default function AreasPage() {
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-12 bg-white">
+      {/* Combined Filter & Content Section */}
+      <section className="py-20 bg-surface-subtle">
         <div className="section">
           <div className="max-w-6xl mx-auto">
+            {/* Filter Section */}
             <DynamicTagsFilter
               targetSegments={targetSegments}
               contentTypes={contentTypes}
               featuredStatus={featuredStatus}
               onFilterChange={handleFilterChange}
             />
+
+            {/* Areas Section */}
+            {filters.contentType === 'all' || filters.contentType === 'areas' ? (
+              <div className="mb-20">
+                <h2 className="h2 text-deep mb-12 text-center">Areas & Neighborhoods</h2>
+                
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredAreas.map((area) => (
+                    <Link
+                      key={area.id}
+                      href={`/areas/${area.slug}`}
+                      className="card p-6 group hover:shadow-lg transition-all duration-300 block"
+                    >
+                      <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
+                        <Image
+                          src={area.imageSrc || '/areas/default.jpg'}
+                          alt={area.name}
+                          width={400}
+                          height={300}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      
+                      <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
+                        {area.name}
+                      </h3>
+                      
+                      <p className="body text-ink-soft mb-6">{area.description}</p>
+                      
+                      {/* Target Segments */}
+                      <div className="flex flex-wrap gap-2">
+                        {area.targetSegments.slice(0, 3).map((segment) => (
+                          <span
+                            key={segment}
+                            className="px-3 py-1 bg-champagne/20 text-champagne text-sm rounded-full"
+                          >
+                            {segment.replace('-', ' ')}
+                          </span>
+                        ))}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {/* Developments Section */}
+            {filters.contentType === 'all' || filters.contentType === 'developments' ? (
+              <div>
+                <h2 className="h2 text-deep mb-12 text-center">Developments & Communities</h2>
+                
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredDevelopments.slice(0, 6).map((development) => (
+                    <Link
+                      key={development.id}
+                      href={`/developments/${development.slug}`}
+                      className="card p-6 group hover:shadow-lg transition-all duration-300 block"
+                    >
+                      <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
+                        <Image
+                          src={development.imageSrc || '/developments/default.jpg'}
+                          alt={development.name}
+                          width={400}
+                          height={300}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      
+                      <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
+                        {development.name}
+                      </h3>
+                      
+                      <p className="body text-ink-soft mb-4">{development.description}</p>
+                      
+                      {/* Amenities */}
+                      {development.amenities && development.amenities.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {development.amenities.slice(0, 3).map((amenity) => (
+                            <span
+                              key={amenity}
+                              className="px-3 py-1 bg-champagne/20 text-champagne text-sm rounded-full"
+                            >
+                              {amenity.replace('-', ' ')}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      
+                      {/* Price Range */}
+                      <div className="text-2xl font-bold text-deep mb-4">
+                        ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
+                      </div>
+                      
+                      <div className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body">
+                        View Development
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
-
-      {/* Areas Section */}
-      {filters.contentType === 'all' || filters.contentType === 'areas' ? (
-        <section className="py-20 bg-surface-subtle">
-          <div className="section">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="h2 text-deep mb-12 text-center">Areas & Neighborhoods</h2>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredAreas.map((area) => (
-                  <Link
-                    key={area.id}
-                    href={`/areas/${area.slug}`}
-                    className="card p-6 group hover:shadow-lg transition-all duration-300 block"
-                  >
-                    <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
-                      <Image
-                        src={area.imageSrc || '/areas/default.jpg'}
-                        alt={area.name}
-                        width={400}
-                        height={300}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    
-                    <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
-                      {area.name}
-                    </h3>
-                    
-                    <p className="body text-ink-soft mb-6">{area.description}</p>
-                    
-                    {/* Target Segments */}
-                    <div className="flex flex-wrap gap-2">
-                      {area.targetSegments.slice(0, 3).map((segment) => (
-                        <span
-                          key={segment}
-                          className="px-3 py-1 bg-champagne/20 text-champagne text-sm rounded-full"
-                        >
-                          {segment.replace('-', ' ')}
-                        </span>
-                      ))}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      {/* Developments Section */}
-      {filters.contentType === 'all' || filters.contentType === 'developments' ? (
-        <DevelopmentsSection limit={6} />
-      ) : null}
 
 
       {/* CTA Section */}
