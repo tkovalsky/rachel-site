@@ -1,18 +1,18 @@
 import { Article } from '../types';
 import { createArticle } from './helpers';
 
-export const GRINKEVICH_VACATION_HOME: Article = createArticle({
-  id: 'grinkevich-vacation-home',
-  title: 'From New Jersey to Paradise: The Grinkevich Family\'s Perfect Vacation Home',
-  slug: 'grinkevich-vacation-home',
+export const FAMILY_VACATION_HOME: Article = createArticle({
+  id: 'family-vacation-home',
+  title: 'From New Jersey to Paradise: A Family\'s Perfect Vacation Home',
+  slug: 'family-vacation-home',
   excerpt: 'How successful New Jersey business owners found their ideal multigenerational vacation home in South Florida, creating lasting memories for their entire family.',
-  content: `# From New Jersey to Paradise: The Grinkevich Family's Perfect Vacation Home
+  content: `# From New Jersey to Paradise: A Family's Perfect Vacation Home
 
-When the Grinkevichs began their search for a vacation home, they had one clear vision: a place where their adult children and grandchildren could create lasting memories together. As successful business owners from New Jersey, they were ready to invest in a property that would serve as both a personal retreat and a gathering place for their growing family.
+When this family began their search for a vacation home, they had one clear vision: a place where their adult children and grandchildren could create lasting memories together. As successful business owners from New Jersey, they were ready to invest in a property that would serve as both a personal retreat and a gathering place for their growing family.
 
 ## The Challenge
 
-The Grinkevichs faced a unique set of requirements that made their search particularly challenging:
+This family faced a unique set of requirements that made their search particularly challenging:
 
 - **Multigenerational Space**: They needed a home large enough to accommodate their adult children and their families
 - **Investment Potential**: As business owners, they wanted a property that would appreciate in value
@@ -49,7 +49,7 @@ What made this property particularly attractive was its investment potential:
 
 ## The Family Impact
 
-The Grinkevichs' new vacation home has become more than just a property—it's the center of their family's Florida memories:
+This family's new vacation home has become more than just a property—it's the center of their family's Florida memories:
 
 - **Holiday gatherings** that now happen in paradise
 - **Grandchildren** who look forward to "Florida time" with grandparents
@@ -58,7 +58,7 @@ The Grinkevichs' new vacation home has become more than just a property—it's t
 
 ## Rachel's Expertise Made the Difference
 
-"Rachel didn't just help us find a house—she helped us find our family's Florida home," said Mrs. Grinkevich. "She understood that we weren't just buying property; we were investing in our family's future."
+"Rachel didn't just help us find a house—she helped us find our family's Florida home," said the family. "She understood that we weren't just buying property; we were investing in our family's future."
 
 Rachel's approach included:
 
@@ -69,7 +69,7 @@ Rachel's approach included:
 
 ## The Result
 
-The Grinkevichs now have:
+This family now has:
 
 - **A beautiful vacation home** that serves their entire family
 - **A solid investment** that's appreciating in value
