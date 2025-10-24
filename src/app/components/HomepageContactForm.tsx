@@ -120,9 +120,7 @@ export default function HomepageContactForm() {
       </div>
       
       <div className="relative z-10 section py-20">
-        <div className="max-w-4xl mx-auto">
-          
-          {/* Header */}
+        {/* Header */}
           <div className="text-center mb-16">
             <h2 className="h1 text-white mb-6">
               Let Rachel help you find your perfect home in South Florida
@@ -315,7 +313,6 @@ export default function HomepageContactForm() {
               By submitting, you agree to our <a href="/privacy" className="text-champagne hover:underline font-semibold">Privacy Policy</a>.
             </p>
           </div>
-        </div>
       </div>
     </section>
   );

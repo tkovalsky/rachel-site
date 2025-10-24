@@ -58,8 +58,7 @@ export default function GuideDownload() {
   return (
     <section aria-label="Newsletter signup" className="py-20 bg-surface-subtle">
       <div className="section">
-        <div className="max-w-4xl mx-auto">
-          <div className="card p-8 md:p-10">
+        <div className="card p-8 md:p-10">
             <div className="text-center mb-8">
               <h2 className="h2 text-deep mb-4">
                 Weekly South Florida Market Notes
@@ -133,7 +132,6 @@ export default function GuideDownload() {
                 </p>
               </form>
             )}
-          </div>
         </div>
       </div>
     </section>
