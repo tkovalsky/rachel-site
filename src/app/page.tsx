@@ -5,7 +5,6 @@ import About from "./components/About";
 import Testimonials, { type Review, type RawReview } from "./components/Testimonials";
 import { type TargetSegment } from "./content/types"; 
 import HomepageContactForm from "./components/HomepageContactForm";
-import ReadyToMoveCTA from "./components/ReadyToMoveCTA";
 
 import SocialProof from "./components/SocialProof";
 import MarketHighlights from "./components/MarketHighlights";
@@ -68,9 +67,6 @@ export default function HomePage() {
 
       {/* Lead magnet (email capture → /api/contact) */}
       <GuideDownload />
-
-      {/* Ready to Move CTA */}
-      <ReadyToMoveCTA />
 
       {/* Contact */}
       <HomepageContactForm />
