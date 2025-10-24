@@ -34,9 +34,12 @@ src/content/
 
 ### **Step 1: Create Markdown File**
 
-**For Articles:**
+**For Articles (RECOMMENDED METHOD):**
 ```bash
-# Create new article
+# Copy the template (RECOMMENDED)
+cp src/content/articles/TEMPLATE.md src/content/articles/your-article-name.md
+
+# Or create manually
 touch src/content/articles/your-article-name.md
 ```
 

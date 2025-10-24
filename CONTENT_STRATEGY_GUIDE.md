@@ -55,13 +55,19 @@ This system allows Rachel to manage and display dynamic, targeted content across
 ### **Dynamic Content Display**
 ```typescript
 // Get content for specific target segment
-const content = ContentService.getContentBySegment('55-plus-cash-buyer', 3);
+const content = MarkdownContentService.getContentBySegment('55-plus-cash-buyer', 3);
 
 // Get randomized featured content
-const featured = ContentService.getFeaturedContent(3);
+const featured = MarkdownContentService.getFeaturedContent(3);
 
 // Get content by area
-const delrayContent = ContentService.getAreas({ area: 'delray-beach' });
+const delrayContent = MarkdownContentService.getAreas({ area: 'delray-beach' });
+
+// Get all articles (for articles page)
+const articles = MarkdownContentService.getAllArticles();
+
+// Get article by slug
+const article = MarkdownContentService.getArticleBySlug('wycliffe-success-story');
 ```
 
 ### **Content Filtering**

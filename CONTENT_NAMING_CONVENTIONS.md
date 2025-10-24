@@ -84,22 +84,22 @@ public/developments/wycliffe-golf-country-club-villa.jpg
 ### **Content Organization:**
 ```
 src/content/
-├── articles/                    # Success stories and articles
+├── articles/                    # Success stories and articles (MARKDOWN ONLY)
 │   ├── boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.md
 │   ├── delray-beach-single-family-family-2024-10-24-vacation-home.md
 │   ├── lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.md
 │   └── wellington-townhouse-second-home-2024-10-26-investment.md
-├── areas/                       # City and area information
+├── areas/                       # City and area information (MARKDOWN ONLY)
 │   ├── boca-raton.md
 │   ├── delray-beach.md
 │   ├── lake-worth.md
 │   └── wellington.md
-├── developments/               # Community and development info
+├── developments/               # Community and development info (MARKDOWN ONLY)
 │   ├── boca-raton-country-club.md
 │   ├── wycliffe-golf-country-club.md
 │   ├── royal-palm-yacht-club.md
 │   └── mizner-park.md
-└── neighborhoods/              # Specific neighborhood details
+└── neighborhoods/              # Specific neighborhood details (MARKDOWN ONLY)
     ├── mizner-park-boca-raton.md
     ├── royal-palm-place-boca-raton.md
     └── downtown-delray-beach.md

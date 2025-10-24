@@ -57,6 +57,13 @@ public/articles/[filename].jpg
 4. **Create corresponding image** with matching filename
 5. **Commit and push** - content goes live automatically!
 
+## ⚠️ **IMPORTANT: Current System**
+
+- **Content Service:** `MarkdownContentService` (not `ContentService`)
+- **Articles Location:** `src/content/articles/` (markdown files only)
+- **Processing:** Automatic via `MarkdownContentService`
+- **No Code Changes:** Just create markdown files and commit
+
 ## ✅ **Benefits**
 
 - **Automatic associations** based on naming patterns
