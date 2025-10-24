@@ -61,8 +61,6 @@ The Johnsons' new home has exceeded every expectation:
 - **Social Connections**: They've built a network of like-minded friends
 - **Peace of Mind**: Concierge service handles all maintenance and logistics
 
-## Client Testimonial
-
 "Rachel didn't just help us find a house—she helped us find our new life. Every day feels like a vacation, and we've never been happier." - Michael & Jennifer Johnson
 
 ## Key Takeaways
@@ -81,8 +79,6 @@ Delray Beach offers luxury buyers like the Johnsons:
 - **Healthcare facilities** including top-rated hospitals and medical centers
 - **Tax advantages** with no state income tax in Florida
 - **Investment potential** with strong appreciation history
-
-## Ready to Start Your Luxury Home Journey?
 
 If you're considering a luxury second home in Delray Beach or any of South Florida's premier communities, Rachel's expertise can help you find the perfect match for your lifestyle and investment goals.
 
