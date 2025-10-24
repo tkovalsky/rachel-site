@@ -61,17 +61,17 @@ export class MarkdownContentService {
 
     // Apply filters
     if (filter.targetSegment) {
-      filteredAreas = filteredAreas.filter(area => 
+      filteredAreas = filteredAreas.filter((area: any) => 
         area.targetSegments.includes(filter.targetSegment!)
       );
     }
 
     if (filter.area) {
-      filteredAreas = filteredAreas.filter(area => area.id === filter.area);
+      filteredAreas = filteredAreas.filter((area: any) => area.id === filter.area);
     }
 
     if (filter.featured !== undefined) {
-      filteredAreas = filteredAreas.filter(area => area.featured === filter.featured);
+      filteredAreas = filteredAreas.filter((area: any) => area.featured === filter.featured);
     }
 
     // Randomize if requested
@@ -94,23 +94,23 @@ export class MarkdownContentService {
 
     // Apply filters
     if (filter.targetSegment) {
-      filteredDevelopments = filteredDevelopments.filter(dev => 
+      filteredDevelopments = filteredDevelopments.filter((dev: any) => 
         dev.targetSegments.includes(filter.targetSegment!)
       );
     }
 
     if (filter.area) {
-      filteredDevelopments = filteredDevelopments.filter(dev => dev.area === filter.area);
+      filteredDevelopments = filteredDevelopments.filter((dev: any) => dev.area === filter.area);
     }
 
     if (filter.amenity) {
-      filteredDevelopments = filteredDevelopments.filter(dev => 
+      filteredDevelopments = filteredDevelopments.filter((dev: any) => 
         dev.amenities.includes(filter.amenity!)
       );
     }
 
     if (filter.featured !== undefined) {
-      filteredDevelopments = filteredDevelopments.filter(dev => dev.featured === filter.featured);
+      filteredDevelopments = filteredDevelopments.filter((dev: any) => dev.featured === filter.featured);
     }
 
     // Randomize if requested
@@ -133,25 +133,25 @@ export class MarkdownContentService {
 
     // Apply filters
     if (filter.targetSegment) {
-      filteredArticles = filteredArticles.filter(article => 
+      filteredArticles = filteredArticles.filter((article: any) => 
         article.targetSegments.includes(filter.targetSegment!)
       );
     }
 
     if (filter.area) {
-      filteredArticles = filteredArticles.filter(article => 
+      filteredArticles = filteredArticles.filter((article: any) => 
         article.areas.includes(filter.area!)
       );
     }
 
     if (filter.development) {
-      filteredArticles = filteredArticles.filter(article => 
+      filteredArticles = filteredArticles.filter((article: any) => 
         article.developments.includes(filter.development!)
       );
     }
 
     if (filter.featured !== undefined) {
-      filteredArticles = filteredArticles.filter(article => article.featured === filter.featured);
+      filteredArticles = filteredArticles.filter((article: any) => article.featured === filter.featured);
     }
 
     // Randomize if requested
@@ -182,13 +182,13 @@ export class MarkdownContentService {
 
     // Apply filters
     if (filter.targetSegment) {
-      filteredTestimonials = filteredTestimonials.filter(testimonial => 
+      filteredTestimonials = filteredTestimonials.filter((testimonial: any) => 
         testimonial.targetSegment === filter.targetSegment
       );
     }
 
     if (filter.featured !== undefined) {
-      filteredTestimonials = filteredTestimonials.filter(testimonial => 
+      filteredTestimonials = filteredTestimonials.filter((testimonial: any) => 
         testimonial.featured === filter.featured
       );
     }
@@ -212,11 +212,11 @@ export class MarkdownContentService {
 
     // Apply filters
     if (filter.area) {
-      marketData = marketData.filter(data => data.area === filter.area);
+      marketData = marketData.filter((data: any) => data.area === filter.area);
     }
 
     if (filter.featured !== undefined) {
-      marketData = marketData.filter(data => data.featured === filter.featured);
+      marketData = marketData.filter((data: any) => data.featured === filter.featured);
     }
 
     // Randomize if requested
@@ -297,6 +297,6 @@ export class MarkdownContentService {
   // Get article by slug
   static getArticleBySlug(slug: string): Article | undefined {
     const { articles } = this.getProcessedContent();
-    return articles.find(article => article.slug === slug);
+    return articles.find((article: any) => article.slug === slug);
   }
 }
