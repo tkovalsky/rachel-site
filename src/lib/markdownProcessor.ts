@@ -61,11 +61,11 @@ export class MarkdownProcessor {
       const contentType = this.getContentTypeFromPath(filePath);
       
       if (contentType === 'article') {
-        return this.processArticle(frontmatter, content, filePath);
+        return this.processArticle(frontmatter as MarkdownFrontmatter, content, filePath);
       } else if (contentType === 'area') {
-        return this.processArea(frontmatter, content, filePath);
+        return this.processArea(frontmatter as any, content, filePath);
       } else if (contentType === 'development') {
-        return this.processDevelopment(frontmatter, content, filePath);
+        return this.processDevelopment(frontmatter as any, content, filePath);
       }
       
       return null;
