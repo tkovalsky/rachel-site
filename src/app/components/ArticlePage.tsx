@@ -2,6 +2,7 @@ import { Article } from '@/app/content/types';
 import Image from 'next/image';
 import { MarkdownContentService } from '@/lib/markdownContentService';
 import RelatedContentSection from './RelatedContentSection';
+import ExploreAreasSection from './ExploreAreasSection';
 
 interface ArticlePageProps {
   article: Article;
@@ -219,6 +220,9 @@ export default function ArticlePage({ article }: ArticlePageProps) {
 
         {/* Related Content Section */}
         <RelatedContentSection article={article} />
+        
+        {/* Explore Areas Section */}
+        <ExploreAreasSection currentArticle={article} />
 
             {/* Enhanced CTA Section - Single, More Impactful */}
             <section className="py-12 bg-gradient-to-br from-slate-900 to-black text-white">
