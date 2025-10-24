@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Rachel's core service areas
 const SERVICE_AREAS = [
@@ -22,6 +22,22 @@ export default function HomepageContactForm() {
   const [selectedNeighborhoods, setSelectedNeighborhoods] = useState<string[]>([]);
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Validation functions
   const validateEmail = (email: string): boolean => {
@@ -209,28 +225,71 @@ export default function HomepageContactForm() {
                 {/* Areas of Interest */}
                 <div>
                   <label className="block body-large font-semibold text-ink mb-4">
-                    Areas of Interest (select all that apply)
+                    Select the areas you're interested in
                   </label>
-                  <div className="border-2 border-divider rounded-xl p-6 bg-surface-subtle">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {SERVICE_AREAS.map((area) => (
-                        <label key={area} className="flex items-center space-x-4 body cursor-pointer hover:bg-surface p-4 rounded-lg transition-colors min-h-[60px]">
-                          <input
-                            type="checkbox"
-                            checked={selectedNeighborhoods.includes(area)}
-                            onChange={(e) => handleNeighborhoodChange(area, e.target.checked)}
-                            className="w-7 h-7 text-champagne border-2 border-divider rounded focus:ring-champagne focus:ring-2 flex-shrink-0"
-                          />
-                          <span className="text-ink font-semibold text-lg">{area}</span>
-                        </label>
-                      ))}
+                  
+                  {/* Multi-select Input */}
+                  <div className="relative" ref={dropdownRef}>
+                    <div 
+                      className="w-full px-6 py-4 body border-2 border-divider rounded-xl focus-within:border-champagne focus:outline-none transition-colors bg-surface cursor-pointer min-h-[60px] flex flex-wrap items-center gap-2"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                      {selectedNeighborhoods.length > 0 ? (
+                        selectedNeighborhoods.map((area) => (
+                          <span
+                            key={area}
+                            className="inline-flex items-center gap-2 px-3 py-1 bg-champagne/10 text-champagne border border-champagne/20 rounded-lg text-sm font-medium"
+                          >
+                            {area}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleNeighborhoodChange(area, false);
+                              }}
+                              className="text-champagne hover:text-champagne-dark ml-1"
+                            >
+                              ×
+                            </button>
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-ink-lighter">Click to select areas...</span>
+                      )}
+                      <div className="ml-auto">
+                        <svg 
+                          className={`w-5 h-5 text-ink-lighter transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
                     </div>
+
+                    {/* Dropdown Menu */}
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 w-full mt-2 bg-surface border-2 border-divider rounded-xl shadow-lg max-h-60 overflow-y-auto">
+                        {SERVICE_AREAS.map((area) => (
+                          <div
+                            key={area}
+                            className="flex items-center justify-between px-4 py-3 hover:bg-surface-subtle cursor-pointer"
+                            onClick={() => handleNeighborhoodChange(area, !selectedNeighborhoods.includes(area))}
+                          >
+                            <span className={`body ${selectedNeighborhoods.includes(area) ? 'font-semibold text-ink' : 'text-ink-soft'}`}>
+                              {area}
+                            </span>
+                            {selectedNeighborhoods.includes(area) && (
+                              <svg className="w-5 h-5 text-champagne" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  {selectedNeighborhoods.length > 0 && (
-                    <p className="mt-4 body-large text-ink-soft font-semibold">
-                      Selected: {selectedNeighborhoods.join(", ")}
-                    </p>
-                  )}
                 </div>
                 
                 {/* Message */}
