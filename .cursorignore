@@ -1,0 +1,10 @@
+# noise
+node_modules/
+dist/
+.build/
+coverage/
+*.log
+
+# finished areas
+src/done/**
+app/**/final/**

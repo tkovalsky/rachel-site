@@ -1,5 +1,6 @@
 import { Article } from '@/app/content/types';
 import Image from 'next/image';
+import { MarkdownContentService } from '@/lib/markdownContentService';
 
 interface ArticlePageProps {
   article: Article;
@@ -35,24 +36,24 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   </div>
                   
                   {/* Main Title */}
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                  <h1 className="h1 text-white">
                     {article.title}
                   </h1>
                   
                   {/* Hero Quote */}
-                  <blockquote className="text-2xl md:text-3xl lg:text-4xl leading-relaxed font-light italic border-l-6 border-champagne pl-8">
+                  <blockquote className="lead text-white/90 border-l-6 border-champagne pl-8">
                     "{firstParagraph}"
                   </blockquote>
                   
                   {/* Author & Meta */}
-                  <div className="flex flex-wrap items-center gap-6 text-base">
+                  <div className="flex flex-wrap items-center gap-6 body-large">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 bg-champagne/20 rounded-full flex items-center justify-center">
-                        <span className="text-champagne font-bold text-lg">RK</span>
+                        <span className="text-champagne font-bold body-large">RK</span>
                       </div>
                       <div>
-                        <div className="font-semibold text-lg">By {article.author}</div>
-                        <div className="text-white/70 text-base">{new Date(article.publishDate).toLocaleDateString('en-US', { 
+                        <div className="font-semibold body-large text-white">By {article.author}</div>
+                        <div className="text-white/70 body">{new Date(article.publishDate).toLocaleDateString('en-US', { 
                           year: 'numeric', 
                           month: 'long', 
                           day: 'numeric' 
@@ -61,7 +62,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                     </div>
                     
                     {/* Reading Time */}
-                    <div className="text-white/70 text-base">
+                    <div className="text-white/70 body">
                       {Math.ceil(article.content.split(' ').length / 200)} min read
                     </div>
                   </div>
@@ -114,40 +115,56 @@ export default function ArticlePage({ article }: ArticlePageProps) {
               {/* Story Overview Cards */}
               <div className="grid md:grid-cols-3 gap-8 mb-16">
                 {article.clientProfile && (
-                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                    <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-4">
+                  <div className="card p-8">
+                    <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-6">
                       <svg className="w-6 h-6 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
-                    <h3 className="text-2xl font-bold text-deep mb-3">Client Profile</h3>
-                    <p className="text-lg text-gray-600 mb-2">{article.clientProfile.ageRange} • {article.clientProfile.origin}</p>
-                    <p className="text-base text-gray-500">{article.clientProfile.buyerType}</p>
+                    <h3 className="h3 text-deep mb-4">Client Profile</h3>
+                    <p className="body-large text-ink-soft mb-3">{article.clientProfile.ageRange} • {article.clientProfile.origin}</p>
+                    <p className="body text-ink-lighter">{article.clientProfile.buyerType}</p>
+                    {article.clientProfile.familyStructure && (
+                      <p className="body-small text-ink-lighter mt-2">{article.clientProfile.familyStructure}</p>
+                    )}
                   </div>
                 )}
                 
                 {article.propertyDetails && (
-                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                    <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-4">
+                  <div className="card p-8">
+                    <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-6">
                       <svg className="w-6 h-6 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                       </svg>
                     </div>
-                    <h3 className="text-2xl font-bold text-deep mb-3">Property Details</h3>
-                    <p className="text-lg text-gray-600 mb-2">{article.propertyDetails.propertyType}</p>
-                    <p className="text-base text-gray-500">{article.propertyDetails.priceRange}</p>
+                    <h3 className="h3 text-deep mb-4">Property Details</h3>
+                    <p className="body-large text-ink-soft mb-3">{article.propertyDetails.propertyType}</p>
+                    <p className="body text-ink-lighter">{article.propertyDetails.priceRange}</p>
+                    {article.propertyDetails.specialFeatures && (
+                      <div className="mt-4">
+                        <p className="body-small text-ink-lighter mb-2">Special Features:</p>
+                        <ul className="space-y-1">
+                          {article.propertyDetails.specialFeatures.slice(0, 3).map((feature, index) => (
+                            <li key={index} className="body-small text-ink-lighter">• {feature}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
                 
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                  <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-4">
+                <div className="card p-8">
+                  <div className="w-12 h-12 bg-champagne/20 rounded-xl flex items-center justify-center mb-6">
                     <svg className="w-6 h-6 text-champagne" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-deep mb-3">Success Outcome</h3>
-                  <p className="text-lg text-gray-600 mb-2">Successful close</p>
-                  <p className="text-base text-gray-500">Happy clients</p>
+                  <h3 className="h3 text-deep mb-4">Success Outcome</h3>
+                  <p className="body-large text-ink-soft mb-3">Successful close</p>
+                  <p className="body text-ink-lighter">Happy clients</p>
+                  <div className="mt-4 p-4 bg-success/10 rounded-lg">
+                    <p className="body-small text-success font-semibold">✓ Transaction completed successfully</p>
+                  </div>
                 </div>
               </div>
               
@@ -161,12 +178,12 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                       className="article-content space-y-12"
                       dangerouslySetInnerHTML={{ 
                         __html: contentHtml
-                          .replace(/<h2>/g, '<h2 class="text-5xl md:text-6xl font-bold text-deep mt-24 mb-12 leading-tight border-b-2 border-gray-200 pb-8">')
-                          .replace(/<h3>/g, '<h3 class="text-4xl md:text-5xl font-semibold text-deep mt-20 mb-10 leading-tight">')
-                          .replace(/<p>/g, '<p class="text-2xl md:text-3xl leading-relaxed text-gray-700 mb-10 max-w-4xl">')
-                          .replace(/<blockquote>/g, '<blockquote class="border-l-6 border-champagne pl-10 my-20 italic text-3xl md:text-4xl text-gray-600 bg-gray-50 py-12 rounded-r-2xl">')
+                          .replace(/<h2>/g, '<h2 class="h2 text-deep mt-24 mb-12 border-b-2 border-divider pb-8">')
+                          .replace(/<h3>/g, '<h3 class="h3 text-deep mt-20 mb-10">')
+                          .replace(/<p>/g, '<p class="body-large text-ink leading-relaxed mb-10 max-w-4xl">')
+                          .replace(/<blockquote>/g, '<blockquote class="border-l-6 border-champagne pl-10 my-20 italic lead text-ink-soft bg-surface-subtle py-12 rounded-r-2xl">')
                           .replace(/<ul>/g, '<ul class="space-y-8 my-16">')
-                          .replace(/<li>/g, '<li class="flex items-start gap-6"><span class="w-6 h-6 bg-champagne rounded-full mt-4 flex-shrink-0"></span><span class="text-2xl md:text-3xl text-gray-700 leading-relaxed">')
+                          .replace(/<li>/g, '<li class="flex items-start gap-6"><span class="w-6 h-6 bg-champagne rounded-full mt-4 flex-shrink-0"></span><span class="body-large text-ink leading-relaxed">')
                           .replace(/<\/li>/g, '</span></li>')
                       }}
                     />
@@ -177,36 +194,36 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 <div className="space-y-8">
                   
                   {/* Key Highlights */}
-                  <div className="bg-gradient-to-br from-champagne/10 to-deep/5 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold text-deep mb-8">Key Highlights</h3>
+                  <div className="card p-8">
+                    <h3 className="h3 text-deep mb-8">Key Highlights</h3>
                     <div className="space-y-6">
                       <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
-                        <p className="text-lg text-gray-700">Expert guidance throughout the process</p>
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                        <p className="body-large text-ink">Expert guidance throughout the process</p>
                       </div>
                       <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
-                        <p className="text-lg text-gray-700">Smooth transition from Northeast</p>
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                        <p className="body-large text-ink">Smooth transition from Northeast</p>
                       </div>
                       <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
-                        <p className="text-lg text-gray-700">Perfect community match</p>
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                        <p className="body-large text-ink">Perfect community match</p>
                       </div>
                       <div className="flex items-start gap-4">
-                        <div className="w-3 h-3 bg-champagne rounded-full mt-4"></div>
-                        <p className="text-lg text-gray-700">Maintenance-free lifestyle</p>
+                        <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
+                        <p className="body-large text-ink">Maintenance-free lifestyle</p>
                       </div>
                     </div>
                   </div>
                   
                   {/* Client Quote */}
                   {article.clientProfile && (
-                    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div className="card p-8">
                       <div className="text-4xl text-champagne mb-4">"</div>
-                      <blockquote className="text-xl italic text-gray-700 leading-relaxed mb-6">
+                      <blockquote className="lead italic text-ink leading-relaxed mb-6">
                         "Rachel didn't just help us find a house—she helped us find our family's Florida home."
                       </blockquote>
-                      <cite className="block text-base font-semibold text-deep">
+                      <cite className="block body font-semibold text-deep">
                         — {article.clientProfile.buyerType}
                       </cite>
                     </div>
@@ -214,18 +231,18 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   
                   {/* CTA Card */}
                   <div className="bg-gradient-to-br from-deep to-champagne rounded-2xl p-8 text-white">
-                    <h3 className="text-2xl font-bold mb-6">Ready to Start Your Story?</h3>
-                    <p className="text-white/90 mb-8 text-lg">Let Rachel help you find your perfect home in South Florida.</p>
+                    <h3 className="h3 text-white mb-6">Ready to Start Your Story?</h3>
+                    <p className="body-large text-white/90 mb-8">Let Rachel help you find your perfect home in South Florida.</p>
                     <div className="space-y-3">
                       <a
                         href="tel:+15612878966"
-                        className="block w-full bg-white text-deep text-center py-4 rounded-lg font-semibold hover:bg-white/90 transition-colors text-lg"
+                        className="block w-full bg-white text-deep text-center py-4 rounded-lg font-semibold hover:bg-white/90 transition-colors body-large"
                       >
                         Call (561) 287-8966
                       </a>
                       <a
                         href="mailto:hi@racheldelray.com"
-                        className="block w-full border-2 border-white text-white text-center py-4 rounded-lg font-semibold hover:bg-white hover:text-deep transition-colors text-lg"
+                        className="block w-full border-2 border-white text-white text-center py-4 rounded-lg font-semibold hover:bg-white hover:text-deep transition-colors body-large"
                       >
                         Email Rachel
                       </a>
@@ -237,52 +254,108 @@ export default function ArticlePage({ article }: ArticlePageProps) {
           </div>
         </article>
 
-        {/* Related Areas - Enhanced */}
-        {article.areas && article.areas.length > 0 && (
-          <section className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-4xl font-bold text-deep mb-10 text-center">Explore Related Areas</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {article.areas.map((area) => (
-                    <div
-                      key={area}
-                      className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200"
-                    >
-                      <h3 className="text-2xl font-semibold text-deep mb-3 group-hover:text-champagne transition-colors">
-                        {area.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                      </h3>
-                      <p className="text-gray-600 text-base">
-                        Discover properties and communities in this beautiful area
-                      </p>
-                    </div>
-                  ))}
+        {/* Related Content Section */}
+        <section className="py-20 bg-surface-subtle">
+          <div className="section">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="h2 text-deep mb-12 text-center">Related Content</h2>
+              
+              {/* Related Articles */}
+              <div className="mb-12">
+                <h3 className="h3 text-deep mb-8">More Success Stories</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {(() => {
+                    const allArticles = MarkdownContentService.getAllArticles();
+                    const relatedArticles = allArticles
+                      .filter(a => a.id !== article.id && 
+                        (a.targetSegments.some(seg => article.targetSegments.includes(seg)) ||
+                         a.areas.some(area => article.areas.includes(area))))
+                      .slice(0, 3);
+                    
+                    return relatedArticles.map((relatedArticle) => (
+                      <div key={relatedArticle.id} className="card p-6 group hover:shadow-lg transition-all duration-300">
+                        <div className="aspect-[4/3] rounded-lg overflow-hidden mb-4">
+                          <Image
+                            src={relatedArticle.imageSrc || '/articles/default.jpg'}
+                            alt={relatedArticle.title}
+                            width={400}
+                            height={300}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <h4 className="h3 text-deep mb-3 group-hover:text-champagne transition-colors">
+                          {relatedArticle.title}
+                        </h4>
+                        <p className="body text-ink-soft mb-4">{relatedArticle.excerpt}</p>
+                        <a 
+                          href={`/articles/${relatedArticle.slug}`}
+                          className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body"
+                        >
+                          Read Story
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </a>
+                      </div>
+                    ));
+                  })()}
                 </div>
               </div>
-            </div>
-          </section>
-        )}
 
-        {/* Enhanced CTA Section */}
+              {/* Related Areas */}
+              {article.areas && article.areas.length > 0 && (
+                <div>
+                  <h3 className="h3 text-deep mb-8">Explore Related Areas</h3>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {article.areas.map((area) => (
+                      <div
+                        key={area}
+                        className="card p-6 group hover:shadow-lg transition-all duration-300"
+                      >
+                        <h4 className="h3 text-deep mb-3 group-hover:text-champagne transition-colors">
+                          {area.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </h4>
+                        <p className="body text-ink-soft">
+                          Discover properties and communities in this beautiful area
+                        </p>
+                        <a 
+                          href={`/areas/${area}`}
+                          className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body mt-4"
+                        >
+                          Explore Area
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Enhanced CTA Section - Single, More Impactful */}
         <section className="py-20 bg-gradient-to-br from-deep to-champagne text-white">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl font-bold mb-6">
+          <div className="section">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="h1 text-white mb-8">
                 Ready to Write Your Success Story?
               </h2>
-              <p className="text-xl mb-10 opacity-90 leading-relaxed">
+              <p className="lead text-white/90 mb-12 max-w-3xl mx-auto">
                 Let Rachel help you find your perfect home in South Florida. 
                 {article.clientProfile?.buyerType && ` Whether you're a ${article.clientProfile.buyerType.toLowerCase()}, `}
                 Rachel's expertise makes the difference.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
                 <a
                   href="tel:+15612878966"
-                  className="group px-8 py-4 bg-champagne text-deep rounded-xl font-semibold hover:bg-champagne/90 transition-all duration-300 hover:scale-105 shadow-lg"
+                  className="btn-primary bg-champagne text-deep hover:bg-champagne-light hover:text-deep px-8 py-4 text-xl"
                 >
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                     Call (561) 287-8966
@@ -291,10 +364,10 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 
                 <a
                   href="mailto:hi@racheldelray.com"
-                  className="group px-8 py-4 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-deep transition-all duration-300 hover:scale-105"
+                  className="btn-ghost border-2 border-white text-white hover:bg-white hover:text-deep px-8 py-4 text-xl"
                 >
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     Email Rachel
@@ -303,22 +376,22 @@ export default function ArticlePage({ article }: ArticlePageProps) {
               </div>
               
               {/* Trust Indicators */}
-              <div className="mt-12 pt-8 border-t border-white/20">
-                <div className="flex flex-wrap justify-center items-center gap-8 text-sm opacity-80">
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <div className="pt-8 border-t border-white/20">
+                <div className="flex flex-wrap justify-center items-center gap-8 body-large text-white/80">
+                  <div className="flex items-center gap-3">
+                    <svg className="w-6 h-6 text-success" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     Licensed Realtor®
                   </div>
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="flex items-center gap-3">
+                    <svg className="w-6 h-6 text-champagne" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
                     South Florida Expert
                   </div>
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="flex items-center gap-3">
+                    <svg className="w-6 h-6 text-champagne" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                     </svg>
                     Compass Florida
