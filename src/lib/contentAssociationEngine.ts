@@ -182,7 +182,7 @@ export class ContentAssociationEngine {
       // Check if images are from same area or development
       const sourceAreas = sourceContent.areas || [];
       const articleAreas = article.areas || [];
-      const commonAreas = sourceAreas.filter(area => articleAreas.includes(area));
+      const commonAreas = sourceAreas.filter((area: string) => articleAreas.includes(area));
       
       if (commonAreas.length > 0) {
         associations.push({
@@ -392,7 +392,7 @@ export class ContentAssociationEngine {
         // Show success stories and testimonials
         recommendations = articles
           .filter(a => a.storyType === 'success-story')
-          .filter(a => userProfile.segments?.some(seg => a.targetSegments.includes(seg)))
+          .filter(a => userProfile.segments?.some((seg: string) => a.targetSegments.includes(seg as any)))
           .map(a => ({
             id: a.id,
             type: 'article' as const,

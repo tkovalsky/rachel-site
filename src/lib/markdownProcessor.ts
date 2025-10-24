@@ -91,13 +91,13 @@ export class MarkdownProcessor {
       title: frontmatter.title,
       slug: frontmatter.slug,
       excerpt: frontmatter.excerpt,
-      content: content,
+      // content: content // Removed - not part of Area type,
       author: frontmatter.author || 'Rachel Kovalsky',
       publishDate: frontmatter.publishDate,
       featured: frontmatter.featured || false,
       areas: frontmatter.areas || [],
       developments: frontmatter.developments || [],
-      targetSegments: frontmatter.targetSegments || [],
+      targetSegments: (frontmatter.targetSegments || []) as any[],
       tags: frontmatter.tags || [],
       storyType: frontmatter.storyType || 'success-story',
       clientProfile: frontmatter.clientProfile,
@@ -117,10 +117,10 @@ export class MarkdownProcessor {
       description: frontmatter.description,
       imageSrc: frontmatter.imageSrc || `/areas/${frontmatter.slug}.jpg`,
       featured: frontmatter.featured || false,
-      targetSegments: frontmatter.targetSegments || [],
+      targetSegments: (frontmatter.targetSegments || []) as any[],
       developments: frontmatter.developments || [],
       articles: frontmatter.articles || [],
-      content: content
+      // content: content // Removed - not part of Area type
     };
   }
 
@@ -136,8 +136,8 @@ export class MarkdownProcessor {
       amenities: frontmatter.amenities || [],
       priceRange: frontmatter.priceRange || { min: 0, max: 0 },
       featured: frontmatter.featured || false,
-      targetSegments: frontmatter.targetSegments || [],
-      content: content
+      targetSegments: (frontmatter.targetSegments || []) as any[],
+      // content: content // Removed - not part of Area type
     };
   }
 

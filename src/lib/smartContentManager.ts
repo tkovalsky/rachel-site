@@ -78,7 +78,7 @@ export class SmartContentManager {
       if (article.id === sourceContent.id) return;
       
       const articleTags = article.tags || [];
-      const commonTags = sourceTags.filter(tag => articleTags.includes(tag));
+      const commonTags = sourceTags.filter((tag: string) => articleTags.includes(tag));
       
       if (commonTags.length > 0) {
         const strength = commonTags.length / Math.max(sourceTags.length, articleTags.length);
@@ -176,7 +176,7 @@ export class SmartContentManager {
       // Check for similar image paths (same area, development, etc.)
       const sourceAreas = sourceContent.areas || [];
       const articleAreas = article.areas || [];
-      const commonAreas = sourceAreas.filter(area => articleAreas.includes(area));
+      const commonAreas = sourceAreas.filter((area: string) => articleAreas.includes(area));
       
       if (commonAreas.length > 0) {
         const imageSimilarity = this.calculateImageSimilarity(sourceImage, article.imageSrc);
@@ -236,7 +236,7 @@ export class SmartContentManager {
           strength: combinedSimilarity,
           metadata: {
             textSimilarity,
-            titleSimilarity,
+            // titleSimilarity, // Removed - not part of metadata type
             contentType: 'semantic-match'
           }
         });
@@ -260,7 +260,7 @@ export class SmartContentManager {
       if (article.id === sourceContent.id) return;
       
       const articleSegments = article.targetSegments || [];
-      const commonSegments = sourceSegments.filter(seg => articleSegments.includes(seg));
+      const commonSegments = sourceSegments.filter((seg: string) => articleSegments.includes(seg));
       const articleJourney = this.determineUserJourney(article);
       
       if (commonSegments.length > 0 || articleJourney === sourceJourney) {
@@ -405,7 +405,7 @@ export class SmartContentManager {
     const segments = ['55-plus-cash-buyer', 'second-home-buyer', 'family', 'investor'];
     segments.forEach(segment => {
       const segmentArticles = articles.filter(article => 
-        article.targetSegments.includes(segment)
+        article.targetSegments.includes(segment as any)
       );
       
       if (segmentArticles.length > 0) {
