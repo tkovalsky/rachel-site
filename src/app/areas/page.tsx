@@ -1,4 +1,4 @@
-import { MarkdownContentService } from '@/lib/markdownContentService';
+import { ContentService } from '@/lib/contentService';
 import { DynamicAreas } from '@/app/components/DynamicContent';
 import { TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ interface AreasPageProps {
 export default function AreasPage({ searchParams }: AreasPageProps) {
   const segment = searchParams.segment as TargetSegment | undefined;
   
-  const _areas = MarkdownContentService.getAreas({ 
+  const _areas = ContentService.getAreas({ 
     targetSegment: segment,
     featured: true,
     limit: 12 

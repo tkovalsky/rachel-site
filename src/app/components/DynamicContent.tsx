@@ -1,4 +1,5 @@
-import { MarkdownContentService } from '@/lib/markdownContentService';
+// Use fallback content service for client components
+import { ContentService } from '@/lib/contentService';
 import { TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -18,7 +19,7 @@ export function DynamicAreas({
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const areas = MarkdownContentService.getAreas({
+  const areas = ContentService.getAreas({
     targetSegment,
     area,
     limit,
@@ -75,7 +76,7 @@ export function DynamicDevelopments({
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const developments = MarkdownContentService.getDevelopments({
+  const developments = ContentService.getDevelopments({
     targetSegment,
     area,
     limit,
@@ -138,7 +139,7 @@ export function DynamicArticles({
   randomize = true,
   showImages = true 
 }: DynamicContentProps) {
-  const articles = MarkdownContentService.getArticles({
+  const articles = ContentService.getArticles({
     targetSegment,
     area,
     limit,
@@ -187,7 +188,7 @@ export function DynamicTestimonials({
   limit = 2, 
   randomize = true 
 }: DynamicContentProps) {
-  const testimonials = MarkdownContentService.getTestimonials({
+  const testimonials = ContentService.getTestimonials({
     targetSegment,
     limit,
     randomize,
@@ -228,7 +229,7 @@ export function DynamicMarketData({
   limit = 3, 
   randomize = true 
 }: DynamicContentProps) {
-  const marketData = MarkdownContentService.getMarketData({
+  const marketData = ContentService.getMarketData({
     area,
     limit,
     randomize,

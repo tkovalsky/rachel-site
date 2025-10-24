@@ -8,7 +8,13 @@ import {
   ContentDisplayOptions,
   TargetSegment 
 } from '@/app/content/types';
-import { getProcessedContent } from './markdownProcessor';
+// Import markdown processor only on server side
+let getProcessedContent: any = null;
+if (typeof window === 'undefined') {
+  // Server side - safe to import fs
+  const { getProcessedContent: serverGetProcessedContent } = require('./markdownProcessor');
+  getProcessedContent = serverGetProcessedContent;
+}
 
 interface RawTestimonial {
   q: string;
@@ -27,6 +33,15 @@ import { MARKET_DATA as FALLBACK_MARKET_DATA } from '@/app/content/marketData';
 export class MarkdownContentService {
   // Get processed content from markdown files
   private static getProcessedContent() {
+    // If we're on client side, return fallback content
+    if (typeof window !== 'undefined' || !getProcessedContent) {
+      return {
+        articles: [],
+        areas: FALLBACK_AREAS,
+        developments: FALLBACK_DEVELOPMENTS
+      };
+    }
+    
     try {
       return getProcessedContent();
     } catch (error) {

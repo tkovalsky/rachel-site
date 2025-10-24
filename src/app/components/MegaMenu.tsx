@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import { MarkdownContentService } from '@/lib/markdownContentService';
+import { ContentService } from '@/lib/contentService';
 import { TargetSegment } from '@/app/content/types';
 
 interface MegaMenuProps {
@@ -23,8 +23,8 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
     { key: 'relocating', label: 'Relocating', description: 'New to area? Start here' },
   ];
 
-  const areas = MarkdownContentService.getAreas({ featured: true, limit: 5 });
-  const developments = MarkdownContentService.getDevelopments({ featured: true, limit: 6 });
+  const areas = ContentService.getAreas({ featured: true, limit: 5 });
+  const developments = ContentService.getDevelopments({ featured: true, limit: 6 });
 
   return (
     <div 
