@@ -1,12 +1,32 @@
-import { Article } from '../types';
-import { createArticle } from './helpers';
+---
+id: nj-family-buys-boca-vacation-condo
+title: "From New Jersey to Paradise: A Family's Perfect Vacation Home"
+slug: nj-family-buys-boca-vacation-condo
+excerpt: "How successful New Jersey business owners found their ideal multigenerational vacation home in South Florida, creating lasting memories for their entire family."
+author: Rachel Kovalsky
+publishDate: "2024-10-23"
+featured: true
+areas: ["boca-raton", "delray-beach"]
+developments: []
+targetSegments: ["second-home-buyer"]
+tags: ["success-story", "vacation-home", "family", "investment", "new-jersey", "multigenerational"]
+storyType: "success-story"
+clientProfile:
+  ageRange: "50+"
+  origin: "New Jersey"
+  buyerType: "successful business owners"
+  familyStructure: "adult children with families"
+propertyDetails:
+  development: "Gated Community"
+  propertyType: "single-family"
+  priceRange: "$800,000-$1,200,000"
+  specialFeatures: ["pool", "spa", "golf-course-views", "4-bedroom"]
+adSource: "nj-family-buys-boca-vacation-condo"
+relatedStories: []
+imageSrc: "/articles/nj-family-buys-boca-vacation-condo.jpg"
+---
 
-export const FAMILY_VACATION_HOME: Article = createArticle({
-  id: 'family-vacation-home',
-  title: 'From New Jersey to Paradise: A Family\'s Perfect Vacation Home',
-  slug: 'family-vacation-home',
-  excerpt: 'How successful New Jersey business owners found their ideal multigenerational vacation home in South Florida, creating lasting memories for their entire family.',
-  content: `# From New Jersey to Paradise: A Family's Perfect Vacation Home
+# From New Jersey to Paradise: A Family's Perfect Vacation Home
 
 When this family began their search for a vacation home, they had one clear vision: a place where their adult children and grandchildren could create lasting memories together. As successful business owners from New Jersey, they were ready to invest in a property that would serve as both a personal retreat and a gathering place for their growing family.
 
@@ -92,26 +112,4 @@ If you're a successful business owner looking to create lasting family memories 
 
 *"The best investment you can make is in your family's happiness and memories."* - Rachel Kovalsky
 
-Contact Rachel today to start your family's Florida adventure.`,
-  author: 'Rachel Kovalsky',
-  publishDate: '2024-10-23',
-  featured: true,
-  areas: ['boca-raton', 'delray-beach'],
-  developments: [],
-  targetSegments: ['second-home-buyer'],
-  tags: ['success-story', 'vacation-home', 'family', 'investment', 'new-jersey', 'multigenerational'],
-  storyType: 'success-story',
-  clientProfile: {
-    ageRange: '50+',
-    origin: 'New Jersey',
-    buyerType: 'successful business owners',
-    familyStructure: 'adult children with families'
-  },
-  propertyDetails: {
-    development: 'Gated Community',
-    propertyType: 'single-family',
-    priceRange: '$800,000-$1,200,000',
-    specialFeatures: ['pool', 'spa', 'golf-course-views', '4-bedroom']
-  },
-  adSource: 'grinkevich-vacation-home'
-});
+Contact Rachel today to start your family's Florida adventure.
