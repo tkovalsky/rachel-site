@@ -1,12 +1,34 @@
-import { Article } from '../types';
-import { createArticle } from './helpers';
+---
+id: wycliffe-success-story
+title: "From Golf Dreams to Real Life: Cheryl & Eddie's Wycliffe Story"
+slug: wycliffe-success-story
+excerpt: "How Cheryl and Eddie found their perfect retirement lifestyle at Wycliffe Golf & Country Club, complete with golf cart garages and pickleball courts."
+author: Rachel Kovalsky
+publishDate: "2024-10-23"
+featured: true
+areas: ["lake-worth", "wellington"]
+developments: ["wycliffe-golf-country-club"]
+targetSegments: ["55-plus-cash-buyer"]
+tags: ["success-story", "wycliffe", "55-plus", "retirement", "golf", "country-club", "lake-worth"]
+storyType: "success-story"
+clientProfile:
+  ageRange: "50+"
+  origin: "Northeast"
+  buyerType: "55+ cash buyer"
+  familyStructure: "married couple"
+propertyDetails:
+  development: "Wycliffe Golf & Country Club"
+  propertyType: "villa"
+  priceRange: "$800,000"
+  specialFeatures: ["golf-cart garage", "sunlit patio", "maintenance-free living"]
+adSource: "wycliffe-success-story"
+relatedStories: []
+imageSrc: "/articles/wycliffe-success-story.jpeg"
+---
 
-export const wycliffeSuccessStory: Article = createArticle({
-  id: 'wycliffe-success-story',
-  title: 'From Golf Dreams to Real Life: Cheryl & Eddie\'s Wycliffe Story',
-  slug: 'wycliffe-success-story',
-  excerpt: 'How Cheryl and Eddie found their perfect retirement lifestyle at Wycliffe Golf & Country Club, complete with golf cart garages and pickleball courts.',
-  content: `When Cheryl and Eddie began discussing retirement, they knew one thing: they weren't ready to slow down. Quite the opposite—they were eager for a new chapter, one filled with morning tee times, friendly pickleball matches, and a sense of community that felt both vibrant and lovely. What they didn't know was that a simple tour through Wycliffe Golf & Country Club would soon become the beginning of something truly special.
+# From Golf Dreams to Real Life: Cheryl & Eddie's Wycliffe Story
+
+When Cheryl and Eddie began discussing retirement, they knew one thing: they weren't ready to slow down. Quite the opposite—they were eager for a new chapter, one filled with morning tee times, friendly pickleball matches, and a sense of community that felt both vibrant and lovely. What they didn't know was that a simple tour through Wycliffe Golf & Country Club would soon become the beginning of something truly special.
 
 Set just west of the coastal bustle in Palm Beach County, Wycliffe is a private, gated country club community adorned with stately palms and lush fairways. With over 1,000 homes, two championship golf courses, and an array of charming neighborhoods, the community beckons those seeking more than just a home—it offers a lifestyle. Cheryl and Eddie had explored many communities from Boca Raton to Palm Beach Gardens, but none spoke to their hearts. That was, until they turned onto Wycliffe Country Club Boulevard.
 
@@ -24,26 +46,4 @@ Rachel even went the extra mile—coordinating moving services, arranging utilit
 
 Now, their days begin with sunshine and coffee on the patio, followed by golf with new friends or a lively afternoon of pickleball. Evenings are spent enjoying a glass of wine as the sun dips behind the fairway. Their life has changed—not just where they live, but how they live.
 
-For any woman 50 or better, wondering if it's too late to make a big change or design a life you love—Cheryl and Eddie's story is a gentle reminder: the best chapters are often the ones you write next. And when that time comes, having someone like Rachel by your side can make all the difference.`,
-  author: 'Rachel Kovalsky',
-  publishDate: '2024-10-23',
-  featured: true,
-  areas: ['lake-worth', 'wellington'],
-  developments: ['wycliffe-golf-country-club'],
-  targetSegments: ['55-plus-cash-buyer'],
-  tags: ['success-story', 'wycliffe', '55-plus', 'retirement', 'golf', 'country-club', 'lake-worth'],
-  storyType: 'success-story',
-  clientProfile: {
-    ageRange: '50+',
-    origin: 'Northeast',
-    buyerType: '55+ cash buyer',
-    familyStructure: 'married couple'
-  },
-  propertyDetails: {
-    development: 'Wycliffe Golf & Country Club',
-    propertyType: 'villa',
-    priceRange: '$800,000',
-    specialFeatures: ['golf-cart garage', 'sunlit patio', 'maintenance-free living']
-  },
-  adSource: 'wycliffe-success-story'
-});
+For any woman 50 or better, wondering if it's too late to make a big change or design a life you love—Cheryl and Eddie's story is a gentle reminder: the best chapters are often the ones you write next. And when that time comes, having someone like Rachel by your side can make all the difference.
