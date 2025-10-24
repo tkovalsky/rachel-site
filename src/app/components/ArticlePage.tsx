@@ -328,7 +328,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
                 <a
                   href="tel:+15612878966"
-                  className="btn-primary bg-champagne text-deep hover:bg-champagne-light hover:text-deep px-8 py-4 text-xl"
+                  className="bg-deep text-white border-2 border-deep hover:bg-transparent hover:border-champagne hover:text-champagne hover:shadow-lg hover:shadow-champagne/25 px-8 py-4 text-xl rounded-lg transition-all duration-300"
                 >
                   <div className="flex items-center gap-3">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
