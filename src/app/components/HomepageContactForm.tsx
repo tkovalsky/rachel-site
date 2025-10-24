@@ -146,7 +146,7 @@ export default function HomepageContactForm() {
                   I will be in touch with you soon to discuss your real estate needs.
                 </p>
               </div>
-              <p className="text-lg text-gray-400">
+              <p className="text-xl text-gray-400">
                 I'll review your information and get back to you within 24 hours.
               </p>
             </div>
@@ -185,7 +185,7 @@ export default function HomepageContactForm() {
                       }`}
                       onChange={(e) => validateEmail(e.target.value)}
                     />
-                    {emailError && <p className="mt-2 text-red-500 text-sm">{emailError}</p>}
+                    {emailError && <p className="mt-2 text-red-500 text-lg">{emailError}</p>}
                   </div>
                 </div>
                 
@@ -204,7 +204,7 @@ export default function HomepageContactForm() {
                     }`}
                     onChange={(e) => validatePhone(e.target.value)}
                   />
-                  {phoneError && <p className="mt-2 text-red-500 text-sm">{phoneError}</p>}
+                  {phoneError && <p className="mt-2 text-red-500 text-lg">{phoneError}</p>}
                 </div>
                 
                 {/* Areas of Interest */}
