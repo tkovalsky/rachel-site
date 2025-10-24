@@ -4,6 +4,7 @@ import About from "./components/About";
 // FIX APPLIED: Importing Testimonials component, and both Review and RawReview types
 import Testimonials, { type Review, type RawReview } from "./components/Testimonials";
 import { type TargetSegment } from "./content/types"; 
+import HomepageContactForm from "./components/HomepageContactForm"; 
 
 import SocialProof from "./components/SocialProof";
 import MarketHighlights from "./components/MarketHighlights";
@@ -66,6 +67,9 @@ export default function HomePage() {
 
       {/* Lead magnet (email capture → /api/contact) */}
       <GuideDownload />
+
+      {/* Contact Form - Let's talk about your move */}
+      <HomepageContactForm />
     </main>
   );
 }
