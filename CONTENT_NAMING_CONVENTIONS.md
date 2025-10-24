@@ -11,22 +11,30 @@ This naming convention system ensures all content is properly organized, easily 
 
 ### **Article Files:**
 ```
-src/content/articles/[area]-[property-type]-[buyer-segment]-[unique-identifier].md
+src/content/articles/[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier].md
 ```
 
 ### **Examples:**
 ```
-boca-raton-condo-55-plus-wycliffe-success-story.md
-delray-beach-single-family-family-vacation-home.md
-lake-worth-villa-55-plus-golf-retirement-story.md
-wellington-townhouse-second-home-investment.md
+boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.md
+delray-beach-single-family-family-2024-10-24-vacation-home.md
+lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.md
+wellington-townhouse-second-home-2024-10-26-investment-property.md
 ```
 
 ### **Pattern Breakdown:**
 - **`[area]`** - Primary area (boca-raton, delray-beach, lake-worth, wellington)
 - **`[property-type]`** - Property type (condo, single-family, villa, townhouse, penthouse)
 - **`[buyer-segment]`** - Target audience (55-plus, family, investor, second-home)
-- **`[unique-identifier]`** - Descriptive identifier (wycliffe-success, vacation-home, golf-retirement)
+- **`[date]`** - Publication date (YYYY-MM-DD format)
+- **`[descriptive-identifier]`** - Descriptive identifier (wycliffe-success, vacation-home, golf-retirement)
+
+### **Date-Based Benefits:**
+- **No Overlaps:** Multiple articles per day with unique identifiers
+- **Chronological Order:** Natural sorting by publication date
+- **Batch Processing:** Easy to group articles by date
+- **Version Control:** Clear history of content creation
+- **SEO Friendly:** Dates in URLs help with freshness signals
 
 ---
 
@@ -34,14 +42,14 @@ wellington-townhouse-second-home-investment.md
 
 ### **Article Images:**
 ```
-public/articles/[area]-[property-type]-[buyer-segment]-[unique-identifier].[ext]
+public/articles/[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier].[ext]
 ```
 
 ### **Examples:**
 ```
-public/articles/boca-raton-condo-55-plus-wycliffe-success-story.jpg
-public/articles/delray-beach-single-family-family-vacation-home.jpg
-public/articles/lake-worth-villa-55-plus-golf-retirement-story.jpg
+public/articles/boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.jpg
+public/articles/delray-beach-single-family-family-2024-10-24-vacation-home.jpg
+public/articles/lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.jpg
 ```
 
 ### **Area Images:**
@@ -77,10 +85,10 @@ public/developments/wycliffe-golf-country-club-villa.jpg
 ```
 src/content/
 ├── articles/                    # Success stories and articles
-│   ├── boca-raton-condo-55-plus-wycliffe-success-story.md
-│   ├── delray-beach-single-family-family-vacation-home.md
-│   ├── lake-worth-villa-55-plus-golf-retirement-story.md
-│   └── wellington-townhouse-second-home-investment.md
+│   ├── boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.md
+│   ├── delray-beach-single-family-family-2024-10-24-vacation-home.md
+│   ├── lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.md
+│   └── wellington-townhouse-second-home-2024-10-26-investment.md
 ├── areas/                       # City and area information
 │   ├── boca-raton.md
 │   ├── delray-beach.md
@@ -101,9 +109,9 @@ src/content/
 ```
 public/
 ├── articles/                   # Article hero images
-│   ├── boca-raton-condo-55-plus-wycliffe-success-story.jpg
-│   ├── delray-beach-single-family-family-vacation-home.jpg
-│   └── lake-worth-villa-55-plus-golf-retirement-story.jpg
+│   ├── boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.jpg
+│   ├── delray-beach-single-family-family-2024-10-24-vacation-home.jpg
+│   └── lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.jpg
 ├── areas/                      # Area images
 │   ├── boca-raton-hero.jpg
 │   ├── boca-raton-downtown.jpg
@@ -227,34 +235,44 @@ targetSegments: ["55-plus-cash-buyer", "second-home-buyer"]
 
 ### **Daily Content Creation (10+ Articles):**
 
-**1. Morning Batch (5 Articles):**
+**1. Morning Batch (5 Articles) - 2024-10-23:**
 ```bash
-# Create 5 articles with consistent naming
-touch src/content/articles/boca-raton-condo-55-plus-retirement-story-1.md
-touch src/content/articles/delray-beach-single-family-family-vacation-home-2.md
-touch src/content/articles/lake-worth-villa-55-plus-golf-community-3.md
-touch src/content/articles/wellington-townhouse-second-home-investment-4.md
-touch src/content/articles/palm-beach-gardens-penthouse-luxury-lifestyle-5.md
+# Create 5 articles with date-based naming
+touch src/content/articles/boca-raton-condo-55-plus-2024-10-23-retirement-story-1.md
+touch src/content/articles/delray-beach-single-family-family-2024-10-23-vacation-home-2.md
+touch src/content/articles/lake-worth-villa-55-plus-2024-10-23-golf-community-3.md
+touch src/content/articles/wellington-townhouse-second-home-2024-10-23-investment-4.md
+touch src/content/articles/palm-beach-gardens-penthouse-luxury-2024-10-23-lifestyle-5.md
 ```
 
-**2. Afternoon Batch (5 Articles):**
+**2. Afternoon Batch (5 Articles) - 2024-10-23:**
 ```bash
-# Create 5 more articles
-touch src/content/articles/boca-raton-condo-55-plus-country-club-6.md
-touch src/content/articles/delray-beach-single-family-family-beach-house-7.md
-touch src/content/articles/lake-worth-villa-55-plus-maintenance-free-8.md
-touch src/content/articles/wellington-townhouse-second-home-golf-9.md
-touch src/content/articles/palm-beach-gardens-penthouse-luxury-waterfront-10.md
+# Create 5 more articles same day
+touch src/content/articles/boca-raton-condo-55-plus-2024-10-23-country-club-6.md
+touch src/content/articles/delray-beach-single-family-family-2024-10-23-beach-house-7.md
+touch src/content/articles/lake-worth-villa-55-plus-2024-10-23-maintenance-free-8.md
+touch src/content/articles/wellington-townhouse-second-home-2024-10-23-golf-9.md
+touch src/content/articles/palm-beach-gardens-penthouse-luxury-2024-10-23-waterfront-10.md
+```
+
+**3. Next Day Batch (5 Articles) - 2024-10-24:**
+```bash
+# New day, new articles
+touch src/content/articles/boca-raton-condo-55-plus-2024-10-24-new-retirement-story.md
+touch src/content/articles/delray-beach-single-family-family-2024-10-24-new-vacation-home.md
+touch src/content/articles/lake-worth-villa-55-plus-2024-10-24-new-golf-community.md
+touch src/content/articles/wellington-townhouse-second-home-2024-10-24-new-investment.md
+touch src/content/articles/palm-beach-gardens-penthouse-luxury-2024-10-24-new-lifestyle.md
 ```
 
 ### **Image Creation Workflow:**
 ```bash
-# Create corresponding images
-touch public/articles/boca-raton-condo-55-plus-retirement-story-1.jpg
-touch public/articles/delray-beach-single-family-family-vacation-home-2.jpg
-touch public/articles/lake-worth-villa-55-plus-golf-community-3.jpg
-touch public/articles/wellington-townhouse-second-home-investment-4.jpg
-touch public/articles/palm-beach-gardens-penthouse-luxury-lifestyle-5.jpg
+# Create corresponding images with date-based naming
+touch public/articles/boca-raton-condo-55-plus-2024-10-23-retirement-story-1.jpg
+touch public/articles/delray-beach-single-family-family-2024-10-23-vacation-home-2.jpg
+touch public/articles/lake-worth-villa-55-plus-2024-10-23-golf-community-3.jpg
+touch public/articles/wellington-townhouse-second-home-2024-10-23-investment-4.jpg
+touch public/articles/palm-beach-gardens-penthouse-luxury-2024-10-23-lifestyle-5.jpg
 ```
 
 ---

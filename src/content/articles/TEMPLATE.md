@@ -1,7 +1,7 @@
 ---
-id: [area]-[property-type]-[buyer-segment]-[unique-identifier]
+id: [area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier]
 title: "[Compelling Article Title]"
-slug: [area]-[property-type]-[buyer-segment]-[unique-identifier]
+slug: [area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier]
 excerpt: "[Brief 1-2 sentence description of the story]"
 author: Rachel Kovalsky
 publishDate: "2024-10-23"
@@ -21,9 +21,9 @@ propertyDetails:
   propertyType: "[property-type]"
   priceRange: "[price-range]"
   specialFeatures: ["[feature-1]", "[feature-2]", "[feature-3]"]
-adSource: "[area]-[property-type]-[buyer-segment]-[unique-identifier]"
+adSource: "[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier]"
 relatedStories: []
-imageSrc: "/articles/[area]-[property-type]-[buyer-segment]-[unique-identifier].jpg"
+imageSrc: "/articles/[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier].jpg"
 ---
 
 # [Compelling Article Title]

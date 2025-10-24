@@ -2,23 +2,23 @@
 
 ## 📝 **Article File Naming**
 ```
-[area]-[property-type]-[buyer-segment]-[unique-identifier].md
+[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier].md
 ```
 
 ### **Examples:**
-- `boca-raton-condo-55-plus-wycliffe-success-story.md`
-- `delray-beach-single-family-family-vacation-home.md`
-- `lake-worth-villa-55-plus-golf-retirement-story.md`
+- `boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.md`
+- `delray-beach-single-family-family-2024-10-24-vacation-home.md`
+- `lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.md`
 
 ## 🖼️ **Image Naming**
 ```
-[area]-[property-type]-[buyer-segment]-[unique-identifier].jpg
+[area]-[property-type]-[buyer-segment]-[date]-[descriptive-identifier].jpg
 ```
 
 ### **Examples:**
-- `boca-raton-condo-55-plus-wycliffe-success-story.jpg`
-- `delray-beach-single-family-family-vacation-home.jpg`
-- `lake-worth-villa-55-plus-golf-retirement-story.jpg`
+- `boca-raton-condo-55-plus-2024-10-23-wycliffe-success-story.jpg`
+- `delray-beach-single-family-family-2024-10-24-vacation-home.jpg`
+- `lake-worth-villa-55-plus-2024-10-25-golf-retirement-story.jpg`
 
 ## 🏷️ **Standard Tags**
 
