@@ -158,7 +158,7 @@ export default function HomepageContactForm() {
                 {/* Name and Email Row */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-lg font-semibold text-gray-800 mb-3">
+                    <label htmlFor="name" className="block text-xl font-bold text-gray-900 mb-4">
                       Your Name *
                     </label>
                     <input 
@@ -166,12 +166,12 @@ export default function HomepageContactForm() {
                       required 
                       name="name" 
                       placeholder="Enter your full name" 
-                      className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-amber-500 focus:outline-none transition-colors bg-gray-50" 
+                      className="w-full px-6 py-4 text-xl border-2 border-gray-300 rounded-xl focus:border-amber-500 focus:outline-none transition-colors bg-white placeholder:text-gray-600" 
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-lg font-semibold text-gray-800 mb-3">
+                    <label htmlFor="email" className="block text-xl font-bold text-gray-900 mb-4">
                       Email Address *
                     </label>
                     <input 
@@ -180,8 +180,8 @@ export default function HomepageContactForm() {
                       type="email" 
                       name="email" 
                       placeholder="your@email.com" 
-                      className={`w-full px-6 py-4 text-lg border-2 rounded-xl focus:outline-none transition-colors bg-gray-50 ${
-                        emailError ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-amber-500'
+                      className={`w-full px-6 py-4 text-xl border-2 rounded-xl focus:outline-none transition-colors bg-white placeholder:text-gray-600 ${
+                        emailError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-amber-500'
                       }`}
                       onChange={(e) => validateEmail(e.target.value)}
                     />
@@ -191,7 +191,7 @@ export default function HomepageContactForm() {
                 
                 {/* Phone */}
                 <div>
-                  <label htmlFor="phone" className="block text-lg font-semibold text-gray-800 mb-3">
+                  <label htmlFor="phone" className="block text-xl font-bold text-gray-900 mb-4">
                     Phone Number
                   </label>
                   <input 
@@ -199,8 +199,8 @@ export default function HomepageContactForm() {
                     name="phone" 
                     placeholder="(555) 123-4567" 
                     maxLength={20}
-                    className={`w-full px-6 py-4 text-lg border-2 rounded-xl focus:outline-none transition-colors bg-gray-50 ${
-                      phoneError ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-amber-500'
+                    className={`w-full px-6 py-4 text-xl border-2 rounded-xl focus:outline-none transition-colors bg-white placeholder:text-gray-600 ${
+                      phoneError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-amber-500'
                     }`}
                     onChange={(e) => validatePhone(e.target.value)}
                   />
@@ -209,26 +209,26 @@ export default function HomepageContactForm() {
                 
                 {/* Areas of Interest */}
                 <div>
-                  <label className="block text-lg font-semibold text-gray-800 mb-4">
+                  <label className="block text-xl font-bold text-gray-900 mb-4">
                     Areas of Interest (select all that apply)
                   </label>
                   <div className="border-2 border-gray-200 rounded-xl p-6 bg-gray-50">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {SERVICE_AREAS.map((area) => (
-                        <label key={area} className="flex items-center space-x-3 text-lg cursor-pointer hover:bg-white p-3 rounded-lg transition-colors">
+                        <label key={area} className="flex items-center space-x-3 text-xl cursor-pointer hover:bg-white p-4 rounded-lg transition-colors">
                           <input
                             type="checkbox"
                             checked={selectedNeighborhoods.includes(area)}
                             onChange={(e) => handleNeighborhoodChange(area, e.target.checked)}
-                            className="w-5 h-5 text-amber-500 border-2 border-gray-300 rounded focus:ring-amber-500 focus:ring-2"
+                            className="w-6 h-6 text-amber-500 border-2 border-gray-300 rounded focus:ring-amber-500 focus:ring-2"
                           />
-                          <span className="text-gray-700 font-medium">{area}</span>
+                          <span className="text-gray-800 font-semibold">{area}</span>
                         </label>
                       ))}
                     </div>
                   </div>
                   {selectedNeighborhoods.length > 0 && (
-                    <p className="mt-3 text-lg text-gray-600">
+                    <p className="mt-4 text-xl text-gray-700 font-semibold">
                       Selected: {selectedNeighborhoods.join(", ")}
                     </p>
                   )}
@@ -236,7 +236,7 @@ export default function HomepageContactForm() {
                 
                 {/* Message */}
                 <div>
-                  <label htmlFor="notes" className="block text-lg font-semibold text-gray-800 mb-3">
+                  <label htmlFor="notes" className="block text-xl font-bold text-gray-900 mb-4">
                     Tell Us About Your Move
                   </label>
                   <textarea 
@@ -244,7 +244,7 @@ export default function HomepageContactForm() {
                     name="notes" 
                     placeholder="Are you looking for a retirement community? Vacation home? Family residence? What areas interest you? Any specific requirements?" 
                     rows={6}
-                    className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-amber-500 focus:outline-none transition-colors bg-gray-50 resize-none" 
+                    className="w-full px-6 py-4 text-xl border-2 border-gray-300 rounded-xl focus:border-amber-500 focus:outline-none transition-colors bg-white placeholder:text-gray-600 resize-none" 
                   />
                 </div>
                 
@@ -289,30 +289,30 @@ export default function HomepageContactForm() {
 
           {/* Footer Info */}
           <div className="mt-12 text-center">
-            <div className="flex flex-wrap justify-center items-center gap-8 text-lg text-gray-400">
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex flex-wrap justify-center items-center gap-8 text-xl text-gray-300">
+              <div className="flex items-center gap-3">
+                <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Licensed Realtor®</span>
+                <span className="font-semibold">Licensed Realtor®</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-3">
+                <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>South Florida Expert</span>
+                <span className="font-semibold">South Florida Expert</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-3">
+                <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>Compass Florida</span>
+                <span className="font-semibold">Compass Florida</span>
               </div>
             </div>
             
-            <p className="mt-6 text-lg text-gray-500">
-              By submitting, you agree to our <a href="/privacy" className="text-amber-400 hover:underline">Privacy Policy</a>.
+            <p className="mt-6 text-xl text-gray-400">
+              By submitting, you agree to our <a href="/privacy" className="text-amber-400 hover:underline font-semibold">Privacy Policy</a>.
             </p>
           </div>
         </div>
