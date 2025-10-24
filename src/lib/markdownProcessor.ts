@@ -156,7 +156,7 @@ export class MarkdownProcessor {
     articleFiles.forEach(file => {
       const article = this.processMarkdownFile(file);
       if (article && 'storyType' in article) {
-        articles.push(article as Article);
+        articles.push(article);
       }
     });
 
@@ -174,7 +174,7 @@ export class MarkdownProcessor {
     developmentFiles.forEach(file => {
       const development = this.processMarkdownFile(file);
       if (development && 'amenities' in development) {
-        developments.push(development as Development);
+        developments.push(development);
       }
     });
 

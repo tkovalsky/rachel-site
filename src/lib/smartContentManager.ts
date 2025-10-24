@@ -446,7 +446,7 @@ export class SmartContentManager {
     const areas = MarkdownContentService.getAreas();
     const developments = MarkdownContentService.getDevelopments();
     
-    let recommendations: SmartContentAssociation[] = [];
+    const recommendations: SmartContentAssociation[] = [];
     
     // Filter by user profile
     if (userProfile.areas && userProfile.areas.length > 0) {
