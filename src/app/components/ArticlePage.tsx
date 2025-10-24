@@ -189,12 +189,11 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 </div>
               </div>
               
-              {/* Key Highlights and Testimonial - Below Content */}
-              <div className="grid md:grid-cols-2 gap-8 mt-16">
-                {/* Key Highlights */}
+              {/* Key Highlights - Full Width Below Content */}
+              <div className="mt-16">
                 <div className="card p-8">
-                  <h3 className="h3 text-deep mb-8">Key Highlights</h3>
-                  <div className="space-y-6">
+                  <h3 className="h3 text-deep mb-8 text-center">Key Highlights</h3>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div className="flex items-start gap-4">
                       <div className="w-3 h-3 bg-champagne rounded-full mt-4 flex-shrink-0"></div>
                       <p className="body-large text-ink">Expert guidance throughout the process</p>
@@ -213,19 +212,6 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                     </div>
                   </div>
                 </div>
-                
-                {/* Client Quote */}
-                {article.clientProfile && (
-                  <div className="card p-8">
-                    <div className="text-4xl text-champagne mb-4">"</div>
-                    <blockquote className="lead italic text-ink leading-relaxed mb-6">
-                      "Rachel didn't just help us find a house—she helped us find our family's Florida home."
-                    </blockquote>
-                    <cite className="block body font-semibold text-deep">
-                      — {article.clientProfile.buyerType}
-                    </cite>
-                  </div>
-                )}
               </div>
             </div>
           </div>
