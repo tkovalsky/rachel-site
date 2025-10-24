@@ -1,46 +1,24 @@
 "use client";
+
 import { useState, useEffect } from 'react';
-import { ContentService } from '@/lib/contentService';
 import { MarkdownContentService } from '@/lib/markdownContentService';
-import { DynamicAreas, DynamicDevelopments, DynamicArticles } from '@/app/components/DynamicContent';
-import { TargetSegment, Area, Development, Article } from '@/app/content/types';
+import { Area, Development, Article, TargetSegment } from '@/app/content/types';
 import Link from 'next/link';
+import Image from 'next/image';
+import DynamicTagsFilter from '@/app/components/DynamicTagsFilter';
+import DevelopmentsSection from '@/app/components/DevelopmentsSection';
 
 interface FilterState {
-  targetSegment: TargetSegment | 'all';
-  contentType: 'areas' | 'developments' | 'articles' | 'all';
-  featured: boolean | 'all';
+  targetSegment: string;
+  contentType: string;
+  featuredStatus: string;
 }
-
-const TARGET_SEGMENTS = [
-  { value: 'all', label: 'All Segments' },
-  { value: '55-plus-cash-buyer', label: '55+ Cash Buyers' },
-  { value: 'second-home-buyer', label: 'Second Home Buyers' },
-  { value: 'family', label: 'Families' },
-  { value: 'professional', label: 'Professionals' },
-  { value: 'investor', label: 'Investors' },
-  { value: 'relocating', label: 'Relocating' },
-  { value: 'upgrade-downgrade', label: 'Upgrade/Downgrade' }
-] as const;
-
-const CONTENT_TYPES = [
-  { value: 'all', label: 'All Content' },
-  { value: 'areas', label: 'Areas' },
-  { value: 'developments', label: 'Developments' },
-  { value: 'articles', label: 'Articles' }
-] as const;
-
-const FEATURED_OPTIONS = [
-  { value: 'all', label: 'All Items' },
-  { value: true, label: 'Featured Only' },
-  { value: false, label: 'All Items' }
-] as const;
 
 export default function AreasPage() {
   const [filters, setFilters] = useState<FilterState>({
     targetSegment: 'all',
     contentType: 'all',
-    featured: 'all'
+    featuredStatus: 'all'
   });
 
   const [areas, setAreas] = useState<Area[]>([]);
@@ -48,91 +26,106 @@ export default function AreasPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load content based on filters
+  // Load content
   useEffect(() => {
     const loadContent = async () => {
-      setLoading(true);
-      
       try {
-        // Load areas
-        const areaFilter = {
-          targetSegment: filters.targetSegment !== 'all' ? filters.targetSegment : undefined,
-          featured: filters.featured !== 'all' ? filters.featured : undefined,
-          limit: 12,
-          randomize: true
-        };
-        const loadedAreas = MarkdownContentService.getAreas(areaFilter);
+        const allAreas = MarkdownContentService.getAreas();
+        const allDevelopments = MarkdownContentService.getDevelopments();
+        const allArticles = MarkdownContentService.getAllArticles();
 
-        // Load developments
-        const developmentFilter = {
-          targetSegment: filters.targetSegment !== 'all' ? filters.targetSegment : undefined,
-          featured: filters.featured !== 'all' ? filters.featured : undefined,
-          limit: 12,
-          randomize: true
-        };
-        const loadedDevelopments = MarkdownContentService.getDevelopments(developmentFilter);
-
-        // Load articles
-        const loadedArticles = MarkdownContentService.getAllArticles().filter(article => {
-          let matches = true;
-          
-          if (filters.targetSegment !== 'all') {
-            matches = matches && article.targetSegments.includes(filters.targetSegment);
-          }
-          
-          if (filters.featured !== 'all') {
-            matches = matches && article.featured === filters.featured;
-          }
-          
-          return matches;
-        }).slice(0, 12);
-
-        setAreas(loadedAreas);
-        setDevelopments(loadedDevelopments);
-        setArticles(loadedArticles);
+        // Alphabetize areas
+        const sortedAreas = allAreas.sort((a, b) => a.name.localeCompare(b.name));
+        
+        setAreas(sortedAreas);
+        setDevelopments(allDevelopments);
+        setArticles(allArticles);
+        setLoading(false);
       } catch (error) {
         console.error('Error loading content:', error);
-      } finally {
         setLoading(false);
       }
     };
 
     loadContent();
-  }, [filters]);
+  }, []);
 
-  const handleFilterChange = (key: keyof FilterState, value: any) => {
-    setFilters(prev => ({
-      ...prev,
-      [key]: value
-    }));
+  // Filter content based on current filters
+  const filteredAreas = areas.filter(area => {
+    if (filters.targetSegment !== 'all' && !area.targetSegments.includes(filters.targetSegment as TargetSegment)) {
+      return false;
+    }
+    if (filters.featuredStatus === 'featured' && !area.featured) {
+      return false;
+    }
+    return true;
+  });
+
+  const filteredDevelopments = developments.filter(dev => {
+    if (filters.targetSegment !== 'all' && !dev.targetSegments.includes(filters.targetSegment as TargetSegment)) {
+      return false;
+    }
+    if (filters.featuredStatus === 'featured' && !dev.featured) {
+      return false;
+    }
+    return true;
+  });
+
+  const filteredArticles = articles.filter(article => {
+    if (filters.targetSegment !== 'all' && !article.targetSegments.includes(filters.targetSegment as TargetSegment)) {
+      return false;
+    }
+    if (filters.featuredStatus === 'featured' && !article.featured) {
+      return false;
+    }
+    return true;
+  });
+
+  // Generate tag data for filter
+  const targetSegments = [
+    { id: '55-plus-cash-buyer', label: '55+ Cash Buyers', count: areas.filter(a => a.targetSegments.includes('55-plus-cash-buyer')).length },
+    { id: 'second-home-buyer', label: 'Second Home Buyers', count: areas.filter(a => a.targetSegments.includes('second-home-buyer')).length },
+    { id: 'family', label: 'Families', count: areas.filter(a => a.targetSegments.includes('family')).length },
+    { id: 'professional', label: 'Professionals', count: areas.filter(a => a.targetSegments.includes('professional')).length },
+    { id: 'investor', label: 'Investors', count: areas.filter(a => a.targetSegments.includes('investor')).length },
+    { id: 'relocating', label: 'Relocating', count: areas.filter(a => a.targetSegments.includes('relocating')).length },
+    { id: 'upgrade-downgrade', label: 'Upgrade/Downgrade', count: areas.filter(a => a.targetSegments.includes('upgrade-downgrade')).length }
+  ];
+
+  const contentTypes = [
+    { id: 'areas', label: 'Areas', count: areas.length },
+    { id: 'developments', label: 'Developments', count: developments.length },
+    { id: 'articles', label: 'Articles', count: articles.length }
+  ];
+
+  const featuredStatus = [
+    { id: 'featured', label: 'Featured Only', count: areas.filter(a => a.featured).length },
+    { id: 'all', label: 'All Items', count: areas.length }
+  ];
+
+  const handleFilterChange = (newFilters: FilterState) => {
+    setFilters(newFilters);
   };
 
-  const getActiveFilterCount = () => {
-    let count = 0;
-    if (filters.targetSegment !== 'all') count++;
-    if (filters.contentType !== 'all') count++;
-    if (filters.featured !== 'all') count++;
-    return count;
-  };
-
-  const clearAllFilters = () => {
-    setFilters({
-      targetSegment: 'all',
-      contentType: 'all',
-      featured: 'all'
-    });
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-champagne mx-auto mb-4"></div>
+          <p className="text-lg text-ink-soft">Loading content...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <main className="min-h-screen bg-paper">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-paper to-surface-subtle">
+      <section className="py-20 bg-gradient-to-br from-deep via-deep/95 to-champagne/20">
         <div className="section">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-deep mb-6">
-              South Florida Areas & Communities
-            </h1>
-            <p className="text-2xl md:text-3xl text-ink-soft leading-relaxed mb-8">
+            <h1 className="h1 text-white mb-8">South Florida Areas & Communities</h1>
+            <p className="lead text-white/90 mb-12">
               Discover the perfect neighborhood for your lifestyle. Filter by your needs and explore areas, developments, and local insights.
             </p>
           </div>
@@ -140,260 +133,140 @@ export default function AreasPage() {
       </section>
 
       {/* Filter Section */}
-      <section className="py-12 bg-white border-b border-gray-200">
+      <section className="py-12 bg-white">
         <div className="section">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between mb-8">
-              <div>
-                <h2 className="text-3xl font-bold text-deep mb-2">Filter Content</h2>
-                <p className="text-xl text-ink-soft">Find exactly what you're looking for</p>
-              </div>
-              
-              {getActiveFilterCount() > 0 && (
-                <button
-                  onClick={clearAllFilters}
-                  className="px-6 py-3 text-xl font-semibold text-champagne border-2 border-champagne rounded-xl hover:bg-champagne hover:text-white transition-colors"
-                >
-                  Clear All Filters ({getActiveFilterCount()})
-                </button>
-              )}
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Target Segment Filter */}
-              <div>
-                <label className="block text-xl font-bold text-gray-900 mb-4">
-                  Target Segment
-                </label>
-                <select
-                  value={filters.targetSegment}
-                  onChange={(e) => handleFilterChange('targetSegment', e.target.value)}
-                  className="w-full px-4 py-3 text-xl border-2 border-gray-300 rounded-xl focus:border-champagne focus:outline-none transition-colors bg-white"
-                >
-                  {TARGET_SEGMENTS.map(segment => (
-                    <option key={segment.value} value={segment.value}>
-                      {segment.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Content Type Filter */}
-              <div>
-                <label className="block text-xl font-bold text-gray-900 mb-4">
-                  Content Type
-                </label>
-                <select
-                  value={filters.contentType}
-                  onChange={(e) => handleFilterChange('contentType', e.target.value)}
-                  className="w-full px-4 py-3 text-xl border-2 border-gray-300 rounded-xl focus:border-champagne focus:outline-none transition-colors bg-white"
-                >
-                  {CONTENT_TYPES.map(type => (
-                    <option key={type.value} value={type.value}>
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Featured Filter */}
-              <div>
-                <label className="block text-xl font-bold text-gray-900 mb-4">
-                  Featured Status
-                </label>
-                <select
-                  value={String(filters.featured)}
-                  onChange={(e) => handleFilterChange('featured', e.target.value === 'true' ? true : e.target.value === 'false' ? false : 'all')}
-                  className="w-full px-4 py-3 text-xl border-2 border-gray-300 rounded-xl focus:border-champagne focus:outline-none transition-colors bg-white"
-                >
-                  {FEATURED_OPTIONS.map(option => (
-                    <option key={String(option.value)} value={String(option.value)}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            <DynamicTagsFilter
+              targetSegments={targetSegments}
+              contentTypes={contentTypes}
+              featuredStatus={featuredStatus}
+              onFilterChange={handleFilterChange}
+            />
           </div>
         </div>
       </section>
 
-      {/* Content Section */}
-      <section className="py-20">
-        <div className="section">
-          <div className="max-w-6xl mx-auto">
-            {loading ? (
-              <div className="text-center py-20">
-                <div className="animate-spin w-12 h-12 border-4 border-champagne border-t-transparent rounded-full mx-auto mb-4"></div>
-                <p className="text-xl text-ink-soft">Loading content...</p>
+      {/* Areas Section */}
+      {filters.contentType === 'all' || filters.contentType === 'areas' ? (
+        <section className="py-20 bg-surface-subtle">
+          <div className="section">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="h2 text-deep mb-12 text-center">Areas & Neighborhoods</h2>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredAreas.map((area) => (
+                  <Link
+                    key={area.id}
+                    href={`/areas/${area.slug}`}
+                    className="card p-6 group hover:shadow-lg transition-all duration-300 block"
+                  >
+                    <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
+                      <Image
+                        src={area.imageSrc || '/areas/default.jpg'}
+                        alt={area.name}
+                        width={400}
+                        height={300}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    
+                    <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
+                      {area.name}
+                    </h3>
+                    
+                    <p className="body text-ink-soft mb-6">{area.description}</p>
+                    
+                    {/* Target Segments */}
+                    <div className="flex flex-wrap gap-2">
+                      {area.targetSegments.slice(0, 3).map((segment) => (
+                        <span
+                          key={segment}
+                          className="px-3 py-1 bg-champagne/20 text-champagne text-sm rounded-full"
+                        >
+                          {segment.replace('-', ' ')}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                ))}
               </div>
-            ) : (
-              <div className="space-y-16">
-                {/* Areas Section */}
-                {(filters.contentType === 'all' || filters.contentType === 'areas') && areas.length > 0 && (
-                  <div>
-                    <h2 className="text-4xl font-bold text-deep mb-8">Areas & Neighborhoods</h2>
-                    <div className="grid gap-6 md:grid-cols-3">
-                      {areas.map((area) => (
-                        <Link
-                          key={area.id}
-                          href={`/areas/${area.slug}`}
-                          className="group card overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
-                        >
-                          <div className="relative aspect-[16/9] overflow-hidden">
-                            <img
-                              src={area.imageSrc}
-                              alt={`${area.name} neighborhood`}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                          <div className="p-8">
-                            <h3 className="text-3xl md:text-4xl font-bold text-deep group-hover:text-champagne transition-colors mb-4">
-                              {area.name}
-                            </h3>
-                            <p className="text-xl md:text-2xl text-ink-soft leading-relaxed mb-4">
-                              {area.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2">
-                              {area.targetSegments.map((segment) => (
-                                <span
-                                  key={segment}
-                                  className="px-3 py-1 text-sm bg-champagne/10 text-champagne rounded-full font-medium"
-                                >
-                                  {segment.replace('-', ' ')}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
-                {/* Developments Section */}
-                {(filters.contentType === 'all' || filters.contentType === 'developments') && developments.length > 0 && (
-                  <div>
-                    <h2 className="text-4xl font-bold text-deep mb-8">Developments & Communities</h2>
-                    <div className="grid gap-6 md:grid-cols-3">
-                      {developments.map((development) => (
-                        <Link
-                          key={development.id}
-                          href={`/developments/${development.slug}`}
-                          className="group card overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
-                        >
-                          <div className="relative aspect-[16/9] overflow-hidden">
-                            <img
-                              src={development.imageSrc}
-                              alt={`${development.name} development`}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                          <div className="p-8">
-                            <h3 className="text-3xl md:text-4xl font-bold text-deep group-hover:text-champagne transition-colors mb-4">
-                              {development.name}
-                            </h3>
-                            <p className="text-xl md:text-2xl text-ink-soft leading-relaxed mb-4">
-                              {development.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {development.amenities.slice(0, 3).map((amenity) => (
-                                <span
-                                  key={amenity}
-                                  className="px-3 py-1 text-sm bg-champagne/10 text-champagne rounded-full font-medium"
-                                >
-                                  {amenity.replace('-', ' ')}
-                                </span>
-                              ))}
-                            </div>
-                            <div className="text-2xl font-bold text-deep">
-                              ${development.priceRange.min.toLocaleString()} - ${development.priceRange.max.toLocaleString()}
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
+      {/* Developments Section */}
+      {filters.contentType === 'all' || filters.contentType === 'developments' ? (
+        <DevelopmentsSection limit={6} />
+      ) : null}
 
-                {/* Articles Section */}
-                {(filters.contentType === 'all' || filters.contentType === 'articles') && articles.length > 0 && (
-                  <div>
-                    <h2 className="text-4xl font-bold text-deep mb-8">Local Insights & Articles</h2>
-                    <div className="grid gap-6 md:grid-cols-3">
-                      {articles.map((article) => (
-                        <Link
-                          key={article.id}
-                          href={`/articles/${article.slug}`}
-                          className="group card overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
-                        >
-                          <div className="relative aspect-[16/9] overflow-hidden">
-                            <img
-                              src={article.imageSrc}
-                              alt={article.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                          <div className="p-8">
-                            <h3 className="text-3xl md:text-4xl font-bold text-deep group-hover:text-champagne transition-colors mb-4">
-                              {article.title}
-                            </h3>
-                            <p className="text-xl md:text-2xl text-ink-soft leading-relaxed mb-4">
-                              {article.excerpt}
-                            </p>
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg text-ink-lighter">
-                                {new Date(article.publishDate).toLocaleDateString()}
-                              </span>
-                              <span className="text-lg font-semibold text-champagne">Read More →</span>
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
+      {/* Articles Section */}
+      {filters.contentType === 'all' || filters.contentType === 'articles' ? (
+        <section className="py-20 bg-white">
+          <div className="section">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="h2 text-deep mb-12 text-center">Success Stories & Insights</h2>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredArticles.slice(0, 6).map((article) => (
+                  <Link
+                    key={article.id}
+                    href={`/articles/${article.slug}`}
+                    className="card p-6 group hover:shadow-lg transition-all duration-300 block"
+                  >
+                    <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
+                      <Image
+                        src={article.imageSrc || '/articles/default.jpg'}
+                        alt={article.title}
+                        width={400}
+                        height={300}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                  </div>
-                )}
-
-                {/* No Results */}
-                {!loading && areas.length === 0 && developments.length === 0 && articles.length === 0 && (
-                  <div className="text-center py-20">
-                    <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
-                      <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    
+                    <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="body text-ink-soft mb-6">{article.excerpt}</p>
+                    
+                    <div className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body">
+                      Read Story
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
-                    <h3 className="text-3xl font-bold text-deep mb-4">No Content Found</h3>
-                    <p className="text-xl text-ink-soft mb-8">
-                      Try adjusting your filters to see more results.
-                    </p>
-                    <button
-                      onClick={clearAllFilters}
-                      className="px-8 py-4 text-xl font-semibold text-white bg-champagne rounded-xl hover:bg-champagne/90 transition-colors"
-                    >
-                      Clear All Filters
-                    </button>
-                  </div>
-                )}
+                  </Link>
+                ))}
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* CTA Section */}
-      <section className="py-20 bg-surface-subtle">
-        <div className="section text-center">
-          <h2 className="h2 text-deep mb-6">Need Help Choosing the Right Area?</h2>
-          <p className="body-large text-ink-soft mb-10 max-w-2xl mx-auto">
-            Rachel's local expertise can help you find the perfect neighborhood for your lifestyle and needs
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact" className="btn-primary">
-              Get Personalized Guidance
-            </a>
-            <a href="tel:+15612878966" className="btn-ghost">
-              Call (561) 287-8966
-            </a>
+      <section className="py-20 bg-gradient-to-br from-slate-800 to-deep text-white">
+        <div className="section">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="h1 text-white mb-8">Need Help Choosing the Right Area?</h2>
+            <p className="lead text-white/90 mb-12">
+              Rachel's local expertise can help you find the perfect neighborhood for your lifestyle and needs
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link
+                href="/contact"
+                className="btn-primary px-8 py-4 text-xl"
+              >
+                Get Personalized Guidance
+              </Link>
+              <a
+                href="tel:+15612878966"
+                className="btn-secondary px-8 py-4 text-xl"
+              >
+                Call (561) 287-8966
+              </a>
+            </div>
           </div>
         </div>
       </section>
