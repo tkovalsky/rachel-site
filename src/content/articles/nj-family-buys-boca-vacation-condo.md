@@ -26,7 +26,7 @@ relatedStories: []
 imageSrc: "/articles/nj-family-buys-boca-vacation-condo.jpg"
 ---
 
-# From New Jersey to Paradise: A Family's Perfect Vacation Home
+## From New Jersey to Paradise: A Family's Perfect Vacation Home
 
 When this family began their search for a vacation home, they had one clear vision: a place where their adult children and grandchildren could create lasting memories together. As successful business owners from New Jersey, they were ready to invest in a property that would serve as both a personal retreat and a gathering place for their growing family.
 

@@ -26,7 +26,7 @@ relatedStories: []
 imageSrc: "/articles/delray-beach-condo-55-plus-2024-12-15-tuscany-north-success-story.jpg"
 ---
 
-# From New York to Tuscany North: A 55+ Couple's Perfect Delray Beach Retirement
+## From New York to Tuscany North: A 55+ Couple's Perfect Delray Beach Retirement
 
 *How Rachel helped a retired couple from New York find their dream maintenance-free home at Tuscany North in Delray Beach, complete with resort amenities and an active lifestyle.*
 

@@ -24,6 +24,7 @@ propertyDetails:
 adSource: "wycliffe-success-story"
 relatedStories: []
 imageSrc: "/articles/wycliffe-success-story.jpeg"
+bannerColor: "gold"
 ---
 
 # From Golf Dreams to Real Life: Cheryl & Eddie's Wycliffe Story

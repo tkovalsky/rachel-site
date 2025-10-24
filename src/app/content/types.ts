@@ -58,6 +58,7 @@ export interface Article {
   };
   relatedStories?: string[]; // IDs of related success stories
   adSource?: string; // For tracking which content generated leads
+  bannerColor?: 'blue' | 'black' | 'gold' | 'deep' | 'champagne'; // Hero banner color
 }
 
 export interface Testimonial {

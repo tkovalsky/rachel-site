@@ -26,7 +26,7 @@ relatedStories: []
 imageSrc: "/articles/test-batch-article-1.jpg"
 ---
 
-# Test Article 1: Boca Raton Retirement Success
+## Test Article 1: Boca Raton Retirement Success
 
 This is a test article to validate our content creation workflow. The system should automatically process this markdown file and make it available at `/articles/test-batch-article-1`.
 

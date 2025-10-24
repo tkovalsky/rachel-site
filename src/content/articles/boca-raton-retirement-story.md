@@ -24,9 +24,10 @@ propertyDetails:
 adSource: "boca-raton-retirement-story"
 relatedStories: []
 imageSrc: "/articles/boca-raton-retirement-story.jpg"
+bannerColor: "blue"
 ---
 
-# From Corporate Life to Paradise: Sarah's Boca Raton Retirement
+## From Corporate Life to Paradise: Sarah's Boca Raton Retirement
 
 When Sarah decided to retire from her 30-year career in finance, she knew one thing for certain: she wanted to live somewhere that felt like a permanent vacation. After years of long commutes and high-stress deadlines in New York, she was ready for a lifestyle that prioritized wellness, community, and the simple pleasures of life.
 
