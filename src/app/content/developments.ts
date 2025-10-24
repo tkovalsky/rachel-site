@@ -15,6 +15,18 @@ export const DEVELOPMENTS: Development[] = [
     targetSegments: ['55-plus-cash-buyer', 'second-home-buyer'],
   },
   {
+    id: 'tuscany-north',
+    name: 'Tuscany North',
+    slug: 'tuscany-north',
+    area: 'delray-beach',
+    description: 'Active adult community with resort-style amenities and maintenance-free living.',
+    imageSrc: '/developments/tuscany-north.jpg',
+    amenities: ['golf', 'tennis', 'pool', 'fitness-center', 'social-club', 'pickleball'],
+    priceRange: { min: 400000, max: 800000 },
+    featured: true,
+    targetSegments: ['55-plus-cash-buyer', 'second-home-buyer'],
+  },
+  {
     id: 'boca-west',
     name: 'Boca West Country Club',
     slug: 'boca-west',

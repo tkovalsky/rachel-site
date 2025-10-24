@@ -9,7 +9,7 @@ export const AREAS: Area[] = [
     imageSrc: '/neighborhoods/delray-beach-east-delray.jpg',
     featured: true,
     targetSegments: ['55-plus-cash-buyer', 'second-home-buyer', 'professional'],
-    developments: ['atlantic-gardens', 'delray-beach-club'],
+    developments: ['atlantic-gardens', 'delray-beach-club', 'tuscany-north'],
     articles: ['delray-beach-guide', 'atlantic-ave-dining'],
   },
   {
