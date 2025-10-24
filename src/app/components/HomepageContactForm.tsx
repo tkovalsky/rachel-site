@@ -39,13 +39,6 @@ export default function HomepageContactForm() {
     return isValid;
   };
 
-  const handleNeighborhoodChange = (city: string, checked: boolean) => {
-    if (checked) {
-      setSelectedNeighborhoods(prev => [...prev, city]);
-    } else {
-      setSelectedNeighborhoods(prev => prev.filter(c => c !== city));
-    }
-  };
 
   // Handler must return void for the lint rule
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -207,29 +200,34 @@ export default function HomepageContactForm() {
                 
                 {/* Areas of Interest */}
                 <div>
-                  <label className="block body-large font-semibold text-ink mb-4">
+                  <label htmlFor="areas-select" className="block body-large font-semibold text-ink mb-4">
                     Areas of Interest (select all that apply)
                   </label>
-                  <div className="border-2 border-divider rounded-xl p-6 bg-surface-subtle">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {SERVICE_AREAS.map((area) => (
-                        <label key={area} className="flex items-center space-x-3 body cursor-pointer hover:bg-surface p-4 rounded-lg transition-colors">
-                          <input
-                            type="checkbox"
-                            checked={selectedNeighborhoods.includes(area)}
-                            onChange={(e) => handleNeighborhoodChange(area, e.target.checked)}
-                            className="w-6 h-6 text-champagne border-2 border-divider rounded focus:ring-champagne focus:ring-2"
-                          />
-                          <span className="text-ink font-semibold">{area}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
+                  <select
+                    id="areas-select"
+                    multiple
+                    size={6}
+                    value={selectedNeighborhoods}
+                    onChange={(e) => {
+                      const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+                      setSelectedNeighborhoods(selectedOptions);
+                    }}
+                    className="w-full px-6 py-4 body border-2 border-divider rounded-xl focus:border-champagne focus:outline-none transition-colors bg-surface"
+                  >
+                    {SERVICE_AREAS.map((area) => (
+                      <option key={area} value={area} className="body">
+                        {area}
+                      </option>
+                    ))}
+                  </select>
                   {selectedNeighborhoods.length > 0 && (
                     <p className="mt-4 body-large text-ink-soft font-semibold">
                       Selected: {selectedNeighborhoods.join(", ")}
                     </p>
                   )}
+                  <p className="mt-2 body-small text-ink-lighter">
+                    Hold Ctrl (Cmd on Mac) to select multiple areas
+                  </p>
                 </div>
                 
                 {/* Message */}
