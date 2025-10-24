@@ -13,7 +13,7 @@ tags: ["success-story", "boca-raton", "condo", "55-plus-cash-buyer", "family", "
 storyType: "success-story"
 clientProfile:
   ageRange: "55–70"
-  origin: "Northeast (New Jersey)"
+  origin: "Northeast (NJ)"
   buyerType: "55+ cash buyer"
   familyStructure: "married couple with adult children and grandchildren"
 propertyDetails:
@@ -26,9 +26,7 @@ relatedStories: []
 imageSrc: "/articles/boca-raton-condo-55-plus-2024-10-23-legacy-by-the-sea.jpg"
 ---
 
-# Legacy by the Sea: How the Goldmans Turned a Condo Into a Family Treasure
-
-For Barry and Linda Goldman, the dream of escaping another New Jersey winter wasn’t new. Every February brought the same conversation over coffee: *“Should we start looking?”* But life, like always, got in the way. Their business kept them busy. The grandkids needed attention. And frankly, buying a second home from a thousand miles away felt overwhelming.
+For Barry and Linda Goldman, the dream of escaping another New Jersey winter wasn't new. Every February brought the same conversation over coffee: *“Should we start looking?”* But life, like always, got in the way. Their business kept them busy. The grandkids needed attention. And frankly, buying a second home from a thousand miles away felt overwhelming.
 
 Still, the itch wouldn’t go away. Their kids were grown, the grandkids were getting older, and their beloved two-story colonial — full of memories — was starting to feel more like a burden than a haven. What they craved was freedom, sun, and simplicity. What they wanted — but didn’t know yet — was Boca Raton.
 
