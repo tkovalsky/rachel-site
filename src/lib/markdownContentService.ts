@@ -282,9 +282,9 @@ export class MarkdownContentService {
       totalArticles: articles.length,
       totalTestimonials: FALLBACK_TESTIMONIALS.length,
       totalMarketData: FALLBACK_MARKET_DATA.length,
-      featuredAreas: areas.filter(area => area.featured).length,
-      featuredDevelopments: developments.filter(dev => dev.featured).length,
-      featuredArticles: articles.filter(article => article.featured).length,
+      featuredAreas: areas.filter((area: any) => area.featured).length,
+      featuredDevelopments: developments.filter((dev: any) => dev.featured).length,
+      featuredArticles: articles.filter((article: any) => article.featured).length,
     };
   }
 
