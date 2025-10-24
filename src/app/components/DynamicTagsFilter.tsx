@@ -65,7 +65,6 @@ export default function DynamicTagsFilter({
       <div className="space-y-8">
         {/* Target Segments */}
         <div>
-          <h3 className="h3 text-deep mb-4">Target Segment</h3>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => handleTagClick('targetSegment', 'all')}
@@ -95,7 +94,6 @@ export default function DynamicTagsFilter({
 
         {/* Content Types */}
         <div>
-          <h3 className="h3 text-deep mb-4">Content Type</h3>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => handleTagClick('contentType', 'all')}
@@ -125,7 +123,6 @@ export default function DynamicTagsFilter({
 
         {/* Featured Status */}
         <div>
-          <h3 className="h3 text-deep mb-4">Featured Status</h3>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => handleTagClick('featuredStatus', 'all')}

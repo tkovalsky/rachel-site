@@ -94,8 +94,7 @@ export default function AreasPage() {
 
   const contentTypes = [
     { id: 'areas', label: 'Areas', count: areas.length },
-    { id: 'developments', label: 'Developments', count: developments.length },
-    { id: 'articles', label: 'Articles', count: articles.length }
+    { id: 'developments', label: 'Developments', count: developments.length }
   ];
 
   const featuredStatus = [
@@ -200,49 +199,6 @@ export default function AreasPage() {
         <DevelopmentsSection limit={6} />
       ) : null}
 
-      {/* Articles Section */}
-      {filters.contentType === 'all' || filters.contentType === 'articles' ? (
-        <section className="py-20 bg-white">
-          <div className="section">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="h2 text-deep mb-12 text-center">Success Stories & Insights</h2>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredArticles.slice(0, 6).map((article) => (
-                  <Link
-                    key={article.id}
-                    href={`/articles/${article.slug}`}
-                    className="card p-6 group hover:shadow-lg transition-all duration-300 block"
-                  >
-                    <div className="aspect-[4/3] rounded-lg overflow-hidden mb-6">
-                      <Image
-                        src={article.imageSrc || '/articles/default.jpg'}
-                        alt={article.title}
-                        width={400}
-                        height={300}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    
-                    <h3 className="h3 text-deep mb-4 group-hover:text-champagne transition-colors">
-                      {article.title}
-                    </h3>
-                    
-                    <p className="body text-ink-soft mb-6">{article.excerpt}</p>
-                    
-                    <div className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body">
-                      Read Story
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-slate-800 to-deep text-white">
