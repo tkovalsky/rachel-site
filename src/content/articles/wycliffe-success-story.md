@@ -27,7 +27,7 @@ imageSrc: "/articles/wycliffe-success-story.jpeg"
 bannerColor: "gold"
 ---
 
-# From Golf Dreams to Real Life: Cheryl & Eddie's Wycliffe Story
+## From Golf Dreams to Real Life: Cheryl & Eddie's Wycliffe Story
 
 When Cheryl and Eddie began discussing retirement, they knew one thing: they weren't ready to slow down. Quite the opposite—they were eager for a new chapter, one filled with morning tee times, friendly pickleball matches, and a sense of community that felt both vibrant and lovely. What they didn't know was that a simple tour through Wycliffe Golf & Country Club would soon become the beginning of something truly special.
 
