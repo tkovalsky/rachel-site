@@ -59,7 +59,7 @@ Robert and Susan found their perfect home at Tuscany North - a beautiful 2-bedro
 
 "Rachel made everything so easy," Robert says. "She knew exactly what we needed and showed us properties that fit our lifestyle perfectly. We couldn't be happier with our decision."
 
-## Client Quote
+## Client Testimonial
 
 *"Rachel understood exactly what we were looking for. She didn't just show us houses - she showed us a lifestyle. Tuscany North has everything we wanted: golf, tennis, pickleball, and we can walk to Atlantic Avenue for dinner. It's perfect!"* - **Robert & Susan, Tuscany North Residents**
 

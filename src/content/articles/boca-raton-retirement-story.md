@@ -61,6 +61,8 @@ Sarah's new home has exceeded every expectation:
 - **Investment Growth**: Her property has appreciated 15% in just two years
 - **Peace of Mind**: Maintenance-free living allows her to focus on enjoying life
 
+## Client Testimonial
+
 "Rachel didn't just help me find a house—she helped me find my new life. Every day feels like a vacation, and I've never been happier." - Sarah
 
 ## Key Takeaways
