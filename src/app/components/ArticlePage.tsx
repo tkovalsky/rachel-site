@@ -247,32 +247,33 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                          a.areas.some(area => article.areas.includes(area))))
                       .slice(0, 3);
                     
-                    return relatedArticles.map((relatedArticle) => (
-                      <div key={relatedArticle.id} className="card p-6 group hover:shadow-lg transition-all duration-300">
-                        <div className="aspect-[4/3] rounded-lg overflow-hidden mb-4">
-                          <Image
-                            src={relatedArticle.imageSrc || '/articles/default.jpg'}
-                            alt={relatedArticle.title}
-                            width={400}
-                            height={300}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                        <h4 className="h3 text-deep mb-3 group-hover:text-champagne transition-colors">
-                          {relatedArticle.title}
-                        </h4>
-                        <p className="body text-ink-soft mb-4">{relatedArticle.excerpt}</p>
-                        <a 
-                          href={`/articles/${relatedArticle.slug}`}
-                          className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body"
-                        >
-                          Read Story
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </a>
-                      </div>
-                    ));
+                        return relatedArticles.map((relatedArticle) => (
+                          <a
+                            key={relatedArticle.id}
+                            href={`/articles/${relatedArticle.slug}`}
+                            className="card p-6 group hover:shadow-lg transition-all duration-300 block"
+                          >
+                            <div className="aspect-[4/3] rounded-lg overflow-hidden mb-4">
+                              <Image
+                                src={relatedArticle.imageSrc || '/articles/default.jpg'}
+                                alt={relatedArticle.title}
+                                width={400}
+                                height={300}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                            <h4 className="h3 text-deep mb-3 group-hover:text-champagne transition-colors">
+                              {relatedArticle.title}
+                            </h4>
+                            <p className="body text-ink-soft mb-4">{relatedArticle.excerpt}</p>
+                            <div className="inline-flex items-center gap-2 text-champagne hover:text-champagne-dark font-semibold body">
+                              Read Story
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </div>
+                          </a>
+                        ));
                   })()}
                 </div>
               </div>
@@ -311,15 +312,15 @@ export default function ArticlePage({ article }: ArticlePageProps) {
           </div>
         </section>
 
-        {/* Enhanced CTA Section - Single, More Impactful */}
-        <section className="py-20 bg-gradient-to-br from-deep to-champagne text-white">
+            {/* Enhanced CTA Section - Single, More Impactful */}
+            <section className="py-12 bg-gradient-to-br from-slate-900 to-black text-white">
           <div className="section">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="h1 text-white mb-8">
                 Ready to Write Your Success Story?
               </h2>
-              <p className="lead text-white/90 mb-12 max-w-3xl mx-auto">
-                Let Rachel help you find your perfect home in South Florida. 
+              <p className="text-3xl md:text-4xl lg:text-5xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Let Rachel help you find your perfect home in South Florida.
                 {article.clientProfile?.buyerType && ` Whether you're a ${article.clientProfile.buyerType.toLowerCase()}, `}
                 Rachel's expertise makes the difference.
               </p>
@@ -342,10 +343,10 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   className="btn-ghost border-2 border-white text-white hover:bg-white hover:text-deep px-8 py-4 text-xl"
                 >
                   <div className="flex items-center gap-3">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    Email Rachel
+                    <span className="text-white">Email Rachel</span>
                   </div>
                 </a>
               </div>
@@ -366,8 +367,8 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                     South Florida Expert
                   </div>
                   <div className="flex items-center gap-3">
-                    <svg className="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                    <svg className="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                     Compass Florida
                   </div>
