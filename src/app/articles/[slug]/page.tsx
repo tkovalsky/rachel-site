@@ -1,11 +1,11 @@
-import { ALL_ARTICLES } from '@/app/content/articles/index';
+import { MarkdownContentService } from '@/lib/markdownContentService';
 import ArticlePage from '@/app/components/ArticlePage';
 
 // ✅ make the function async and await params
 export default async function ArticlePageRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; // ✅ unwrap the Promise
 
-  const article = ALL_ARTICLES.find((a) => a.slug === slug);
+  const article = MarkdownContentService.getArticleBySlug(slug);
 
   if (!article) {
     return (
@@ -20,6 +20,7 @@ export default async function ArticlePageRoute({ params }: { params: Promise<{ s
 
 // Optional for static generation (recommended)
 export function generateStaticParams() {
-  return ALL_ARTICLES.map((a) => ({ slug: a.slug }));
+  const articles = MarkdownContentService.getAllArticles();
+  return articles.map((a) => ({ slug: a.slug }));
 }
 // Force rebuild Thu Oct 23 16:25:15 EDT 2025
